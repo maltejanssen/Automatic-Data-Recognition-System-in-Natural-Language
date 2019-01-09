@@ -1,0 +1,10 @@
+% Encoding: UTF-8
+
+@Thesis{nlpUnifiedArch,
+  author      = {Collobert,Ronan; Westan,Jason},
+  title       = {A Unified Architecture for Natural Language Processing: Deep Neural Networks with Multitask Learning},
+  institution = {NEC Labs America},
+  url         = {https://ronan.collobert.com/pub/matos/2008_nlp_icml.pdf},
+}
+
+@Comment{jabref-meta: databaseType:biblatex;}
