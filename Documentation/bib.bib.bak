@@ -1,10 +1,17 @@
 % Encoding: UTF-8
 
-@Thesis{nlpUnifiedArch,
+@Report{,
   author      = {Collobert,Ronan; Westan,Jason},
   title       = {A Unified Architecture for Natural Language Processing: Deep Neural Networks with Multitask Learning},
   institution = {NEC Labs America},
   url         = {https://ronan.collobert.com/pub/matos/2008_nlp_icml.pdf},
+}
+
+@Book{semitic,
+  author = {Mohit, Behrang},
+  title  = {Natural Language Processing of Semitic Languages},
+  year   = {2014},
+  pages  = {221},
 }
 
 @Comment{jabref-meta: databaseType:biblatex;}
