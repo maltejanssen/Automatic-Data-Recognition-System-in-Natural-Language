@@ -1,0 +1,8 @@
+Official nltk Book:
+https://www.nltk.org/book/
+
+Nltk Cookbook
+https://ucilnica.fri.uni-lj.si/pluginfile.php/46018/mod_resource/content/1/Python%203%20Text%20Processing%20with%20NLTK%203%20Cookbook.pdf
+
+nlp with python
+http://www.datascienceassn.org/sites/default/files/Natural%20Language%20Processing%20with%20Python.pdf
