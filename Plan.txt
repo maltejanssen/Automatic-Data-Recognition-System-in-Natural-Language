@@ -1,0 +1,32 @@
+NLTK - Deadline: 31.03
+- Build n-gram Classifier
+- Build Max Entropy Classifier
+- Build Naive Bayers Classifier
+- Build Decision Tree Classifier
+- Document Classifiers and methods used
+
+
+Other Libaries - Deadline: 30.04
+- build Classifier with spaCy  
+- build Classifier with Stanford CoreNLP
+- build Classifier with OpenNLP
+- Document Classifiers
+
+
+Comparation - Deadline: 31.05
+- Write evaluate method that evaluates each Class 
+- Study of Classifiers
+- Comparation of Classifiers
+- Documentation of Results
+
+
+Endstage - Deadline: 30.06
+- Put best performing Classifier on Server
+- Finalise Documentaion
+- Finalise Code
+
+
+
+
+
+
