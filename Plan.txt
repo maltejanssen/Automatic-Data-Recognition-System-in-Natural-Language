@@ -13,7 +13,7 @@ Other Libaries - Deadline: 30.04
 - Document Classifiers
 
 
-Comparation - Deadline: 31.05
+Evaluation - Deadline: 31.05
 - Write evaluate method that evaluates each Class 
 - Study of Classifiers
 - Comparation of Classifiers
