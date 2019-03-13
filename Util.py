@@ -80,6 +80,36 @@ def posTag(sentences):
     posTaggedSentences = [nltk.pos_tag(sent) for sent in sentences]
     return posTaggedSentences
 
+def writeToFile(tagged, filename):
+    """ writes pos tagged triplets to file
+
+    :param tagged: pos tagged iob triplets
+    :param filename: name of file to write
+    """
+    # iobTriplets = [[(word, pos, entity) for ((word, pos), entity) in sentence] for sentence in tagged]
+    # print(iobTriplets)
+    iobTriplets = []
+    for sentences in tagged:
+        sentence = []
+        for triplet in sentences:
+            sentence.append((triplet[0][0], triplet[0][1], triplet[1]))
+        iobTriplets.append(sentence)
+        sentence = []
+
+    with open(filename, 'w') as fp:
+        #fp.write('\n'.join('{} {} {}'.format(triplet[0], triplet[1], triplet[2]) for triplet in sentence for sentence in iobTriblets))
+        for sentence in iobTriplets:
+            fp.write("\n".join("{} {} {}".format(triplet[0],triplet[1],triplet[2]) for triplet in sentence))
+            fp.write("\n")
+            fp.write("\n")
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
@@ -102,4 +132,6 @@ if __name__ == '__main__':
     completeTaggedSentencesTrain = addEntitiyTaggs(posTaggedSentencesTrain, entitiesTrain)
     completeTaggedSentencesTest = addEntitiyTaggs(posTaggedSentencesTest, entitiesTest)
     print(completeTaggedSentencesTrain[0:10])
+
+    writeToFile(completeTaggedSentencesTrain, "Train.conll")
 
