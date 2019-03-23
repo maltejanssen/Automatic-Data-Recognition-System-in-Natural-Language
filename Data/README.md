@@ -24,7 +24,7 @@ Names that are locations (e.g. **France**). Don't mark locations that don't have
 
 ## 4. Product
 
-Name of products (e.g. <b>iPhone**). Don't mark products that don't have their own name. Include punctuation in the middle of names.
+Name of products (e.g. **iPhone**). Don't mark products that don't have their own name. Include punctuation in the middle of names.
 
 There may be no products mentioned by name in the sentence at all - that's OK. Fictional products can be included, as long as they're referred to by name (e.g. "Everlasting Gobstopper"). It's got to be something you can touch, and it's got to be the official name.
 
