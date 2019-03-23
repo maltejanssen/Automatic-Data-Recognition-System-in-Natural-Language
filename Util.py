@@ -5,14 +5,13 @@ import nltk
 Tag = namedtuple("Tag", ["word", "tag"])
 
 def readTags(file):
-    """
-    Creates a list of tagged words from the corpus
+    """ Creates a list of tagged words from the corpus
+    format: eg. [Tag(word='Empire', tag='B-location'), Tag(word='State', tag='I-location'), Tag(word='Building', tag='I-location')]
 
-    Parameter
-    String file - dest of file from which sentences are to be read
-
-    Return
-    sentences - read tags
+    :param file: destination of file from which to extract tags;
+    Each line has to have two columns: 1.= word 2.: entity;
+    Sentences are to be separated by empty line
+    :return: tags: list of read Tags as named tuples, empty tuple signals ending of sentence
     """
     tags = []
     sep = "\t"
@@ -23,19 +22,17 @@ def readTags(file):
                 line = line.split(sep)
                 tags.append(Tag(*line))
             else:
-                tags.append(Tag("", ""))  # append emty tuple to mark sentence ending
+                tags.append(Tag("", ""))  # append empty tuple to mark sentence ending
     return tags
 
 
 def tokenize(tags):
-    """ sentence and word tokenization
-    Parameter
-    tags - List of tags to be tokenised
+    """ performs word and sentence tokenizing
 
-    Return
-
+    :param tags: List of named tuples to be tokenised: ("Tag", ["word", "tag"])
+    :return: words: list of lists which contain all words; Each list represents one sentence
+    :return: entities: list of lists which contain all entities; Each list represents one sentence
     """
-
     words = []
     entities = []
     sentence = []
@@ -55,12 +52,11 @@ def tokenize(tags):
 
 
 def addEntitiyTaggs(posTagged, entities):
-    """ adds Entities to posTagged list
-    Parameter
-    posTAgged - List of tags to be tokenised
+    """ adds Entities to posTagged lists
 
-    Return
-    returns
+    :param posTagged: list of lists containing part-of-speech tags for each word
+    :param entities: entities corresponding to word in posTagged
+    :return: newTags: list of lists of tuples containing word,POS-Tag,entity: (('word', 'POS-Tag'), 'entity')
     """
 
     if (len(posTagged) != len(entities)):
@@ -76,14 +72,23 @@ def addEntitiyTaggs(posTagged, entities):
         sentence = []
     return newTags
 
+
 def posTag(sentences):
+    """ processes a sequence of words and adds part-of-speech Tag to each word
+
+    :param sentences: list of lists, each list representing a sentence and contains it's words
+    :return: posTaggedSentences: list of lists containing part-of-speech tags
+            eg.: [[('@paulwalk', 'VB'), ('It', 'PRP'), ("'s", 'VBZ'), ('the', 'DT'), ('view', 'NN')...]...
+            ('goal', 'NN'), ('for', 'IN'), ('today', 'NN'), ('!', '.')]]
+
+    """
     posTaggedSentences = [nltk.pos_tag(sent) for sent in sentences]
     return posTaggedSentences
 
 def writeToFile(tagged, filename):
     """ writes pos tagged triplets to file
 
-    :param tagged: pos tagged iob triplets
+    :param tagged: list of lists containing pos tagged iob triplets of each sentence in format: (('word', 'POS-Tag'), 'entity')
     :param filename: name of file to write
     """
     # iobTriplets = [[(word, pos, entity) for ((word, pos), entity) in sentence] for sentence in tagged]
@@ -103,18 +108,9 @@ def writeToFile(tagged, filename):
             fp.write("\n")
             fp.write("\n")
 
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     tagsTrain = readTags(r"Data\wnut17train.conll")
-    print(tagsTrain[0:10])
+    print(tagsTrain[0:1000])
     print(len(tagsTrain))
 
     tagsTest = readTags(r"Data\emerging.test.conll")  # error due to encoding
@@ -122,7 +118,7 @@ if __name__ == '__main__':
 
     wordTaggedSentencesTrain, entitiesTrain = tokenize(tagsTrain)
     wordTaggedSentencesTest, entitiesTest = tokenize(tagsTest)
-    print(wordTaggedSentencesTrain)
+    print(wordTaggedSentencesTrain[0:10])
     print(entitiesTrain)
 
     posTaggedSentencesTrain = posTag(wordTaggedSentencesTrain)
