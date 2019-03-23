@@ -1,5 +1,15 @@
 # Annotations of WNUT'17 Emerging and Rare Entities task
 
+## General Info
+The Dataset is focused on merging  and rare entities and contains very few surface forms which mostly don't repeat more than once. Most of the surface forms also are not shared by Training and Test Data.
+
+### Training Data
+The training Data contains 1,000  annotated tweets, totaling 65,124 tokens.
+
+### Test Data
+The test Data not only contains tweets, but also posts from Reddit, Youtube and Stackexchange. The reason for that is to have posts with more than 140 characters as these exhibit different writing styles and characteristics.
+
+### Classes
 The data is divided into the following 7 classes:
 
 1. Person
@@ -10,7 +20,7 @@ The data is divided into the following 7 classes:
 6. Group (subsuming music band, sports team,and non-corporate organisations)
 7. O
 
-Guidelines of Classes:
+Guidelines of Classes (see: http://aclweb.org/anthology/W17-4418): 
 
 ## 1. Person
 
@@ -45,3 +55,5 @@ There may be no groups mentioned by name in the sentence at all - that's OK. Fic
 ## 7. O
 
 Anything that doesn't fit any of the above
+
+
