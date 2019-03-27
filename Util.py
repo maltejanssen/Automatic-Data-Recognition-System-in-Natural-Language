@@ -1,5 +1,6 @@
 from collections import namedtuple
 import nltk
+import os
 
 
 Tag = namedtuple("Tag", ["word", "tag"])
@@ -87,12 +88,14 @@ def posTag(sentences):
 
 def writeToFile(tagged, filename):
     """ writes pos tagged triplets to file
+    -> used so corpus can be read by slightly modified ConllChunkCorpusReader
 
     :param tagged: list of lists containing pos tagged iob triplets of each sentence in format: (('word', 'POS-Tag'), 'entity')
     :param filename: name of file to write
     """
     # iobTriplets = [[(word, pos, entity) for ((word, pos), entity) in sentence] for sentence in tagged]
     # print(iobTriplets)
+
     iobTriplets = []
     for sentences in tagged:
         sentence = []
@@ -101,12 +104,16 @@ def writeToFile(tagged, filename):
         iobTriplets.append(sentence)
         sentence = []
 
-    with open(filename, 'w') as fp:
+    scriptDir = os.path.dirname(__file__)
+    path = os.path.join(scriptDir, filename)
+    with open(path, 'w', encoding='utf-8') as fp:
         #fp.write('\n'.join('{} {} {}'.format(triplet[0], triplet[1], triplet[2]) for triplet in sentence for sentence in iobTriblets))
         for sentence in iobTriplets:
             fp.write("\n".join("{} {} {}".format(triplet[0],triplet[1],triplet[2]) for triplet in sentence))
             fp.write("\n")
             fp.write("\n")
+
+
 
 if __name__ == '__main__':
     tagsTrain = readTags(r"Data\wnut17train.conll")
@@ -130,4 +137,5 @@ if __name__ == '__main__':
     print(completeTaggedSentencesTrain[0:10])
 
     writeToFile(completeTaggedSentencesTrain, "Train.conll")
+    writeToFile(completeTaggedSentencesTest, "Train.conll")
 
