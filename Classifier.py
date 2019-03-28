@@ -1,11 +1,14 @@
 from nltk.chunk import ChunkParserI, conlltags2tree, tree2conlltags
 import Util
-from nltk.tag import UnigramTagger, BigramTagger, TrigramTagger
+from nltk.tag import UnigramTagger, BigramTagger, TrigramTagger, ClassifierBasedTagger
 from reader.reader import ConllChunkCorpusReader
+import nltk
+from nltk.classify import DecisionTreeClassifier, MaxentClassifier, NaiveBayesClassifier, megam
 
-class Classifier(ChunkParserI):
-
-    def __init__(self, trainSents, tagger, **kwargs):
+class ClassifierChunker(ChunkParserI):
+    def __init__(self, trainSents, tagger,  **kwargs):
+        if type(tagger) is not nltk.tag.sequential.UnigramTagger and type(tagger) is not nltk.tag.sequential.BigramTagger and type(tagger) is not nltk.tag.sequential.TrigramTagger:
+            self.featureDetector = tagger.feature_detector
         self.tagger = tagger
 
     def parse(self, sentence):
@@ -51,7 +54,6 @@ def buildChunkTree(corpusPath):
     return chunkTrees
 
 
-
 if __name__ == '__main__':
     tagsTrain = Util.readTags(r"Data\wnut\wnut17train.conll")
     tagsTest = Util.readTags(r"Data\wnut\emerging.test.conll")
@@ -65,20 +67,45 @@ if __name__ == '__main__':
     completeTaggedSentencesTrain = Util.addEntitiyTaggs(posTaggedSentencesTrain, entitiesTrain)
     completeTaggedSentencesTest = Util.addEntitiyTaggs(posTaggedSentencesTest, entitiesTest)
 
+    # Gram Taggers
     unigramTagger = UnigramTagger(train=completeTaggedSentencesTrain)
     bigramTagger = BigramTagger(train=completeTaggedSentencesTrain)
     trigramTagger = TrigramTagger(train=completeTaggedSentencesTrain)
 
-    nerChunkerUnigram = Classifier(completeTaggedSentencesTrain, unigramTagger)
-    eval = nerChunkerUnigram.evaluate2(completeTaggedSentencesTest)
-    print(eval)
+    #Gram Taggers
+    unigramTagger = UnigramTagger(train=completeTaggedSentencesTrain)
+    bigramTagger = BigramTagger(train=completeTaggedSentencesTrain)
+    trigramTagger = TrigramTagger(train=completeTaggedSentencesTrain)
 
+    #Unigram
+    nerChunkerUnigram = ClassifierChunker(completeTaggedSentencesTrain, unigramTagger)
+    evalUnigram = nerChunkerUnigram.evaluate2(completeTaggedSentencesTest)
+    print(evalUnigram)
+
+    #Bigram
+    nerChunkerBigram = ClassifierChunker(completeTaggedSentencesTrain, bigramTagger)
+    evalBigram = nerChunkerBigram.evaluate2(completeTaggedSentencesTest)
+    print(evalBigram)
+
+    #Trigram
+    nerChunkerTrigram = ClassifierChunker(completeTaggedSentencesTrain, trigramTagger)
+    evalTrigram = nerChunkerTrigram.evaluate2(completeTaggedSentencesTest)
+    print(evalTrigram)
+
+    features = prev_next_pos_iob
+    naiveBayersTagger = ClassifierBasedTagger(train=completeTaggedSentencesTrain, feature_detector=features, classifier_builder=NaiveBayesClassifier.train)
+    nerChunkerNaiveBayers = ClassifierChunker(completeTaggedSentencesTrain, naiveBayersTagger)
+    evalNaiveBayers = nerChunkerNaiveBayers.evaluate2(completeTaggedSentencesTest)
+    print(evalNaiveBayers)
+
+
+
+
+
+    #unnesesary in this case: use when reading from file!! don' delete yet: usage example
     Util.writeToFile(completeTaggedSentencesTrain, r"Data\Corpus\train\train.conll")
     Util.writeToFile(completeTaggedSentencesTest, r"Data\Corpus\test\test.conll")
-
 
     trainChunks = buildChunkTree(r"Data\Corpus\train")
     testChunks = buildChunkTree(r"Data\Corpus\test")
 
-    print(trainChunks)
-    print(testChunks)
