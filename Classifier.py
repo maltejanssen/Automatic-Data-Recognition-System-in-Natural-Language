@@ -80,23 +80,40 @@ if __name__ == '__main__':
     #Unigram
     nerChunkerUnigram = ClassifierChunker(completeTaggedSentencesTrain, unigramTagger)
     evalUnigram = nerChunkerUnigram.evaluate2(completeTaggedSentencesTest)
+    print("Unigram:")
     print(evalUnigram)
 
     #Bigram
     nerChunkerBigram = ClassifierChunker(completeTaggedSentencesTrain, bigramTagger)
     evalBigram = nerChunkerBigram.evaluate2(completeTaggedSentencesTest)
+    print("Bigram:")
     print(evalBigram)
 
     #Trigram
     nerChunkerTrigram = ClassifierChunker(completeTaggedSentencesTrain, trigramTagger)
     evalTrigram = nerChunkerTrigram.evaluate2(completeTaggedSentencesTest)
+    print("Trigram:")
     print(evalTrigram)
 
     features = prev_next_pos_iob
+
+    #naiveBayes
     naiveBayersTagger = ClassifierBasedTagger(train=completeTaggedSentencesTrain, feature_detector=features, classifier_builder=NaiveBayesClassifier.train)
     nerChunkerNaiveBayers = ClassifierChunker(completeTaggedSentencesTrain, naiveBayersTagger)
     evalNaiveBayers = nerChunkerNaiveBayers.evaluate2(completeTaggedSentencesTest)
+    print("naiveBayes:")
     print(evalNaiveBayers)
+
+    #decisionTree
+    decisionTreeTagger = ClassifierBasedTagger(train=completeTaggedSentencesTrain, feature_detector=features,classifier_builder=DecisionTreeClassifier.train)
+    nerChunkerDecisionTree = ClassifierChunker(completeTaggedSentencesTrain, decisionTreeTagger)
+    evalDecisionTree = nerChunkerDecisionTree.evaluate2(completeTaggedSentencesTest)
+    print("decision Tree:")
+    print(evalDecisionTree)
+
+
+
+
 
 
 
