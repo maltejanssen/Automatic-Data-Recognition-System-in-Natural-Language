@@ -4,6 +4,7 @@ from nltk.tag import UnigramTagger, BigramTagger, TrigramTagger, ClassifierBased
 from reader.reader import ConllChunkCorpusReader
 import nltk
 from nltk.classify import DecisionTreeClassifier, MaxentClassifier, NaiveBayesClassifier, megam
+from nltk_trainer.classification.multi import AvgProbClassifier
 
 class ClassifierChunker(ChunkParserI):
     def __init__(self, trainSents, tagger,  **kwargs):
@@ -53,6 +54,25 @@ def buildChunkTree(corpusPath):
     chunkTrees = reader.chunked_sents()
     return chunkTrees
 
+def makeClassifier(train_feats):
+    classifier_train_args = []
+
+    classifier_train_kwargs = {}
+    classifier_train = MaxentClassifier.train
+    classifier_train_kwargs['max_iter'] = 10
+    #classifier_train_kwargs['min_ll'] = args.min_ll
+    classifier_train_kwargs['min_lldelta'] = 0.1
+
+    classifier_train_args.append((classifier_train, classifier_train_kwargs))
+
+    return classifier_train(train_feats, **classifier_train_kwargs)
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     tagsTrain = Util.readTags(r"Data\wnut\wnut17train.conll")
@@ -97,21 +117,37 @@ if __name__ == '__main__':
 
     features = prev_next_pos_iob
 
-    #naiveBayes
-    naiveBayersTagger = ClassifierBasedTagger(train=completeTaggedSentencesTrain, feature_detector=features, classifier_builder=NaiveBayesClassifier.train)
-    nerChunkerNaiveBayers = ClassifierChunker(completeTaggedSentencesTrain, naiveBayersTagger)
-    evalNaiveBayers = nerChunkerNaiveBayers.evaluate2(completeTaggedSentencesTest)
-    print("naiveBayes:")
-    print(evalNaiveBayers)
+    # #naiveBayes
+    # naiveBayersTagger = ClassifierBasedTagger(train=completeTaggedSentencesTrain, feature_detector=features, classifier_builder=NaiveBayesClassifier.train)
+    # nerChunkerNaiveBayers = ClassifierChunker(completeTaggedSentencesTrain, naiveBayersTagger)
+    # evalNaiveBayers = nerChunkerNaiveBayers.evaluate2(completeTaggedSentencesTest)
+    # print("naiveBayes:")
+    # print(evalNaiveBayers)
+    #
+    # #decisionTree
+    # decisionTreeTagger = ClassifierBasedTagger(train=completeTaggedSentencesTrain, feature_detector=features,classifier_builder=DecisionTreeClassifier.train)
+    # nerChunkerDecisionTree = ClassifierChunker(completeTaggedSentencesTrain, decisionTreeTagger)
+    # evalDecisionTree = nerChunkerDecisionTree.evaluate2(completeTaggedSentencesTest)
+    # print("decision Tree:")
+    # print(evalDecisionTree)
 
-    #decisionTree
-    decisionTreeTagger = ClassifierBasedTagger(train=completeTaggedSentencesTrain, feature_detector=features,classifier_builder=DecisionTreeClassifier.train)
-    nerChunkerDecisionTree = ClassifierChunker(completeTaggedSentencesTrain, decisionTreeTagger)
-    evalDecisionTree = nerChunkerDecisionTree.evaluate2(completeTaggedSentencesTest)
-    print("decision Tree:")
-    print(evalDecisionTree)
+    algorithms = ['GIS', 'IIS', 'MEGAM', 'TADM']
+
+    maxEntTagger = ClassifierBasedTagger(train=completeTaggedSentencesTrain, feature_detector=features, classifier_builder=makeClassifier)#MaxentClassifier.train)
+
+    nerChunkerMaxent = ClassifierChunker(completeTaggedSentencesTrain, maxEntTagger)
+    evalMaxEnt = nerChunkerMaxent.evaluate2(completeTaggedSentencesTest)
+    #print("Maxent" + " " + algo)
+    print(evalMaxEnt)
 
 
+    # maxent
+    # for algo in algorithms:
+    #     maxEntTagger = ClassifierBasedTagger(train=completeTaggedSentencesTrain, feature_detector=features, classifier_builder=MaxentClassifier.train(algorithm=algo))
+    #     nerChunkerMayent = ClassifierChunker(completeTaggedSentencesTrain, maxEntTagger)
+    #     evalMaxEnt = nerChunkerMayent.evaluate2(completeTaggedSentencesTest)
+    #     print("Maxent" + " " + algo)
+    #     print(evalMaxEnt)
 
 
 
