@@ -1,7 +1,7 @@
 from nltk.chunk import ChunkParserI, conlltags2tree, tree2conlltags
 import Util
 from nltk.tag import UnigramTagger, BigramTagger, TrigramTagger, ClassifierBasedTagger
-from reader.reader import ConllChunkCorpusReader
+
 import nltk
 from nltk.classify import DecisionTreeClassifier, MaxentClassifier, NaiveBayesClassifier, megam
 from nltk_trainer.classification.multi import AvgProbClassifier
@@ -48,11 +48,6 @@ def prev_next_pos_iob(tokens, index, history):
 
 def bag_of_words(words):
     return dict([(word, True) for word in words])
-
-def buildChunkTree(corpusPath):
-    reader = ConllChunkCorpusReader(corpusPath, ".*", ['person', 'location', 'corporation', 'product', 'creative-work', 'group'])
-    chunkTrees = reader.chunked_sents()
-    return chunkTrees
 
 def makeClassifier(train_feats):
     classifier_train_args = []
@@ -155,10 +150,5 @@ if __name__ == '__main__':
 
 
 
-    #unnesesary in this case: use when reading from file!! don' delete yet: usage example
-    Util.writeToFile(completeTaggedSentencesTrain, r"Data\Corpus\train\train.conll")
-    Util.writeToFile(completeTaggedSentencesTest, r"Data\Corpus\test\test.conll")
 
-    trainChunks = buildChunkTree(r"Data\Corpus\train")
-    testChunks = buildChunkTree(r"Data\Corpus\test")
 
