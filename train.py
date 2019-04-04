@@ -9,11 +9,10 @@ from nltk.tag import UnigramTagger, BigramTagger, TrigramTagger, ClassifierBased
 from Classifier import prev_next_pos_iob, ClassifierChunker
 from nltk.classify import DecisionTreeClassifier, MaxentClassifier, NaiveBayesClassifier, megam
 
-
+classifierOtions =  ["1-gram", "2-gram", "3-gram", "decisionTree", "NaiveBayes", "Maxent"]
 def train(args): #def train(corpusPath, classifier, eval):
     print(args)
     print(args.classifier)
-    classifierOtions =  ["1-gram", "2-gram", "3-gram", "decisionTree", "NaiveBayes", "Maxent", "all"]
     if args.classifier not in classifierOtions:
         raise ValueError("classifier %s is not supported" % args.classifier)
 
@@ -37,14 +36,6 @@ def train(args): #def train(corpusPath, classifier, eval):
             print(eval)
 
 
-
-
-    print(args.corpus)
-    print(args.classifier)
-    print(eval)
-
-   # buildChunkTree(corpusPath)
-
 def uniGram(train):
     return UnigramTagger(train=train)
 
@@ -66,13 +57,14 @@ def maxent(train):
     return ClassifierBasedTagger(train=train, feature_detector=prev_next_pos_iob,
                                          classifier_builder=makeClassifier("maxent", args))  # MaxentClassifier.train)
 
+
+
 options = {"1-gram" : uniGram,
            "2-gram" : biGram,
            "3-gram" : triGram,
            "decisionTree" : naiveBayes,
            "NaiveBayes" : decisionTree,
            "Maxent" : maxent,
-           "all" : None,
 }
 
 def buildChunkTree(corpusPath):
@@ -120,9 +112,9 @@ if  __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser = argparse.ArgumentParser(description='Script that trains NER-Classifiers')
     parser.add_argument("--corpus", default=r"Data\Corpus", help="relative or absolute path to corpus; corpus folder has to contain train and test folder")
-    parser.add_argument("--classifier", default="NaiveBayes", help="ClassifierChunker algorithm to use instead of a sequential Tagger based Chunker. Maxent uses the default Maxent training algorithm, either CG or iis.")
+    parser.add_argument("--classifier", default="all", help="ClassifierChunker algorithm to use instead of a sequential Tagger based Chunker. Maxent uses the default Maxent training algorithm, either CG or iis.")
     parser.add_argument("--eval", action='store_true', default=False, help="do evaluation")
-    # TODO changedefault to all
+
 
     maxentGroup = parser.add_argument_group("Maxent Classifier")
     maxentGroup.add_argument("-maxIter", default=10, type=int,
@@ -141,4 +133,11 @@ if  __name__ == '__main__':
                                     help="default: 10")
 
     args = parser.parse_args()
-    train(args)
+
+
+    if args.classifier == "all":
+        for classifier in classifierOtions:
+            args.classifier = classifier
+            train(args)
+    else:
+        train(args)
