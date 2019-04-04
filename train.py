@@ -11,6 +11,12 @@ from reader import ConllChunkCorpusReader
 
 
 def train(corpusPath, classifier, eval):
+    classifierOtions =  ["1-gram", "2-gram", "3-gram", "decisionTree", "NaiveBayes", "Maxent", "all"]
+
+    if classifier not in classifierOtions:
+        raise ValueError("classifier %s is not supported" % classifier)
+
+
     print(corpusPath)
     print(classifier)
     print(eval)
@@ -38,4 +44,22 @@ if  __name__ == '__main__':
     parser.add_argument("--classifier", default="all", help="ClassifierChunker algorithm to use instead of a sequential Tagger based Chunker. Maxent uses the default Maxent training algorithm, either CG or iis.")
     parser.add_argument("--eval", action='store_true', default=False, help="do evaluation")
     args = parser.parse_args()
+
+    def addMaxentArgs():
+        maxent_group = parser.add_argument_group("Maxent Classifier")
+        maxent_group.add_argument("-maxIter", default=10, type=int,
+                                  help="Terminate after default: %(default)d iterations.")
+        maxent_group.add_argument("--minll", default=0, type=float,
+                                  help="Terminate after the negative average log-likelihood drops under default: %(default)f")
+        maxent_group.add_argument("--minlldelta", default=0.1, type=float,
+                                  help="Terminate if a single iteration improvesnlog likelihood by less than default, default is %(default)f")
+
+    def addDecisionTreeArgs():
+        decisiontree_group = parser.add_argument_group("Decision Tree Classifier")
+        decisiontree_group.add_argument("--entropyCutoff", default=0.05, type=float,
+                                        help="default: 0.05")
+        decisiontree_group.add_argument("--depthCutoff", default=100, type=int,
+                                        help="default: 100")
+        decisiontree_group.add_argument("--supportCutoff", default=10, type=int,
+                                        help="default: 10")
     train(args.corpus, args.classifier, args.eval)
