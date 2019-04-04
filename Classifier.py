@@ -49,23 +49,6 @@ def prev_next_pos_iob(tokens, index, history):
 def bag_of_words(words):
     return dict([(word, True) for word in words])
 
-def makeClassifier(train_feats):
-    classifier_train_args = []
-
-    classifier_train_kwargs = {}
-    classifier_train = MaxentClassifier.train
-    classifier_train_kwargs['max_iter'] = 10
-    #classifier_train_kwargs['min_ll'] = args.min_ll
-    classifier_train_kwargs['min_lldelta'] = 0.1
-
-    classifier_train_args.append((classifier_train, classifier_train_kwargs))
-
-    return classifier_train(train_feats, **classifier_train_kwargs)
-
-
-
-
-
 
 
 
