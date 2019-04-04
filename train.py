@@ -1,9 +1,21 @@
 import sys, os
-import sys
+import argparse
 scriptDir = os.path.dirname(__file__)
 path = os.path.join(scriptDir, "reader")
 sys.path.insert(0, path)
 from reader import ConllChunkCorpusReader
+
+
+
+
+
+
+def train(corpusPath, classifier, eval):
+    print(corpusPath)
+    print(classifier)
+    print(eval)
+
+   # buildChunkTree(corpusPath)
 
 
 def buildChunkTree(corpusPath):
@@ -17,9 +29,13 @@ def buildChunkTree(corpusPath):
 
 
 
-if  __name__ == '__main__':
-    print("culo")
 
-    trainChunks = buildChunkTree(r"Data\Corpus\train")
-    testChunks = buildChunkTree(r"Data\Corpus\test")
-    print(trainChunks)
+
+if  __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Script that trains NER-Classifiers')
+    parser.add_argument("--corpus", default=r"Data\Corpus", help="relative or absolute path to corpus")
+    parser.add_argument("--classifier", default="all", help="ClassifierChunker algorithm to use instead of a sequential Tagger based Chunker. Maxent uses the default Maxent training algorithm, either CG or iis.")
+    parser.add_argument("--eval", action='store_true', default=False, help="do evaluation")
+    args = parser.parse_args()
+    train(args.corpus, args.classifier, args.eval)
