@@ -136,6 +136,9 @@ if __name__ == '__main__':
     completeTaggedSentencesTest = addEntitiyTaggs(posTaggedSentencesTest, entitiesTest)
     print(completeTaggedSentencesTrain[0:10])
 
-    writeToFile(completeTaggedSentencesTrain, "Train.conll")
-    writeToFile(completeTaggedSentencesTest, "Train.conll")
+    writeToFile(completeTaggedSentencesTrain, r"Data\Corpus\train\train.conll")
+    writeToFile(completeTaggedSentencesTest, r"Data\Corpus\test\test.conll")
+
+
+
 

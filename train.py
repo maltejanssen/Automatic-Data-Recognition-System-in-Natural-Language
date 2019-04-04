@@ -8,6 +8,7 @@ from nltk.chunk.util import conlltags2tree, tree2conlltags
 from nltk.tag import UnigramTagger, BigramTagger, TrigramTagger, ClassifierBasedTagger
 from Classifier import prev_next_pos_iob, ClassifierChunker
 from nltk.classify import DecisionTreeClassifier, MaxentClassifier, NaiveBayesClassifier, megam
+import pickle
 
 classifierOtions =  ["1-gram", "2-gram", "3-gram", "decisionTree", "NaiveBayes", "Maxent"]
 def train(args): #def train(corpusPath, classifier, eval):
@@ -23,10 +24,9 @@ def train(args): #def train(corpusPath, classifier, eval):
 
     tagger = options[args.classifier](trainchunks)
     nerChunker = ClassifierChunker(trainchunks, tagger)
+    safeClassifier(nerChunker, args)
 
-    #TODO add pickling
-    #TODO add training all classifiers
-    if eval:
+    if args.eval:
         if not os.path.isdir(args.corpus + "\\test"):
             print("no test data for evaluatio")
         else:
@@ -104,6 +104,16 @@ def makeClassifier(trainer, args):
     def train(trainFeats):
         return classifierTrain(trainFeats, **trainArgs)
     return train
+
+
+def safeClassifier(chunker, args):
+    dir = os.path.dirname(__file__)
+    path = os.path.join(dir, "Classifiers")
+    file = os.path.join(path, args.classifier)
+
+    f = open(file, 'wb')
+    pickle.dump(chunker, f)
+    f.close()
 
 
 
