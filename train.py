@@ -4,16 +4,21 @@ scriptDir = os.path.dirname(__file__)
 path = os.path.join(scriptDir, "reader")
 sys.path.insert(0, path)
 from reader import ConllChunkCorpusReader
-from nltk.chunk.util import conlltags2tree, tree2conlltags
+from nltk.chunk.util import tree2conlltags
 from nltk.tag import UnigramTagger, BigramTagger, TrigramTagger, ClassifierBasedTagger
 from Classifier import prev_next_pos_iob, ClassifierChunker
 from nltk.classify import DecisionTreeClassifier, MaxentClassifier, NaiveBayesClassifier, megam
 import pickle
+from Util import buildChunkTree
 
 classifierOtions =  ["1-gram", "2-gram", "3-gram", "decisionTree", "NaiveBayes", "Maxent"]
+
+
 def train(args): #def train(corpusPath, classifier, eval):
-    print(args)
-    print(args.classifier)
+    """ trains a Classifier based on passed Arguments
+
+    :param args: Arguments passed by user-> see main below
+    """
     if args.classifier not in classifierOtions:
         raise ValueError("classifier %s is not supported" % args.classifier)
 
@@ -67,14 +72,7 @@ options = {"1-gram" : uniGram,
            "Maxent" : maxent,
 }
 
-def buildChunkTree(corpusPath):
-    """ reads a directory and converts its files into chunkTrees
-    :param corpusPath: path of corpus(folder)(files to be converted into chunkTrees)
-    :return: chunkTrees: chunked Sentences of read Data eg: [Tree('S', [('@paulwalk', 'VB'), ('It', 'PRP'), ("'s", 'VBZ'),...
-    """
-    reader = ConllChunkCorpusReader(corpusPath, ".*", ['person', 'location', 'corporation', 'product', 'creative-work', 'group'])
-    chunkTrees = reader.chunked_sents()
-    return chunkTrees
+
 
 def chunkTrees2trainChunks(chunkTrees):
     """converts chunkTrees read by CorpusReader into chunks processable by classifier
@@ -87,6 +85,12 @@ def chunkTrees2trainChunks(chunkTrees):
 
 
 def makeClassifier(trainer, args):
+    """ configurates classifiers with arguments
+
+    :param trainer: String: Name of classifier
+    :param args: Classifier Options
+    :return: trainFunction of configurated classifier
+    """
     trainArgs = {}
 
     if trainer == "maxent":
@@ -107,6 +111,11 @@ def makeClassifier(trainer, args):
 
 
 def safeClassifier(chunker, args):
+    """ safes(pickles) classifierChunker
+
+    :param chunker: chunker/cLassifier to be safed
+    :param args: Arguments containing name of classifier
+    """
     dir = os.path.dirname(__file__)
     path = os.path.join(dir, "Classifiers")
     file = os.path.join(path, args.classifier)
@@ -114,7 +123,6 @@ def safeClassifier(chunker, args):
     f = open(file, 'wb')
     pickle.dump(chunker, f)
     f.close()
-
 
 
 
@@ -143,7 +151,6 @@ if  __name__ == '__main__':
                                     help="default: 10")
 
     args = parser.parse_args()
-
 
     if args.classifier == "all":
         for classifier in classifierOtions:
