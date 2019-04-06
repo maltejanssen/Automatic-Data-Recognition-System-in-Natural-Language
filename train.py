@@ -37,7 +37,7 @@ def train(args): #def train(corpusPath, classifier, eval):
         else:
             evalChunkTrees = buildChunkTree(args.corpus + "\\test")
             trainChunks = chunkTrees2trainChunks(evalChunkTrees)
-            eval = nerChunker.evaluate2(trainchunks)
+            eval = nerChunker.evaluate2(trainChunks)
             print(eval)
 
 
