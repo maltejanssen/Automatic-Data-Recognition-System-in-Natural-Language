@@ -31,13 +31,15 @@ def train(args): #def train(corpusPath, classifier, eval):
     nerChunker = ClassifierChunker(trainchunks, tagger)
     safeClassifier(nerChunker, args)
 
+    #nerChunker = Classifier.TagChunker(trainchunks)
+
     if args.eval:
         if not os.path.isdir(args.corpus + "\\test"):
             print("no test data for evaluatio")
         else:
             evalChunkTrees = buildChunkTree(args.corpus + "\\test")
-            trainChunks = chunkTrees2trainChunks(evalChunkTrees)
-            eval = nerChunker.evaluate2(trainChunks)
+            #trainChunks = chunkTrees2trainChunks(evalChunkTrees)
+            eval = nerChunker.evaluate(evalChunkTrees)
             print(eval)
 
 
@@ -158,3 +160,5 @@ if  __name__ == '__main__':
             train(args)
     else:
         train(args)
+
+
