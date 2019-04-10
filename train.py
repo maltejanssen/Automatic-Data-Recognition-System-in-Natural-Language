@@ -11,8 +11,8 @@ from nltk.classify import DecisionTreeClassifier, MaxentClassifier, NaiveBayesCl
 import pickle
 from Util import buildChunkTree
 
-classifierOtions =  ["1-gram", "2-gram", "3-gram", "decisionTree", "NaiveBayes", "Maxent"]
 
+classifierOtions =  ["1-gram", "2-gram", "3-gram", "decisionTree", "NaiveBayes", "Maxent"]
 
 def train(args): #def train(corpusPath, classifier, eval):
     """ trains a Classifier based on passed Arguments
@@ -24,18 +24,17 @@ def train(args): #def train(corpusPath, classifier, eval):
 
     if not os.path.isdir(args.corpus + "\\train"):
         raise ValueError("Corpus doesn't contain training directory")
+
     trainChunkTrees = buildChunkTree(args.corpus+ "\\train")
     trainchunks = chunkTrees2trainChunks(trainChunkTrees)
 
-    tagger = options[args.classifier](trainchunks)
+    tagger = options[args.classifier](trainchunks, args)
     nerChunker = ClassifierChunker(trainchunks, tagger)
     safeClassifier(nerChunker, args)
 
-    #nerChunker = Classifier.TagChunker(trainchunks)
-
     if args.eval:
         if not os.path.isdir(args.corpus + "\\test"):
-            print("no test data for evaluatio")
+            print("no test data for evaluation")
         else:
             evalChunkTrees = buildChunkTree(args.corpus + "\\test")
             #trainChunks = chunkTrees2trainChunks(evalChunkTrees)
@@ -43,24 +42,34 @@ def train(args): #def train(corpusPath, classifier, eval):
             print(eval)
 
 
-def uniGram(train):
+def uniGram(train, args):
     return UnigramTagger(train=train)
 
-def biGram(train):
-    return BigramTagger(train=train)
+def biGram(train, args):
+    if args.backoff == "True":
+        backoff = UnigramTagger(train=train)
+    else:
+        backoff = None
+    return BigramTagger(train=train, backoff=backoff)
 
-def triGram(train):
-    return TrigramTagger(train=train)
+def triGram(train, args):
+    if args.backoff == "True":
+        backoff = UnigramTagger(train=train)
+        backoff = BigramTagger(train=train, backoff=backoff)
+    else:
+        backoff = None
 
-def naiveBayes(train):
+    return TrigramTagger(train=train, backoff=backoff)
+
+def naiveBayes(train, args):
     return ClassifierBasedTagger(train=train, feature_detector=prev_next_pos_iob,
                                               classifier_builder=NaiveBayesClassifier.train)
 
-def decisionTree(train):
+def decisionTree(train, args):
     return ClassifierBasedTagger(train=train, feature_detector=prev_next_pos_iob,
                                                classifier_builder=makeClassifier("decisionTree", args))
 
-def maxent(train):
+def maxent(train, args):
     return ClassifierBasedTagger(train=train, feature_detector=prev_next_pos_iob,
                                          classifier_builder=makeClassifier("maxent", args))  # MaxentClassifier.train)
 
@@ -133,8 +142,8 @@ if  __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Script that trains NER-Classifiers')
     parser.add_argument("--corpus", default=r"Data\Corpus", help="relative or absolute path to corpus; corpus folder has to contain train and test folder")
     parser.add_argument("--classifier", default="all", help="ClassifierChunker algorithm to use instead of a sequential Tagger based Chunker. Maxent uses the default Maxent training algorithm, either CG or iis.")
-    parser.add_argument("--eval", action='store_true', default=False, help="do evaluation")
-
+    parser.add_argument("--eval", action='store_true', default=True, help="do evaluation")
+    parser.add_argument("--backoff", default="True", help="turn on/off backoff functionality for n-grams")
 
     maxentGroup = parser.add_argument_group("Maxent Classifier")
     maxentGroup.add_argument("-maxIter", default=10, type=int,
