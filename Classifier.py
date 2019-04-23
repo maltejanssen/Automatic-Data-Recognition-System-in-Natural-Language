@@ -1,13 +1,9 @@
-from nltk.chunk import ChunkParserI, conlltags2tree, tree2conlltags
-import Util
-from nltk.tag import UnigramTagger, BigramTagger, TrigramTagger, ClassifierBasedTagger
 import nltk
+import Util
 from features import prev_next_pos_iob
-from nltk.classify import DecisionTreeClassifier, MaxentClassifier, NaiveBayesClassifier, megam
-from nltk_trainer.classification.multi import AvgProbClassifier
-from Util import buildChunkTree
 
-class ClassifierChunker(ChunkParserI):
+
+class ClassifierChunker(nltk.chunk.ChunkParserI):
     def __init__(self, trainSents, tagger,  **kwargs):
         if type(tagger) is not nltk.tag.sequential.UnigramTagger and type(tagger) is not nltk.tag.sequential.BigramTagger and type(tagger) is not nltk.tag.sequential.TrigramTagger:
             self.featureDetector = tagger.feature_detector
@@ -16,10 +12,10 @@ class ClassifierChunker(ChunkParserI):
     def parse(self, sentence):
         chunks = self.tagger.tag(sentence)
         iobTriblets = [(word, pos, entity) for ((word, pos), entity) in chunks]
-        return conlltags2tree(iobTriblets)
+        return nltk.chunk.conlltags2tree(iobTriblets)
 
     def evaluate2(self, testSents):
-        return self.evaluate([conlltags2tree([(word, pos, entity) for (word, pos), entity in iobs]) for iobs in testSents])
+        return self.evaluate([nltk.chunk.conlltags2tree([(word, pos, entity) for (word, pos), entity in iobs]) for iobs in testSents])
 
 
 
@@ -40,14 +36,14 @@ if __name__ == '__main__':
     completeTaggedSentencesTest = Util.addEntitiyTaggs(posTaggedSentencesTest, entitiesTest)
 
     # Gram Taggers
-    unigramTagger = UnigramTagger(train=completeTaggedSentencesTrain)
-    bigramTagger = BigramTagger(train=completeTaggedSentencesTrain)
-    trigramTagger = TrigramTagger(train=completeTaggedSentencesTrain)
+    unigramTagger = nltk.tag.UnigramTagger(train=completeTaggedSentencesTrain)
+    bigramTagger = nltk.tag.BigramTagger(train=completeTaggedSentencesTrain)
+    trigramTagger = nltk.tag.TrigramTagger(train=completeTaggedSentencesTrain)
 
     #Gram Taggers
-    unigramTagger = UnigramTagger(train=completeTaggedSentencesTrain)
-    bigramTagger = BigramTagger(train=completeTaggedSentencesTrain)
-    trigramTagger = TrigramTagger(train=completeTaggedSentencesTrain)
+    unigramTagger = nltk.tag.UnigramTagger(train=completeTaggedSentencesTrain)
+    bigramTagger = nltk.tag.BigramTagger(train=completeTaggedSentencesTrain)
+    trigramTagger = nltk.tag.TrigramTagger(train=completeTaggedSentencesTrain)
 
     #Unigram
     nerChunkerUnigram = ClassifierChunker(completeTaggedSentencesTrain, unigramTagger)
@@ -69,8 +65,8 @@ if __name__ == '__main__':
     print(evalTrigram)
 
 
-    bigramTaggerBackoff = BigramTagger(train=completeTaggedSentencesTrain, backoff = unigramTagger)
-    trigramTaggerBackoff = TrigramTagger(train=completeTaggedSentencesTrain, backoff = bigramTaggerBackoff)
+    bigramTaggerBackoff = nltk.tag.BigramTagger(train=completeTaggedSentencesTrain, backoff = unigramTagger)
+    trigramTaggerBackoff = nltk.tag.TrigramTagger(train=completeTaggedSentencesTrain, backoff = bigramTaggerBackoff)
 
     nerChunkerTrigramBackoff = ClassifierChunker(completeTaggedSentencesTrain, trigramTaggerBackoff)
     evalTrigramBackoff= nerChunkerTrigramBackoff.evaluate2(completeTaggedSentencesTest)

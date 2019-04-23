@@ -1,17 +1,10 @@
-import sys, os
+import os
 import argparse
-
-scriptDir = os.path.dirname(__file__)
-path = os.path.join(scriptDir, "reader")
-sys.path.insert(0, path)
-from reader import ConllChunkCorpusReader
-from nltk.chunk.util import tree2conlltags
-from nltk.tag import UnigramTagger, BigramTagger, TrigramTagger, ClassifierBasedTagger
-from Classifier import prev_next_pos_iob, ClassifierChunker
-from nltk.classify import DecisionTreeClassifier, MaxentClassifier, NaiveBayesClassifier, megam, scikitlearn
+import nltk
+import sklearn
 import pickle
+from Classifier import ClassifierChunker
 from Util import buildChunkTree
-from sklearn import ensemble, linear_model, naive_bayes, svm, tree
 from features import prev_next_pos_iob
 
 
@@ -40,7 +33,7 @@ def train(args):  # def train(corpusPath, classifier, eval):
     if args.classifier in options:
         tagger = options[args.classifier](trainchunks, args)
     else:
-        tagger = ClassifierBasedTagger(train=trainchunks, feature_detector=prev_next_pos_iob,
+        tagger = nltk.tag.ClassifierBasedTagger(train=trainchunks, feature_detector=prev_next_pos_iob,
                                        classifier_builder=makeClassifier(args))
 
     nerChunker = ClassifierChunker(trainchunks, tagger)
@@ -58,30 +51,30 @@ def train(args):  # def train(corpusPath, classifier, eval):
 
 
 def uniGram(train, args):
-    return UnigramTagger(train=train)
+    return nltk.tag.UnigramTagger(train=train)
 
 
 def biGram(train, args):
     if args.backoff == "True":
-        backoff = UnigramTagger(train=train)
+        backoff = nltk.tag.UnigramTagger(train=train)
     else:
         backoff = None
-    return BigramTagger(train=train, backoff=backoff)
+    return nltk.tag.BigramTagger(train=train, backoff=backoff)
 
 
 def triGram(train, args):
     if args.backoff == "True":
-        backoff = UnigramTagger(train=train)
-        backoff = BigramTagger(train=train, backoff=backoff)
+        backoff = nltk.tag.UnigramTagger(train=train)
+        backoff = nltk.tag.BigramTagger(train=train, backoff=backoff)
     else:
         backoff = None
 
-    return TrigramTagger(train=train, backoff=backoff)
+    return nltk.tag.TrigramTagger(train=train, backoff=backoff)
 
 
 def naiveBayes(train, args):
-    return ClassifierBasedTagger(train=train, feature_detector=prev_next_pos_iob,
-                                 classifier_builder=NaiveBayesClassifier.train)
+    return nltk.tag.ClassifierBasedTagger(train=train, feature_detector=prev_next_pos_iob,
+                                 classifier_builder=nltk.classify.NaiveBayesClassifier.train)
 
 
 # def classifierBased(train, args):
@@ -109,7 +102,7 @@ def chunkTrees2trainChunks(chunkTrees):
     :param chunkTrees: chunkTrees read by CorpusReader
     :return: trainChunks
     """
-    tagSents = [tree2conlltags(sent) for sent in chunkTrees]
+    tagSents = [nltk.chunk.util.tree2conlltags(sent) for sent in chunkTrees]
     return [[((word, pos), entity) for (word, pos, entity) in sent] for sent in tagSents]
 
 
@@ -123,46 +116,46 @@ def makeClassifier(args):
     trainArgs = {}
 
     if args.classifier == "maxent":
-        classifierTrain = MaxentClassifier.train
+        classifierTrain = nltk.classify.MaxentClassifier.train
         trainArgs['max_iter'] = args.maxIter
         trainArgs['min_ll'] = args.minll
         trainArgs['min_lldelta'] = args.minlldelta
     elif args.classifier == "decisionTree":
-        classifierTrain = DecisionTreeClassifier.train
+        classifierTrain = nltk.classify.DecisionTreeClassifier.train
         trainArgs['binary'] = False
         trainArgs['entropy_cutoff'] = args.entropyCutoff
         trainArgs['depth_cutoff'] = args.depthCutoff
         trainArgs['support_cutoff'] = args.supportCutoff
 
     elif args.classifier == "sklearnExtraTreesClassifier":
-        classifierTrain = scikitlearn.SklearnClassifier(
+        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
             ensemble.ExtraTreesClassifier(criterion=args.criterion, max_features=args.maxFeats,
                                           max_depth=args.depthCutoff, n_estimators=args.nEstimators)).train
     elif args.classifier == "sklearnGradientBoostingClassifier":
-        classifierTrain = scikitlearn.SklearnClassifier(
+        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
             ensemble.GradientBoostingClassifier(learning_rate=args.learningRate, max_features=args.maxFeats,
                                                 max_depth=args.depthCutoff, n_estimators=args.nEstimators)).train
     elif args.classifier == "sklearnRandomForestClassifier":
-        classifierTrain = scikitlearn.SklearnClassifier(
+        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
             ensemble.RandomForestClassifier(criterion=args.criterion, max_features=args.maxFeats,
                                             max_depth=args.depthCutoff, n_estimators=args.nEstimators)).train
     elif args.classifier == "sklearnLogisticRegression":
-        classifierTrain = scikitlearn.SklearnClassifier(
-            linear_model.LogisticRegression(penalty=args.penalty, C=args.C)).train
+        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
+            sklearn.linear_model.LogisticRegression(penalty=args.penalty, C=args.C)).train
     elif args.classifier == "sklearnBernoulliNB":
-        classifierTrain = scikitlearn.SklearnClassifier(naive_bayes.BernoulliNB(alpha=args.alpha)).train
+        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(sklearn.naive_bayes.BernoulliNB(alpha=args.alpha)).train
     elif args.classifier == "sklearnMultinomialNB":
-        classifierTrain = scikitlearn.SklearnClassifier(naive_bayes.MultinomialNB(alpha=args.alpha)).train
+        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(sklearn.naive_bayes.MultinomialNB(alpha=args.alpha)).train
     elif args.classifier == "sklearnLinearSVC":
-        classifierTrain = scikitlearn.SklearnClassifier(
-            svm.LinearSVC(C=args.C, penalty=args.penalty, loss=args.loss)).train
+        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
+            sklearn.svm.LinearSVC(C=args.C, penalty=args.penalty, loss=args.loss)).train
     elif args.classifier == "sklearnNuSVC":
-        classifierTrain = scikitlearn.SklearnClassifier(svm.NuSVC(nu=args.nu, kernel=args.kernel)).train
+        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(sklearn.svm.NuSVC(nu=args.nu, kernel=args.kernel)).train
     elif args.classifier == "sklearnSVC":
-        classifierTrain = scikitlearn.SklearnClassifier(svm.SVC(C=args.C, kernel=args.kernel)).train
+        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(sklearn.svm.SVC(C=args.C, kernel=args.kernel)).train
     elif args.classifier == "sklearnDecisionTreeClassifier":
-        classifierTrain = scikitlearn.SklearnClassifier(
-            tree.DecisionTreeClassifier(criterion=args.criterion, max_features=args.maxFeats,
+        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
+            sklearn.tree.DecisionTreeClassifier(criterion=args.criterion, max_features=args.maxFeats,
                                         max_depth=args.depthCutoff)).train
 
     def train(trainFeats):

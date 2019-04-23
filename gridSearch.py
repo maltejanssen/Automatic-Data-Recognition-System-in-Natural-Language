@@ -1,9 +1,6 @@
-from sklearn.feature_extraction import DictVectorizer
 from Util import buildChunkTree
-from train import chunkTrees2trainChunks
-from nltk import tree2conlltags
-from sklearn import ensemble
-from Classifier import prev_next_pos_iob
+from features import prev_next_pos_iob
+import nltk
 
 
 def convertIntoSklearnFormat(parsedSentences, featureDetector):
@@ -14,8 +11,8 @@ def convertIntoSklearnFormat(parsedSentences, featureDetector):
        """
     X, y = [], []
     for parsed in parsedSentences:
-        iobTagged = tree2conlltags(parsed)
-        words, tags, iobTags = zip(*iobTagged))
+        iobTagged = nltk.tree2conlltags(parsed)
+        words, tags, iobTags = zip(*iobTagged)
 
         tagged = list(zip(words, tags))
 
@@ -24,6 +21,8 @@ def convertIntoSklearnFormat(parsedSentences, featureDetector):
             y.append(iobTags[index])
 
     return X, y
+
+
 
 
 
