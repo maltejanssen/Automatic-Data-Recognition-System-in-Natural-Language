@@ -28,12 +28,26 @@ def convertIntoSklearnFormat(parsedSentences, featureDetector):
             y.append(iobTags[index])
     return X, y
 
+
+def gridSearch(X, y, classifier, parameters):
+    encoder = LabelEncoder()
+    vectorizer = sklearn.feature_extraction.DictVectorizer(sparse=True)
+    Xtrain = vectorizer.fit_transform(X)
+    ytrain = encoder.fit_transform(y)
+    clf = GridSearchCV(classifier, parameters, cv=5)
+    clf.fit(Xtrain, ytrain)
+
+    return clf.cv_results_
+
+
 #load files into nltk chunktrees
 trainChunkTrees = buildChunkTree(r"Data\Corpus" + "\\train")
 evalChunkTrees = buildChunkTree(r"Data\Corpus" + "\\test")
 
 #convert into sklearn format
 Xtrain, ytrain = convertIntoSklearnFormat(trainChunkTrees, prev_next_pos_iob)
+
+
 
 #train sklearn classifier -> out of memory
 # clf = tree.DecisionTreeClassifier(criterion="gini", max_features="auto", max_depth=100)
@@ -51,23 +65,13 @@ Xtrain, ytrain = convertIntoSklearnFormat(trainChunkTrees, prev_next_pos_iob)
 # clf.fit(Xtrain,ytrain)
 
 #gridsearch
-encoder = LabelEncoder()
-vectorizer = sklearn.feature_extraction.DictVectorizer(sparse=True)
-svc = svm.SVC(gamma="scale")
-Xtrain = vectorizer.fit_transform(Xtrain)
-ytrain = encoder.fit_transform(ytrain)
-
-parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10]}
-clf = GridSearchCV(svc, parameters, cv=5)
-clf.fit(Xtrain, ytrain)
-
-
-
-# vectorizer = sklearn.feature_extraction.DictVectorizer(sparse=False)
-# vectorizer.fit(Xtrain)
-# Xtrain = vectorizer.transform(X)
+# encoder = LabelEncoder()
+# vectorizer = sklearn.feature_extraction.DictVectorizer(sparse=True)
+# svc = svm.SVC(gamma="scale")
+# Xtrain = vectorizer.fit_transform(Xtrain)
+# ytrain = encoder.fit_transform(ytrain)
 #
 # parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10]}
-# svc = svm.SVC(gamma="scale")
 # clf = GridSearchCV(svc, parameters, cv=5)
 # clf.fit(Xtrain, ytrain)
+
