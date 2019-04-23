@@ -1,10 +1,11 @@
 from nltk.chunk import ChunkParserI, conlltags2tree, tree2conlltags
 import Util
 from nltk.tag import UnigramTagger, BigramTagger, TrigramTagger, ClassifierBasedTagger
-
 import nltk
+from features import prev_next_pos_iob
 from nltk.classify import DecisionTreeClassifier, MaxentClassifier, NaiveBayesClassifier, megam
 from nltk_trainer.classification.multi import AvgProbClassifier
+from Util import buildChunkTree
 
 class ClassifierChunker(ChunkParserI):
     def __init__(self, trainSents, tagger,  **kwargs):
@@ -21,33 +22,6 @@ class ClassifierChunker(ChunkParserI):
         return self.evaluate([conlltags2tree([(word, pos, entity) for (word, pos), entity in iobs]) for iobs in testSents])
 
 
-def prev_next_pos_iob(tokens, index, history):
-    word, pos = tokens[index]
-
-    if index == 0:
-        prevword, prevpos, previob = ('<START>',) * 3
-    else:
-        prevword, prevpos = tokens[index - 1]
-        previob = history[index - 1]
-
-    if index == len(tokens) - 1:
-        nextword, nextpos = ('<END>',) * 2
-    else:
-        nextword, nextpos = tokens[index + 1]
-
-    feats = {
-        'word': word,
-        'pos': pos,
-        'nextword': nextword,
-        'nextpos': nextpos,
-        'prevword': prevword,
-        'prevpos': prevpos,
-        'previob': previob
-    }
-    return feats
-
-def bag_of_words(words):
-    return dict([(word, True) for word in words])
 
 
 
@@ -81,6 +55,7 @@ if __name__ == '__main__':
     print("Unigram:")
     print(evalUnigram)
 
+
     #Bigram
     nerChunkerBigram = ClassifierChunker(completeTaggedSentencesTrain, bigramTagger)
     evalBigram = nerChunkerBigram.evaluate2(completeTaggedSentencesTest)
@@ -93,13 +68,20 @@ if __name__ == '__main__':
     print("Trigram:")
     print(evalTrigram)
 
+
+    bigramTaggerBackoff = BigramTagger(train=completeTaggedSentencesTrain, backoff = unigramTagger)
+    trigramTaggerBackoff = TrigramTagger(train=completeTaggedSentencesTrain, backoff = bigramTaggerBackoff)
+
+    nerChunkerTrigramBackoff = ClassifierChunker(completeTaggedSentencesTrain, trigramTaggerBackoff)
+    evalTrigramBackoff= nerChunkerTrigramBackoff.evaluate2(completeTaggedSentencesTest)
+    print(evalTrigramBackoff)
+
     features = prev_next_pos_iob
 
-    # #naiveBayes
+    #naiveBayes
     # naiveBayersTagger = ClassifierBasedTagger(train=completeTaggedSentencesTrain, feature_detector=features, classifier_builder=NaiveBayesClassifier.train)
     # nerChunkerNaiveBayers = ClassifierChunker(completeTaggedSentencesTrain, naiveBayersTagger)
     # evalNaiveBayers = nerChunkerNaiveBayers.evaluate2(completeTaggedSentencesTest)
-    # print("naiveBayes:")
     # print(evalNaiveBayers)
     #
     # #decisionTree
@@ -108,24 +90,23 @@ if __name__ == '__main__':
     # evalDecisionTree = nerChunkerDecisionTree.evaluate2(completeTaggedSentencesTest)
     # print("decision Tree:")
     # print(evalDecisionTree)
+    # testChunks = buildChunkTree(r"Data\Corpus\test")
+    # #eval2 = nerChunkerNaiveBayers.evaluate(testChunks)
+    #
+    # comp1 = [conlltags2tree([(word, pos, entity) for (word, pos), entity in iobs]) for iobs in completeTaggedSentencesTest]
+    #
+    # #(comp1)
+    # print(len(comp1))
+    # print(len(testChunks))
+    # print(testChunks == comp1)
+    #
+    # #print(completeTaggedSentencesTest)
+    # temp3 = [x for x in testChunks if x not in comp1]
+    # print(temp3)
+    #
+    # #print(eval2)
 
-    algorithms = ['GIS', 'IIS', 'MEGAM', 'TADM']
 
-    maxEntTagger = ClassifierBasedTagger(train=completeTaggedSentencesTrain, feature_detector=features, classifier_builder=makeClassifier)#MaxentClassifier.train)
-
-    nerChunkerMaxent = ClassifierChunker(completeTaggedSentencesTrain, maxEntTagger)
-    evalMaxEnt = nerChunkerMaxent.evaluate2(completeTaggedSentencesTest)
-    #print("Maxent" + " " + algo)
-    print(evalMaxEnt)
-
-
-    # maxent
-    # for algo in algorithms:
-    #     maxEntTagger = ClassifierBasedTagger(train=completeTaggedSentencesTrain, feature_detector=features, classifier_builder=MaxentClassifier.train(algorithm=algo))
-    #     nerChunkerMayent = ClassifierChunker(completeTaggedSentencesTrain, maxEntTagger)
-    #     evalMaxEnt = nerChunkerMayent.evaluate2(completeTaggedSentencesTest)
-    #     print("Maxent" + " " + algo)
-    #     print(evalMaxEnt)
 
 
 
