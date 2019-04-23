@@ -19,9 +19,6 @@ class ClassifierChunker(nltk.chunk.ChunkParserI):
 
 
 
-
-
-
 if __name__ == '__main__':
     tagsTrain = Util.readTags(r"Data\wnut\wnut17train.conll")
     tagsTest = Util.readTags(r"Data\wnut\emerging.test.conll")

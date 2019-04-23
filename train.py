@@ -16,8 +16,7 @@ classifierOptions = ["decisionTree", "NaiveBayes", "maxent", "sklearnExtraTreesC
 
 def train(args):  # def train(corpusPath, classifier, eval):
     """ trains a Classifier based on passed Arguments
-
-    :param args: Arguments passed by user-> see main below
+    :param args: Arguments passed by user
     """
     if args.classifier not in classifierOptions:
         raise ValueError("classifier %s is not supported" % args.classifier)
@@ -38,7 +37,6 @@ def train(args):  # def train(corpusPath, classifier, eval):
 
     nerChunker = ClassifierChunker(trainchunks, tagger)
     safeClassifier(nerChunker, args)
-
 
     if args.eval:
         if not os.path.isdir(args.corpus + "\\test"):
@@ -75,18 +73,6 @@ def triGram(train, args):
 def naiveBayes(train, args):
     return nltk.tag.ClassifierBasedTagger(train=train, feature_detector=prev_next_pos_iob,
                                  classifier_builder=nltk.classify.NaiveBayesClassifier.train)
-
-
-# def classifierBased(train, args):
-#     return ClassifierBasedTagger(train=train, feature_detector=prev_next_pos_iob,
-#                                                classifier_builder=makeClassifier(args))
-
-# def maxent(train, args):
-#     return ClassifierBasedTagger(train=train, feature_detector=prev_next_pos_iob,
-#                                          classifier_builder=makeClassifier("maxent", args))  # MaxentClassifier.train)
-# def sklearn(train, args):
-#     return ClassifierBasedTagger(train=train, feature_detector=prev_next_pos_iob,
-#                                          classifier_builder=makeClassifier("sklearn", args))
 
 
 options = {"1-gram": uniGram,
@@ -129,15 +115,15 @@ def makeClassifier(args):
 
     elif args.classifier == "sklearnExtraTreesClassifier":
         classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
-            ensemble.ExtraTreesClassifier(criterion=args.criterion, max_features=args.maxFeats,
+            sklearn.ensemble.ExtraTreesClassifier(criterion=args.criterion, max_features=args.maxFeats,
                                           max_depth=args.depthCutoff, n_estimators=args.nEstimators)).train
     elif args.classifier == "sklearnGradientBoostingClassifier":
         classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
-            ensemble.GradientBoostingClassifier(learning_rate=args.learningRate, max_features=args.maxFeats,
+            sklearn.ensemble.GradientBoostingClassifier(learning_rate=args.learningRate, max_features=args.maxFeats,
                                                 max_depth=args.depthCutoff, n_estimators=args.nEstimators)).train
     elif args.classifier == "sklearnRandomForestClassifier":
         classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
-            ensemble.RandomForestClassifier(criterion=args.criterion, max_features=args.maxFeats,
+            sklearn.ensemble.RandomForestClassifier(criterion=args.criterion, max_features=args.maxFeats,
                                             max_depth=args.depthCutoff, n_estimators=args.nEstimators)).train
     elif args.classifier == "sklearnLogisticRegression":
         classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
@@ -158,10 +144,9 @@ def makeClassifier(args):
             sklearn.tree.DecisionTreeClassifier(criterion=args.criterion, max_features=args.maxFeats,
                                         max_depth=args.depthCutoff)).train
 
-    def train(trainFeats):
+    def trainf(trainFeats):
         return classifierTrain(trainFeats, **trainArgs)
-
-    return train
+    return trainf
 
 
 def safeClassifier(chunker, args):
@@ -180,6 +165,10 @@ def safeClassifier(chunker, args):
 
 
 def addArguments():
+    """ configurates arguments passable to script
+
+    :return: parser
+    """
     parser = argparse.ArgumentParser()
     parser = argparse.ArgumentParser(description='Script that trains NER-Classifiers')
     parser.add_argument("--corpus", default=r"Data\Corpus",
