@@ -1,6 +1,10 @@
 from Util import buildChunkTree
 from features import prev_next_pos_iob
 import nltk
+from sklearn import ensemble, tree, svm
+import sklearn.feature_extraction
+from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import LabelEncoder
 
 
 def convertIntoSklearnFormat(parsedSentences, featureDetector):
@@ -24,16 +28,46 @@ def convertIntoSklearnFormat(parsedSentences, featureDetector):
             y.append(iobTags[index])
     return X, y
 
+#load files into nltk chunktrees
 trainChunkTrees = buildChunkTree(r"Data\Corpus" + "\\train")
 evalChunkTrees = buildChunkTree(r"Data\Corpus" + "\\test")
 
-X, y = convertIntoSklearnFormat(trainChunkTrees, prev_next_pos_iob)
-print(X[0])
-print(y[0])
+#convert into sklearn format
+Xtrain, ytrain = convertIntoSklearnFormat(trainChunkTrees, prev_next_pos_iob)
 
-# Xtrain, ytrain, XTest, yTest = convertIntoSklearnFormat(trainchunks, testChunks)
-# clf = ensemble.RandomForestClassifier()
+#train sklearn classifier -> out of memory
+# clf = tree.DecisionTreeClassifier(criterion="gini", max_features="auto", max_depth=100)
+# vectorizer = sklearn.feature_extraction.DictVectorizer(sparse=False)
+# vectorizer.fit(Xtrain)
+# Xtrain = vectorizer.transform(X)
 # clf.fit(Xtrain, ytrain)
+
+#train sklearn classifier
+# encoder = LabelEncoder()
+# vectorizer = sklearn.feature_extraction.DictVectorizer(sparse=True)
+# clf = tree.DecisionTreeClassifier(criterion="gini", max_features="auto", max_depth=100)
+# Xtrain = vectorizer.fit_transform(Xtrain)
+# ytrain = encoder.fit_transform(ytrain)
+# clf.fit(Xtrain,ytrain)
+
+#gridsearch
+encoder = LabelEncoder()
+vectorizer = sklearn.feature_extraction.DictVectorizer(sparse=True)
+svc = svm.SVC(gamma="scale")
+Xtrain = vectorizer.fit_transform(Xtrain)
+ytrain = encoder.fit_transform(ytrain)
+
+parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10]}
+clf = GridSearchCV(svc, parameters, cv=5)
+clf.fit(Xtrain, ytrain)
+
+
+
+# vectorizer = sklearn.feature_extraction.DictVectorizer(sparse=False)
+# vectorizer.fit(Xtrain)
+# Xtrain = vectorizer.transform(X)
 #
-# accuracy = clf.score(XTest, yTest)
-# print("RandFor accuracy:", (accuracy) * 100)
+# parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10]}
+# svc = svm.SVC(gamma="scale")
+# clf = GridSearchCV(svc, parameters, cv=5)
+# clf.fit(Xtrain, ytrain)
