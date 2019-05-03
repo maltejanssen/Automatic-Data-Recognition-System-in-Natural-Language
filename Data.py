@@ -32,14 +32,11 @@ def load_dataset(path, type, encoding, delimiter):
                     pass
 
         #datset already partitioned
-        elif type == "conll":
+        elif type == "other":
             for line in fp:
                 line = line.strip()
                 if line:
                     line = line.split(delimiter)
-                    print(line)
-                    print(len(line))
-                    print(line[0])
                     if len(line) == 2: #not po tagged file
                         word = str(line[0])
                         tag = str(line[1])
@@ -47,7 +44,7 @@ def load_dataset(path, type, encoding, delimiter):
                         word = str(line[0])
                         tag = str(line[2])
                     else:
-                        raise ValueError("unknown values per line") #different error???
+                        raise ValueError("unknown amount values per line or wrong delimiter")
                     words.append(word)
                     tags.append(tag)
 
@@ -85,8 +82,16 @@ def save_dataset(dataset, save_dir):
 data = load_dataset('data/kaggle/ner_dataset.csv', "csv", "windows-1252", ",")
 print(data[:10])
 
-data2 = load_dataset('data/kaggle/test.conll', "conll", "utf-8", " ")
+data2 = load_dataset('data/kaggle/test.conll', "other", "utf-8", " ")
 print(data2[:10])
+
+train_dataset = data[:int(0.7 * len(data))]
+val_dataset = data[int(0.7 * len(data)): int(0.85 * len(data))]
+test_dataset = data[int(0.85 * len(data)):]
+
+save_dataset(train_dataset, 'data/kaggle/train')
+save_dataset(val_dataset, 'data/kaggle/val')
+save_dataset(test_dataset, 'data/kaggle/test')
 
 
 
