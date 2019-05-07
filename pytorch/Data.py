@@ -71,27 +71,37 @@ def save_dataset(dataset, save_dir):
         os.makedirs(save_dir)
 
     # Export the dataset
-    with open(os.path.join(save_dir, 'sentences.txt'), 'w') as file_sentences:
-        with open(os.path.join(save_dir, 'labels.txt'), 'w') as file_labels:
+    with open(os.path.join(save_dir, 'sentences.txt'), 'w', encoding='utf-8') as file_sentences:
+        with open(os.path.join(save_dir, 'labels.txt'), 'w', encoding='utf-8') as file_labels:
             for words, tags in dataset:
                 file_sentences.write("{}\n".format(" ".join(words)))
                 file_labels.write("{}\n".format(" ".join(tags)))
     print("- done.")
 
 
-data = load_dataset('data/kaggle/ner_dataset.csv', "csv", "windows-1252", ",")
-print(data[:10])
+# data = load_dataset('data/kaggle/ner_dataset.csv', "csv", "windows-1252", ",")
+# print(data[:10])
 
-data2 = load_dataset('data/kaggle/test.conll', "other", "utf-8", " ")
-print(data2[:10])
+# train_dataset = data[:int(0.7 * len(data))]
+# val_dataset = data[int(0.7 * len(data)): int(0.85 * len(data))]
+# test_dataset = data[int(0.85 * len(data)):]
 
-train_dataset = data[:int(0.7 * len(data))]
-val_dataset = data[int(0.7 * len(data)): int(0.85 * len(data))]
-test_dataset = data[int(0.85 * len(data)):]
+# save_dataset(train_dataset, 'data/kaggle/train')
+# save_dataset(val_dataset, 'data/kaggle/val')
+# save_dataset(test_dataset, 'data/kaggle/test')
 
-save_dataset(train_dataset, 'data/kaggle/train')
-save_dataset(val_dataset, 'data/kaggle/val')
-save_dataset(test_dataset, 'data/kaggle/test')
+#
+trainData = load_dataset("Data/wnut/wnut17train.conll", "other", "utf-8", "\t")
+print(trainData[:10])
+testData = load_dataset("Data/wnut/emerging.test.conll", "other", "utf-8", "\t")
+valData = load_dataset("Data/wnut/emerging.dev.conll", "other", "utf-8", "\t")
+
+save_dataset(trainData, "Data/train")
+save_dataset(testData, "Data/test")
+save_dataset(valData, "Data/validation")
+
+
+
 
 
 
