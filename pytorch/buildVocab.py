@@ -14,12 +14,12 @@ def saveVocabToFile(vocab, txt_path):
         vocab: (iterable object) yields token
         txt_path: (string) path to vocab file
     """
-    with open(txt_path, "w") as f:
+    with open(txt_path, "w", encoding="utf-8") as f:
         for token in vocab:
             f.write(token + '\n')
 
 
-def update_vocab(txt_path, vocab):
+def updateVocab(txt_path, vocab):
     """Update word and tag vocabulary from dataset
 
     Args:
@@ -29,7 +29,7 @@ def update_vocab(txt_path, vocab):
     Returns:
         dataset_size: (int) number of elements in the dataset
     """
-    with open(txt_path) as f:
+    with open(txt_path, encoding='utf-8') as f:
         for i, line in enumerate(f):
             vocab.update(line.strip().split(' '))
 
@@ -48,7 +48,7 @@ def saveVocabInfo(d, json_path):
         d: (dict)
         json_path: (string) path to json file
     """
-    with open(json_path, 'w') as f:
+    with open(json_path, 'w', encoding="utf-8") as f:
         d = {k: v for k, v in d.items()}
         json.dump(d, f, indent=4)
 
@@ -56,14 +56,14 @@ def saveVocabInfo(d, json_path):
 
 if __name__ == '__main__':
     words = Counter()
-    size_train_sentences = update_vocab("Data/train/sentences.txt", words)
-    size_dev_sentences = update_vocab("Data/val/sentences.txt", words)
-    size_test_sentences = update_vocab("Data/test/sentences.txt", words)
+    size_train_sentences = updateVocab("Data/train/sentences.txt", words)
+    size_dev_sentences = updateVocab("Data/validation/sentences.txt", words)
+    size_test_sentences = updateVocab("Data/test/sentences.txt", words)
 
     tags = Counter()
-    size_train_tags = update_vocab("Data/train/labels.txt", tags)
-    size_dev_tags = update_vocab("Data/val/labels.txt", tags)
-    size_test_tags = update_vocab("Data/test/labels.txt", tags)
+    size_train_tags = updateVocab("Data/train/labels.txt", tags)
+    size_dev_tags = updateVocab("Data/validation/labels.txt", tags)
+    size_test_tags = updateVocab("Data/test/labels.txt", tags)
 
     assert size_train_sentences == size_train_tags
     assert size_dev_sentences == size_dev_tags
@@ -72,9 +72,10 @@ if __name__ == '__main__':
     mostFrequentTags = getFrequent(tags, 10)
     mostFrequentWords = getFrequent(words, 10)
 
-    if PAD_WORD not in words: words.append(PAD_WORD)
-    if PAD_TAG not in tags: tags.append(PAD_TAG)
-    words.append(UNK_WORD)
+
+    if PAD_WORD not in mostFrequentWords: mostFrequentWords.append(PAD_WORD)
+    if PAD_TAG not in mostFrequentTags: mostFrequentTags.append(PAD_TAG)
+    mostFrequentWords.append(UNK_WORD)
 
     saveVocabToFile(words, "Data/words.txt")
     saveVocabToFile(tags, "Data/tags.txt")
