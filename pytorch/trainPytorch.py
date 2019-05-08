@@ -1,108 +1,163 @@
 import os
-import json
+import tqdm
+import logging
+import torch.optim as optim
+import torch
+import numpy as np
+from util import RunningAverage, loadCheckpoint, saveCheckpoint, saveDict, configurateLogger, Params
+from evaluate import evaluate
+from DataLoader import DataLoader
+import model.net
 
 
-class DataLoader(object):
+
+def train(model, optimizer, lossFn, dataGenerator, metrics, params, numOfBatches):
+    """ train model on numOfBatches batches
+
+    :param torch.nn.Module model: model to be trained
+    :param torch.optim optimizer: optimiser for parameters
+    :param lossFn: loss function
+    :param generator dataGenerator: generates batches of sentences and labels
+    :param dict metrics: metrics to be applied to model
+    :param Params params: hyperparameters
+    :param int numOfBatches: number of batches to train on
     """
-    Handles all aspects of the data. Stores the dataset_params, vocabulary and tags with their mappings to indices.
+    model.train() #training mode
+
+    summary = []
+    lossAvg = RunningAverage()
+
+    progressBar = tqdm.trange(numOfBatches)
+    for batch in progressBar:
+        trainBatch, labelsBatch = next(dataGenerator)
+
+        outputBatch = model(trainBatch)
+        loss = lossFn(outputBatch, labelsBatch)
+
+        # clear previous gradients, compute gradients of all variables wrt loss
+        optimizer.zero_grad()
+        loss.backward()
+
+        # update with calculated gradients
+        optimizer.step()
+
+        if batch % params.save_summary_steps == 0:
+            outputBatch = outputBatch.data.cpu().numpy()
+            labelsBatch = labelsBatch.data.cpu().numpy()
+
+            batchSummary = {metric: metrics[metric](outputBatch, labelsBatch)
+                             for metric in metrics}
+            batchSummary['loss'] = loss.item() #.data[0]
+            summary.append(batchSummary)
+
+        lossAvg.update(loss.item()) #.data[0]
+        progressBar.set_postfix(loss='{:05.3f}'.format(lossAvg()))
+
+
+    metricsMean = {metric: np.mean([x[metric] for x in summary]) for metric in summary[0]}
+    metricsString = " ; ".join("{}: {:05.3f}".format(k, v) for k, v in metricsMean.items())
+    logging.info("- Train metrics: " + metricsString)
+
+
+
+def train_and_evaluate(model, trainData, valData, optimiser, lossFn, metrics, params, modelDir, restaurationFile=None):
+    """ Training and evaluation of epochs
+
+    :param torch.nn.Module model: neural network
+    :param dict trainData: training data
+    :param dict valData: validation data
+    :param torch.optim optimiser: optimiser for parameters
+    :param lossFn: loss function
+    :param dict metrics: metrics to be applied to model
+    :param Params params: hyperparameters
+    :param string modelDir: directory of nn model (containing config, weights and log)
+    :param string restaurationFile: name of file to restore from (without extension)
     """
 
-    def __init__(self, data_dir, params):
-        """
-        Loads dataset_params, vocabulary and tags. Ensure you have run `build_vocab.py` on data_dir before using this
-        class.
+    if restaurationFile is not None:
+        restorePath = os.path.join("model", restaurationFile + '.pth.tar')
+        logging.info("Restoring parameters from {}".format(restorePath))
+        loadCheckpoint(restorePath, model, optimiser)
 
-        Args:
-            data_dir: (string) directory containing the dataset
-            params: (Params) hyperparameters of the training process. This function modifies params and appends
-                    dataset_params (such as vocab size, num_of_tags etc.) to params.
-        """
+    bestValAcc = 0.0
 
-        # loading dataset_params
-        jasonPath = "Data/dataset_params.json"
-        assert os.path.isfile(jasonPath), "No json file found at {}, run build_vocab.py".format(jasonPath)
-        self.datasetParams = Params(jasonPath)
+    for epoch in range(params.num_epochs):
+        logging.info("Epoch {}/{}".format(epoch + 1, params.num_epochs))
 
-        # loading vocab (we require this to map words to their indices)
-        VocabPath = "Data/words.txt"
-        self.vocab = {}
-        with open(VocabPath) as f:
-            for i, l in enumerate(f.read().splitlines()):
-                self.vocab[l] = i
+        #train epoch
+        numOfBatches = (params.train_size + 1) // params.batch_size
+        trainDataIterator = dataLoader.batchGenerator(trainData, params, shuffle=True)
+        train(model, optimiser, lossFn, trainDataIterator, metrics, params, numOfBatches)
 
-        # setting the indices for UNKnown words and PADding symbols
-        self.unkInd = self.vocab[self.datasetParams.unk_word]
-        self.padInd = self.vocab[self.datasetParams.pad_word]
+        #validate epoch
+        numOfBatches = (params.val_size + 1) // params.batch_size
+        valDataIterator = dataLoader.batchGenerator(valData, params, shuffle=False)
+        valMetrics = evaluate(model, lossFn, valDataIterator, metrics, params, numOfBatches)
 
-        # loading tags (we require this to map tags to their indices)
-        TagsPath = os.path.join(data_dir, 'tags.txt')
-        self.tagMap = {}
-        with open(TagsPath) as f:
-            for i, t in enumerate(f.read().splitlines()):
-                self.tagMap[t] = i
+        valAcc = valMetrics['accuracy']
+        isBest = valAcc >= bestValAcc
 
-        # adding dataset parameters to param (e.g. vocab size, )
-        params.update(jasonPath)
+        # Save weights
+        saveCheckpoint({'epoch': epoch + 1,
+                        'state_dict': model.state_dict(),
+                        'optim_dict': optimiser.state_dict()},
+                        IsBest=isBest,
+                        path=modelDir)
 
+        if isBest:
+            logging.info("- Found new best accuracy")
+            bestValAcc = valAcc
 
-class Params():
-    """Class that loads hyperparameters from a json file.
+            bestJason = os.path.join(modelDir, "metrics_val_best_weights.json")
+            saveDict(valMetrics, bestJason)
 
-    Example:
-    ```
-    params = Params(json_path)
-    print(params.learning_rate)
-    params.learning_rate = 0.5  # change the value of learning_rate in params
-    ```
-    """
-
-    def __init__(self, jsonPath):
-        with open(jsonPath) as f:
-            params = json.load(f)
-            self.__dict__.update(params)
-
-    def save(self, jsonPath):
-        with open(jsonPath, 'w') as f:
-            json.dump(self.__dict__, f, indent=4)
-
-    def update(self, jsonPath):
-        """Loads parameters from json file"""
-        with open(jsonPath) as f:
-            params = json.load(f)
-            self.__dict__.update(params)
-
-    @property
-    def dict(self):
-        """Gives dict-like access to Params instance by `params.dict['learning_rate']"""
-        return self.__dict__
+        latestJason = os.path.join(modelDir, "metrics_val_last_weights.json")
+        saveDict(valMetrics, latestJason)
 
 
-def openVocab(path):
-    vocab = {}
-    with open(path) as f:
-      for i, l in enumerate(f.read().splitlines()):
-        vocab[l] = i
+if __name__ == '__main__':
+    paramsDir = r"experiments/base_model"
 
+    # Load the parameters from json file
+    jsonPath = os.path.join(paramsDir, "params.json")
+    assert os.path.isfile(jsonPath), "No json configuration file found at {}".format(jsonPath)
+    params = Params(jsonPath)
 
-def loadData(vocabWords, vocabTags):
-    train_sentences = []
-    train_labels = []
+    # use GPU if available
+    params.cuda = torch.cuda.is_available()
 
-    with open("Data/net/train") as f:
-        for sentence in f.read().splitlines():
-            # replace each token by its index if it is in vocab
-            # else use index of UNK
-            s = [vocabWords[token] if token in self.vocab
-                 else vocabWords['UNK']
-                 for token in sentence.split(' ')]
-            train_sentences.append(s)
+    # Set the random seed for reproducible experiments
+    torch.manual_seed(230)
+    if params.cuda:
+        torch.cuda.manual_seed(230)
 
-    with open("Data/net/train") as f:
-        for sentence in f.read().splitlines():
-            # replace each label by its index
-            l = [vocabTags[label] for label in sentence.split(' ')]
-            train_labels.append(l)
+    # Set the logger
+    configurateLogger(os.path.join(paramsDir, 'train.log'))
 
+    # Create the input data pipeline
+    logging.info("Loading the datasets...")
 
-vocabWords = openVocab("Data/words.txt")
-vocabTags = openVocab("Data/tags.txt")
+    # load data
+    dataPath = "Data"
+    encoding = "utf-8"
+    dataLoader = DataLoader(dataPath, params, encoding)
+    data = dataLoader.readData(dataPath, ["train", "val"])
+    trainData = data["train"]
+    #print(trainData)
+    validationData = data["val"]
+
+    params.train_size = trainData["size"]
+    params.val_size = validationData["size"]
+
+    logging.info("- done.")
+
+    # Define the model and optimizer
+    model = model.net.Net(params).cuda() if params.cuda else model.net.Net(params)
+    optimiser = optim.Adam(model.parameters(), lr=params.learning_rate) #try out different optimisers!!
+
+    netlossFn = model.lossFn
+    netMetrics = model.metrics
+
+    # Train the model
+    logging.info("Starting training for {} epoch(s)".format(params.num_epochs))
+    train_and_evaluate(model, trainData, validationData, optimiser, netlossFn, netMetrics, params, "model")
