@@ -7,9 +7,11 @@ from util import Params
 
 
 
+
 class DataLoader(object):
     """ Loads and stores data with their mappings to indices.
     """
+
 
     def __init__(self, path, params, encoding="utf-8"):
         """ Loads vocabulary, tags and parameters of dataset
@@ -39,16 +41,19 @@ class DataLoader(object):
 
         params.update(jasonPath)
 
+
     def load_sentences_labels(self, sentencesFile, labelsFile):
         """ Loads sentences and labels , maps tokens and tags to their indices
 
         :param sentencesFile: file containing sentences
         :param labelsFile: file containing labels
+
         :return: dictionary containing loaded data
         """
         sentences = []
         labels = []
         data = {}
+
 
         with open(sentencesFile, encoding=self.encoding) as f:
             for sentence in f.read().splitlines():
@@ -89,7 +94,6 @@ class DataLoader(object):
                 sentencesFile = os.path.join(path, split, "sentences.txt")
                 labelsFile = os.path.join(path, split, "labels.txt")
                 data[split] = self.load_sentences_labels(sentencesFile, labelsFile)
-        return data
 
 
     def batchGenerator(self, data, params, shuffle=False):
