@@ -94,6 +94,7 @@ class DataLoader(object):
                 sentencesFile = os.path.join(path, split, "sentences.txt")
                 labelsFile = os.path.join(path, split, "labels.txt")
                 data[split] = self.load_sentences_labels(sentencesFile, labelsFile)
+        return data
 
 
     def batchGenerator(self, data, params, shuffle=False):
