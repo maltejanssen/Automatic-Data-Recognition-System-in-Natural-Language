@@ -31,6 +31,7 @@ def train(model, optimizer, lossFn, dataGenerator, metrics, params, numOfBatches
     for batch in progressBar:
         trainBatch, labelsBatch = next(dataGenerator)
 
+
         outputBatch = model(trainBatch)
         loss = lossFn(outputBatch, labelsBatch)
 
@@ -86,8 +87,8 @@ def train_and_evaluate(model, trainData, valData, optimiser, lossFn, metrics, pa
 
         #train epoch
         numOfBatches = (params.train_size + 1) // params.batch_size
-        trainDataIterator = dataLoader.batchGenerator(trainData, params, shuffle=True)
-        train(model, optimiser, lossFn, trainDataIterator, metrics, params, numOfBatches)
+        trainDataGenerator = dataLoader.batchGenerator(trainData, params, shuffle=True)
+        train(model, optimiser, lossFn, trainDataGenerator, metrics, params, numOfBatches)
 
         #validate epoch
         numOfBatches = (params.val_size + 1) // params.batch_size
@@ -103,7 +104,9 @@ def train_and_evaluate(model, trainData, valData, optimiser, lossFn, metrics, pa
                         'optim_dict': optimiser.state_dict()},
                         IsBest=isBest,
                         path=modelDir)
-
+        # modelPath = os.path.join(modelDir, "model.pt")
+        # print(modelPath)
+        # torch.save(model.state_dict(), modelPath)
         if isBest:
             logging.info("- Found new best accuracy")
             bestValAcc = valAcc
@@ -161,3 +164,4 @@ if __name__ == '__main__':
     # Train the model
     logging.info("Starting training for {} epoch(s)".format(params.num_epochs))
     train_and_evaluate(model, trainData, validationData, optimiser, netlossFn, netMetrics, params, "model")
+

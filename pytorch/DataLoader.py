@@ -4,6 +4,7 @@ import torch
 from torch.autograd import Variable
 import numpy as np
 from util import Params
+from nltk import sent_tokenize
 
 
 
@@ -35,11 +36,51 @@ class DataLoader(object):
 
         tagsPath = os.path.join(path, 'tags.txt')
         self.tagMap = {}
+        self.idxToTag = {}
         with open(tagsPath) as f:
             for idx, tag in enumerate(f.read().splitlines()):
                 self.tagMap[tag] = idx
+                self.idxToTag[idx] = tag
 
         params.update(jasonPath)
+
+
+    def getidxToTag(self):
+        """ idxToTag getter
+
+        :return: idxToTag lookup list
+        """
+        return self.idxToTag
+
+
+    def getpadInd(self):
+        """ padInd getter
+
+        :return: index of padding string
+        """
+        return self.padInd
+
+    def loadSentences(self, sentence):
+        """ translates Sentences into word, indicie mapping
+
+        :param list sentencesList: List of strings(sentences)
+        :return list sentences: indice map
+        """
+        returnSentences = []
+        words = []
+
+        s = [self.vocab[token] if token in self.vocab
+             else self.unkInd
+             for token in sentence.split(' ')]
+        returnSentences.append(s)
+
+        for token in sentence.split(" "):
+            words.append(token)
+
+
+
+
+        return words, returnSentences
 
 
     def load_sentences_labels(self, sentencesFile, labelsFile):
@@ -67,7 +108,8 @@ class DataLoader(object):
         with open(labelsFile) as f:
             for sentence in f.read().splitlines():
                 # replace each label by its index
-                l = [self.tagMap[label] for label in sentence.split(' ')]
+                l = [self.tagMap[label] if label in self.tagMap else "wtf" for label in sentence.split(' ')]
+                #TODO handle unexpected tags
                 labels.append(l)
 
         assert len(labels) == len(sentences)
@@ -114,9 +156,9 @@ class DataLoader(object):
 
         amountOfBatches = (data['size'] + 1) // params.batch_size
         for batch in range(amountOfBatches):
+
             batchSentences = [data['sentences'][idx] for idx in order[batch * params.batch_size:(batch + 1) * params.batch_size]]
             batchTags = [data['labels'][idx] for idx in order[batch * params.batch_size:(batch + 1) * params.batch_size]]
-
             longestSentence = max([len(s) for s in batchSentences])
 
             # prepare a numpy array with the data, initialising the data with pad_ind and all labels with -1

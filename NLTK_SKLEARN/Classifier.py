@@ -8,6 +8,7 @@ class ClassifierChunker(nltk.chunk.ChunkParserI):
         if type(tagger) is not nltk.tag.sequential.UnigramTagger and type(tagger) is not nltk.tag.sequential.BigramTagger and type(tagger) is not nltk.tag.sequential.TrigramTagger:
             self.featureDetector = tagger.feature_detector
         self.tagger = tagger
+        self.eval = None
 
     def parse(self, sentence):
         chunks = self.tagger.tag(sentence)
@@ -15,7 +16,8 @@ class ClassifierChunker(nltk.chunk.ChunkParserI):
         return nltk.chunk.conlltags2tree(iobTriblets)
 
     def evaluate2(self, testSents):
-        return self.evaluate([nltk.chunk.conlltags2tree([(word, pos, entity) for (word, pos), entity in iobs]) for iobs in testSents])
+        self.eval = self.evaluate([nltk.chunk.conlltags2tree([(word, pos, entity) for (word, pos), entity in iobs]) for iobs in testSents])
+        return self.eval
 
 
 
