@@ -1,6 +1,7 @@
 import os
 import pickle
 from nltk import word_tokenize, pos_tag
+import ReadWrite
 
 
 
@@ -16,6 +17,9 @@ result = classifier.parse(pos_tag(word_tokenize(sentence)))
 print(result)
 result.pretty_print()
 result.draw()
+
+ReadWrite.writeResultToFile(result)
+
 
 
 

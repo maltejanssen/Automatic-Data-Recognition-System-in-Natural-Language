@@ -1,4 +1,4 @@
-from ReadWrite import readTags, writeToFile
+from ReadWrite import readTags, writeTripletsToFile
 import nltk
 import sys, os
 scriptDir = os.path.dirname(__file__)
@@ -168,8 +168,8 @@ if __name__ == '__main__':
     #print(completeTaggedSentencesTrain[0:10])
     print(completeTaggedSentencesTest[7])
 
-    writeToFile(completeTaggedSentencesTrain, r"Data\Corpus\train\train.conll")
-    writeToFile(completeTaggedSentencesTest, r"Data\Corpus\test\test.conll")
+    writeTripletsToFile(completeTaggedSentencesTrain, r"Data\Corpus\train\train.conll")
+    writeTripletsToFile(completeTaggedSentencesTest, r"Data\Corpus\test\test.conll")
 
     trainInstances, trainPercentages = calculatePercentageOfEntities(r"Data\wnut\wnut17train.conll")
     #print(trainInstances)
