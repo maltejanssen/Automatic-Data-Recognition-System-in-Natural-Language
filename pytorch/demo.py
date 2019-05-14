@@ -35,8 +35,8 @@ def predict(text):
 
     for sentence in tokenized:
         translation = []
-        words, sentence = dataLoader.loadSentences(sentence)
-        t = Variable(torch.LongTensor(sentence))
+        words, wordIdcs = dataLoader.loadSentences(sentence)
+        t = Variable(torch.LongTensor(wordIdcs))
         output = model(t)
         output = output.data.cpu().numpy()
         predictions = np.argmax(output, axis=1)
@@ -49,6 +49,8 @@ def predict(text):
 
         for word, tag in zip(words, translation):
             print(word, ':', tag)
+
+        util.writeResultToFile(words, translation)
 
     return words, translation
 

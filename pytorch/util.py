@@ -121,3 +121,22 @@ class Params():
         """dict-like access to Params instance (`params.dict['learning_rate'])"""
         return self.__dict__
 
+
+def writeResultToFile(words, tags, filename="results.txt"):
+    """ writes predicted results for Sentence to File
+
+    :param list(str) words: words of sentence
+    :param list(str) tags: tags belonging to words
+    :param filename: name of file that is to be written
+    """
+    path = "results"
+    if not os.path.exists(path):
+        os.mkdir(path)
+    path = os.path.join(path, filename)
+
+    with open(path, "a", encoding='utf-8') as fp:
+        for word, tag in zip(words, tags):
+            fp.write(word + "\t" + tag + "\n")
+        fp.write("\n")
+
+
