@@ -2,25 +2,73 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from seqeval.metrics import f1_score
+from torch.nn import CrossEntropyLoss
 
 
-def accuracy(outputs, labels):
+def accuracy(outputLabels, goldLabels):
     """ calculates accuracy, excludes paddings
 
-    :param np.ndarray outputs: log softmax output of the model
-    :param np.ndarray labels: indices of labels (-1 if padding) [0, 1, ... num_tag-1]
+    :param np.ndarray outputLabels: log softmax output of the model
+    :param np.ndarray goldLabels: indices of labels (-1 if padding) [0, 1, ... num_tag-1]
     :return float accuracy: in interval [0,1]
     """
+    # #old -> doesnt work for f1
+    # # flat vector conversion
+    # goldLabels = goldLabels.ravel()
+    # # mask to exclude padding tokens
+    # mask = (goldLabels >= 0)
+    # predictions = np.argmax(outputLabels, axis=1)
+    # accuracy = np.sum((predictions == goldLabels) / float(np.sum(mask)))
+
     # flat vector conversion
-    labels = labels.ravel()
+    goldLabels = goldLabels.ravel()
 
-    #mask to exclude padding tokens
-    mask = (labels >= 0)
+    predictions = np.argmax(outputLabels, axis=1)
+    #get all indices with pad token; cant delete in for loop
+    idcs = []
+    for idx, label in enumerate(goldLabels):
+        if label == -1:
+            idcs.append(idx)
 
-    predictions = np.argmax(outputs, axis=1)
-    accuracy = np.sum((predictions==labels)/float(np.sum(mask)))
+    goldLabels = np.delete(goldLabels, idcs)
+    predictions = np.delete(predictions, idcs)
+    accuracy = np.sum((predictions == goldLabels) / len(predictions))
+
     return accuracy
 #TODO define more functions such as f1 and accuracy for each label
+
+def f1(outputLabels, goldLabels):
+    goldLabels = goldLabels.ravel()
+    predictions = np.argmax(outputLabels, axis=1)
+    idcs = []
+    for idx, label in enumerate(goldLabels):
+        if label == -1:
+            idcs.append(idx)
+    goldLabels = np.delete(goldLabels, idcs)
+    predictions = np.delete(predictions, idcs)
+
+    tagsPath = "Data/tags.txt"
+
+    #DataLoader ?? maybe cereate simplified version of Dataloader
+    idxToTag = {}
+    with open(tagsPath) as f:
+        for idx, tag in enumerate(f.read().splitlines()):
+            idxToTag[idx] = tag
+
+    assert len(goldLabels) == len(predictions)
+    goldLabelsTranslation = []
+    predictionsTranslation = []
+    for gold, pred in zip(goldLabels, predictions):
+        goldLabelsTranslation.append(idxToTag[gold])
+        predictionsTranslation.append(idxToTag[pred])
+
+
+    f1Score = f1_score(goldLabelsTranslation, predictionsTranslation)
+    print(f1Score)
+    return f1Score
+
+
 
 class Net(nn.Module):
     """ neural network
@@ -50,8 +98,10 @@ class Net(nn.Module):
         # the fully connected layer transforms the output to give the final output layer
         self.fc = nn.Linear(params.lstm_hidden_dim, params.number_of_tags)
 
+        #self.dropout =  nn.Dropout()
+
         self.metrics = {
-                        'accuracy': accuracy,
+                        'f1': f1,
 
                         }
         
@@ -92,9 +142,12 @@ class Net(nn.Module):
         # apply the fully connected layer and obtain the output (before softmax) for each token
         s = self.fc(s)                   # dim: batch_size*seq_len x num_tags
 
+        #s = self.dropout(s)
+
         # apply log softmax on each token's output (this is recommended over applying softmax
         # since it is numerically more stable)
         return F.log_softmax(s, dim=1)   # dim: batch_size*seq_len x num_tags
+        #return s
 
 
     def lossFn(self, outputs, labels):
@@ -106,19 +159,30 @@ class Net(nn.Module):
         """
         # reshape labels to give a flat vector
         labels = labels.view(-1)
-
         # remove padding
         mask = (labels >= 0).float()
 
 
+
         # covert padding into positive, because of negative indexing errors -> but ignore with mask
-        labels = labels % outputs.shape[1]
+        #labels = labels % outputs.shape[1]
 
         #num of non mask tokens
         num_tokens = int(torch.sum(mask).item()) #.data[0]
-
+        # print(torch.sum(outputs[range(outputs.shape[0]), labels]*mask)/num_tokens)
+        # print(-torch.sum(outputs[range(outputs.shape[0]), labels]*mask)/num_tokens)
         # compute cross entropy loss for all tokens (except PADding tokens), by multiplying with mask.
         return -torch.sum(outputs[range(outputs.shape[0]), labels]*mask)/num_tokens
+        # numLabels = 13
+        # active_loss = mask.view(-1) == 1
+        # loss_fct = CrossEntropyLoss()
+        #
+        # active_logits = outputs.view(-1, numLabels)[active_loss]
+        #
+        # active_labels = labels.view(-1)[active_loss]
+        # loss = loss_fct(active_logits, active_labels)
+        #
+        # return loss
 
 
 
