@@ -67,7 +67,7 @@ if __name__ == '__main__':
     updateVocab("Data/val/labels.txt", tags)
     updateVocab("Data/test/labels.txt", tags)
 
-    n = 10
+    n = 1
     mostFrequentTags = getFrequent(tags, n)
     mostFrequentWords = getFrequent(words, n)
 

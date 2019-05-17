@@ -82,6 +82,8 @@ def train_and_evaluate(model, trainData, valData, optimiser, lossFn, metrics, pa
 
     bestValAcc = 0.0
 
+    paramsDir = r"experiments/base_model"
+
     for epoch in range(params.num_epochs):
         logging.info("Epoch {}/{}".format(epoch + 1, params.num_epochs))
 
@@ -95,7 +97,7 @@ def train_and_evaluate(model, trainData, valData, optimiser, lossFn, metrics, pa
         valDataIterator = dataLoader.batchGenerator(valData, params, shuffle=False)
         valMetrics = evaluate(model, lossFn, valDataIterator, metrics, params, numOfBatches)
 
-        valAcc = valMetrics['accuracy']
+        valAcc = valMetrics['f1']
         isBest = valAcc >= bestValAcc
 
         # Save weights
@@ -103,7 +105,7 @@ def train_and_evaluate(model, trainData, valData, optimiser, lossFn, metrics, pa
                         'state_dict': model.state_dict(),
                         'optim_dict': optimiser.state_dict()},
                         IsBest=isBest,
-                        path=modelDir)
+                        path=paramsDir)
         # modelPath = os.path.join(modelDir, "model.pt")
         # print(modelPath)
         # torch.save(model.state_dict(), modelPath)
@@ -111,10 +113,10 @@ def train_and_evaluate(model, trainData, valData, optimiser, lossFn, metrics, pa
             logging.info("- Found new best accuracy")
             bestValAcc = valAcc
 
-            bestJason = os.path.join(modelDir, "metrics_val_best_weights.json")
+            bestJason = os.path.join(paramsDir, "metrics_val_best_weights.json")
             saveDict(valMetrics, bestJason)
 
-        latestJason = os.path.join(modelDir, "metrics_val_last_weights.json")
+        latestJason = os.path.join(paramsDir, "metrics_val_last_weights.json")
         saveDict(valMetrics, latestJason)
 
 

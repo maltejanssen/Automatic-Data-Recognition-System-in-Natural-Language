@@ -50,6 +50,7 @@ def loadDataset(path, type, encoding, delimiter):
                         word = str(line[0])
                         tag = str(line[2])
                     else:
+                        print(len(line))
                         raise ValueError("unknown format(amount values per line) or wrong delimiter")
                     words.append(word)
                     tags.append(tag)
@@ -95,7 +96,7 @@ def saveDataset(dataset, saveDir):
 #
 trainData = loadDataset("Data/wnut/wnut17train.conll", "other", "utf-8", "\t")
 print(trainData[:10])
-testData = loadDataset("Data/wnut/emerging.test.conll", "other", "utf-8", "\t")
+testData = loadDataset("Data/wnut/emerging.test.annotated", "other", "utf-8", "\t")
 valData = loadDataset("Data/wnut/emerging.dev.conll", "other", "utf-8", "\t")
 
 saveDataset(trainData, "Data/train")

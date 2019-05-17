@@ -63,9 +63,8 @@ def f1(outputLabels, goldLabels):
         goldLabelsTranslation.append(idxToTag[gold])
         predictionsTranslation.append(idxToTag[pred])
 
-
     f1Score = f1_score(goldLabelsTranslation, predictionsTranslation)
-    print(f1Score)
+    #print(f1Score)
     return f1Score
 
 
@@ -101,8 +100,8 @@ class Net(nn.Module):
         #self.dropout =  nn.Dropout()
 
         self.metrics = {
+                        "accuracy" : accuracy,
                         'f1': f1,
-
                         }
         
     def forward(self, s):
