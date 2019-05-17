@@ -1,3 +1,4 @@
+import os
 from Util import buildChunkTree
 from features import prev_next_pos_iob
 import nltk
@@ -9,6 +10,8 @@ import pandas
 from hypopt import GridSearch
 from sklearn.metrics import make_scorer
 from sklearn.metrics import f1_score
+from ..commonUtil import *
+
 
 def convertIntoSklearnFormat(parsedSentences, featureDetector):
     """ Transform a list of tagged sentences into a scikit-learn compatible format
@@ -43,7 +46,7 @@ def gridSearch(Xtrain, ytrain, Xval, yval, classifier, parameters):
     clf.fit(Xtrain, ytrain, Xval, yval, scoring = "f1_micro")
     # clf = GridSearchCV(estimator=classifier, param_grid=parameters, scoring="f1")
     # clf.fit(Xtrain, ytrain)
-    return clf.cv_results_
+    return clf.get_param_scores()
 
 
 if __name__ == "__main__":
@@ -51,16 +54,24 @@ if __name__ == "__main__":
     trainChunkTrees = buildChunkTree(r"Data\Corpus" + "\\train")
     valChunkTrees = buildChunkTree(r"Data\Corpus" + "\\val")
 
-
     #convert into sklearn format
     Xtrain, ytrain = convertIntoSklearnFormat(trainChunkTrees, prev_next_pos_iob)
     Xval, yval = convertIntoSklearnFormat(valChunkTrees, prev_next_pos_iob)
 
-    parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10]}
-    svc = svm.SVC(gamma="scale")
-    result = gridSearch(Xtrain, ytrain, Xval, yval, svc, parameters)
-    result = pandas.DataFrame.from_dict(result)
-    print(result)
+    models = [svm.SVC(gamma="scale")]
+    names = ["svm.txt"]
+    parameters = [{'kernel':('linear', 'rbf'), 'C':[1, 10]}]
+
+    for idx, model in enumerate(models):
+        result = gridSearch(Xtrain, ytrain, Xval, yval, models[idx], parameters[idx])
+        resultDict = {}
+        for entry in result:
+            params, score = entry
+            resultDict[params] = score
+        path = os.path.join(r"NLTK_SKLEARN\\results\\gridtest", names[idx])
+        saveDict(resultDict, path)
+
+
 
 #train sklearn classifier -> out of memory
 # clf = tree.DecisionTreeClassifier(criterion="gini", max_features="auto", max_depth=100)

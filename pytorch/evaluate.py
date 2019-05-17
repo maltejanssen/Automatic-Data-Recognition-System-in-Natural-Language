@@ -3,10 +3,10 @@ import logging
 import os
 import numpy as np
 import torch
-from util import Params, configurateLogger, loadCheckpoint, saveDict
+from util import Params, configurateLogger, loadCheckpoint
 import model.net
 from DataLoader import DataLoader
-
+from ..commonUtil import *
 
 def evaluate(model, lossFN, dataGenerator, metrics, params, numOfBatches):
     """ Evaluate model on NumOfBatches
@@ -24,7 +24,6 @@ def evaluate(model, lossFN, dataGenerator, metrics, params, numOfBatches):
 
     for batch in range(numOfBatches):
         trainBatch, labelsBatch = next(dataGenerator)
-
         outputBatch = model(trainBatch)
         loss = lossFN(outputBatch, labelsBatch)
 
@@ -69,10 +68,11 @@ if __name__ == '__main__':
 
     model = model.net.Net(params).cuda() if params.cuda else model.net.Net(params)
     
-    lossFn = model.loss_fn
+    lossFn = model.lossFn
     metrics = model.metrics
     
     logging.info("Starting evaluation")
+    restoreFileStr = "best"
     assert restoreFileStr != None, "no resote file set"
     restoreFile = os.path.join(modelParamsFolder, restoreFileStr + '.pth.tar')
     assert os.path.isfile(jsonPath), "No restore file found at {}".format(restoreFile)

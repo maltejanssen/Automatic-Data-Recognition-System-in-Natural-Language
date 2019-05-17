@@ -4,10 +4,11 @@ import logging
 import torch.optim as optim
 import torch
 import numpy as np
-from util import RunningAverage, loadCheckpoint, saveCheckpoint, saveDict, configurateLogger, Params
+from util import RunningAverage, loadCheckpoint, saveCheckpoint, configurateLogger, Params
 from evaluate import evaluate
 from DataLoader import DataLoader
 import model.net
+from ..commonUtil import *
 
 
 
