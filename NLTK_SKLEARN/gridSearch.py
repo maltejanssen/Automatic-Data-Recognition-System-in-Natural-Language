@@ -6,7 +6,9 @@ import sklearn.feature_extraction
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import LabelEncoder
 import pandas
-
+from hypopt import GridSearch
+from sklearn.metrics import make_scorer
+from sklearn.metrics import f1_score
 
 def convertIntoSklearnFormat(parsedSentences, featureDetector):
     """ Transform a list of tagged sentences into a scikit-learn compatible format
@@ -30,29 +32,35 @@ def convertIntoSklearnFormat(parsedSentences, featureDetector):
     return X, y
 
 
-def gridSearch(X, y, classifier, parameters):
+def gridSearch(Xtrain, ytrain, Xval, yval, classifier, parameters):
     encoder = LabelEncoder()
     vectorizer = sklearn.feature_extraction.DictVectorizer(sparse=True)
-    Xtrain = vectorizer.fit_transform(X)
-    ytrain = encoder.fit_transform(y)
-    clf = GridSearchCV(classifier, parameters, cv=5)
-    clf.fit(Xtrain, ytrain)
-
+    Xtrain = vectorizer.fit_transform(Xtrain)
+    ytrain = encoder.fit_transform(ytrain)
+    Xval = vectorizer.transform(Xval)
+    yval = encoder.transform(yval)
+    clf = GridSearch(model=classifier, param_grid=parameters)
+    clf.fit(Xtrain, ytrain, Xval, yval, scoring = "f1_micro")
+    # clf = GridSearchCV(estimator=classifier, param_grid=parameters, scoring="f1")
+    # clf.fit(Xtrain, ytrain)
     return clf.cv_results_
 
 
-#load files into nltk chunktrees
-trainChunkTrees = buildChunkTree(r"Data\Corpus" + "\\train")
-evalChunkTrees = buildChunkTree(r"Data\Corpus" + "\\test")
+if __name__ == "__main__":
+    #load files into nltk chunktrees
+    trainChunkTrees = buildChunkTree(r"Data\Corpus" + "\\train")
+    valChunkTrees = buildChunkTree(r"Data\Corpus" + "\\val")
 
-#convert into sklearn format
-Xtrain, ytrain = convertIntoSklearnFormat(trainChunkTrees, prev_next_pos_iob)
 
-parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10]}
-svc = svm.SVC(gamma="scale")
-result = gridSearch(Xtrain, ytrain, svc, parameters)
-result = pandas.DataFrame.from_dict(result)
-print(result)
+    #convert into sklearn format
+    Xtrain, ytrain = convertIntoSklearnFormat(trainChunkTrees, prev_next_pos_iob)
+    Xval, yval = convertIntoSklearnFormat(valChunkTrees, prev_next_pos_iob)
+
+    parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10]}
+    svc = svm.SVC(gamma="scale")
+    result = gridSearch(Xtrain, ytrain, Xval, yval, svc, parameters)
+    result = pandas.DataFrame.from_dict(result)
+    print(result)
 
 #train sklearn classifier -> out of memory
 # clf = tree.DecisionTreeClassifier(criterion="gini", max_features="auto", max_depth=100)
