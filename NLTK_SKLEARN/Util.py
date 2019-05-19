@@ -32,6 +32,10 @@ def tokenize(tags):
     return words, entities
 
 
+
+
+
+
 def addEntitiyTaggs(posTagged, entities):
     """ adds Entities to posTagged lists
 
@@ -73,10 +77,22 @@ def buildChunkTree(corpusPath):
     :param corpusPath: path of corpus(folder)(files to be converted into chunkTrees)
     :return: chunkTrees: chunked Sentences of read Data eg: [Tree('S', [('@paulwalk', 'VB'), ('It', 'PRP'), ("'s", 'VBZ'),...
     """
-    reader = ConllChunkCorpusReader(corpusPath, ".*", ['person', 'location', 'corporation', 'product', 'creative-work', 'group'])
+    reader = ConllChunkCorpusReader(corpusPath, ".*", ['person', 'location', 'corporation', 'product', 'creative-work', 'group', 'O'])
     chunkTrees = reader.chunked_sents()
     return chunkTrees
 
+
+def readSentences(corpusPath):
+    reader = ConllChunkCorpusReader(corpusPath, ".*", ['person', 'location', 'corporation', 'product', 'creative-work', 'group', 'O'])
+    sentences = reader.sents()
+    return sentences
+
+
+def readWords(corpusPath):
+    reader = ConllChunkCorpusReader(corpusPath, ".*",
+                                    ['person', 'location', 'corporation', 'product', 'creative-work', 'group', 'O'])
+    taggedWords = reader.tagged_words()
+    return taggedWords
 
 def getInstancesOfEntity(entity, data):
     """ returns all instances or entity x in Dataset
@@ -148,8 +164,10 @@ if __name__ == '__main__':
     #print(tagsTrain[0:1000])
     #print(len(tagsTrain))
 
-    tagsTest = readTags(r"Data\wnut\emerging.test.conll")  # error due to encoding
-    print(tagsTest[190:199])
+    tagsTest = readTags(r"Data\wnut\emerging.test.annotated")  # error due to encoding
+    #print(tagsTest[190:199])
+
+    tagsVal = readTags(r"Data\wnut\emerging.dev.conll")
 
     wordTaggedSentencesTrain, entitiesTrain = tokenize(tagsTrain)
     wordTaggedSentencesTest, entitiesTest = tokenize(tagsTest)

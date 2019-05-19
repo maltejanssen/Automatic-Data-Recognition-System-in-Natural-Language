@@ -195,28 +195,28 @@ avalanche NN O
 site NN O
 in IN O
 Gurez NNP B-location
-sector NN O
-. . O
-
-( ( O
-Source NN O
-: : O
-ANI NNP O
-) ) O
-Visuals NNS O
-of IN O
-the DT O
-avalanche NN B-location
-site NN I-location
-in IN O
-Gurez NNP B-corporation,B-person,B-location
 sector NN I-location
 . . O
 
 ( ( O
 Source NN O
 : : O
-ANI NNP O
+ANI NNP B-group
+) ) O
+Visuals NNS O
+of IN O
+the DT O
+avalanche NN O
+site NN O
+in IN O
+Gurez NNP B-location
+sector NN I-location
+. . O
+
+( ( O
+Source NN O
+: : O
+ANI NNP B-group
 ) ) O
 
 “ JJ O
@@ -252,11 +252,11 @@ said VBD O
 . . O
 
 Watch VB O
-What WP O
-Else NNP O
-is VBZ O
-Making VBG O
-News NNS O
+What WP B-creative-work
+Else NNP I-creative-work
+is VBZ I-creative-work
+Making VBG I-creative-work
+News NNS I-creative-work
 
 “ JJ O
 Swift NNP O
@@ -363,7 +363,7 @@ and CC O
 airport JJ O
 closure NN O
 isolate NN O
-Srinagar NNP B-creative-work,B-location
+Srinagar NNP B-location
 as IN O
 avalanche NN O
 risk NN O
@@ -378,7 +378,7 @@ http://images.indianexpress.com/2015/05/drdo-logo-thumb.jpg?w=480 NN O
 ) ) O
 
 The DT O
-DRDO NNP B-corporation,B-group
+DRDO NNP B-group
 is VBZ O
 working VBG O
 on IN O
@@ -402,7 +402,7 @@ File NNP O
 Photo NNP O
 ) ) O
 The DT O
-DRDO NNP B-creative-work,B-corporation,B-group
+DRDO NNP B-group
 is VBZ O
 working VBG O
 on IN O
@@ -427,12 +427,12 @@ Photo NNP O
 ) ) O
 
 The DT O
-Defence NNP O
-Research NNP O
-Development NNP O
-Organisation NNP O
+Defence NNP B-group
+Research NNP I-group
+Development NNP I-group
+Organisation NNP I-group
 ( ( O
-DRDO NNP O
+DRDO NNP B-group
 ) ) O
 is VBZ O
 working VBG O
@@ -461,7 +461,7 @@ Friday NNP O
 Presently RB O
 , , O
 the DT O
-DRDO NNP B-corporation
+DRDO NNP B-group
 is VBZ O
 working VBG O
 on IN O
@@ -492,17 +492,17 @@ to TO O
 another DT O
 question NN O
 , , O
-Bhamre NNP B-creative-work,B-person
+Bhamre NNP B-person
 said VBD O
 the DT O
-jawans NNS B-corporation
+jawans NNS O
 deployed VBN O
 at IN O
 places NNS O
 such JJ O
 as IN O
-Siachen NNP B-creative-work,B-location,B-corporation
-Glacier NNP I-creative-work,I-location,I-corporation
+Siachen NNP B-location
+Glacier NNP I-location
 are VBP O
 provided VBN O
 with IN O
@@ -518,7 +518,7 @@ the DT O
 soldiers NNS O
 deployed VBN O
 in IN O
-Siachen NNP B-creative-work,B-location,B-group
+Siachen NNP B-location
 are VBP O
 being VBG O
 provided VBN O
@@ -723,8 +723,8 @@ place NN O
 https://np.reddit.com/r/newzealand/comments/5nvswj/my_israeli_war_effort_and_money_saving_tip_how_to/?ref=search_posts NNS O
 ) ) O
 
-KEINE NNP B-creative-work,B-person
-BREMSEN NNP I-creative-work,I-person
+KEINE NNP B-person
+BREMSEN NNP I-person
 ! . O
 
 All DT O
@@ -742,7 +742,7 @@ it PRP O
 What WP O
 country NN O
 in IN O
-Europe NNP B-location,B-group
+Europe NNP B-location
 has VBZ O
 n VBN O
 ' '' O
@@ -786,7 +786,7 @@ r NN O
 politics NNS O
 yesterday NN O
 : : O
-Trump NN O
+Trump NN B-person
 has VBZ O
 n VBN O
 ' '' O
@@ -833,7 +833,7 @@ even RB O
 - : O
 https://www.reddit.com/r/ireland/comments/5m6bs8/kerrygolds_african_tv_ads_are_a_little_bit_uhh/ NN O
 
-Guy NNP B-person
+Guy NNP O
 sounds VBZ O
 like IN O
 a DT O
@@ -937,27 +937,27 @@ first JJ O
 place NN O
 ? . O
 
-Living VBG B-location,B-group
-Computer NNP I-location,I-group
-Museum NNP I-location,I-group
-+ NNP O
-Labs NNP O
+Living VBG B-location
+Computer NNP I-location
+Museum NNP I-location
++ NNP I-location
+Labs NNP I-location
 , , O
-Skyview NNP B-group
-Observatory NNP I-group
+Skyview NNP B-location
+Observatory NNP I-location
 , , O
-Smith NNP B-location,B-group
-Tower NNP I-location,I-group
+Smith NNP B-location
+Tower NNP I-location
 and CC O
-Observation NNP B-group
-Deck NNP I-group
+Observation NNP B-location
+Deck NNP I-location
 , , O
 
 You PRP O
 posted VBD O
 this DT O
 in IN O
-TD NNP O
+TD NNP B-location
 so RB O
 why WRB O
 are VBP O
@@ -976,13 +976,13 @@ into IN O
 overdrive JJ O
 now RB O
 
-CVS NNP B-corporation,B-group
+CVS NNP B-corporation
 selling VBG O
 their PRP$ O
 own JJ O
 version NN O
 of IN O
-epipen NN O
+epipen NN B-product
 at IN O
 1 CD O
 / $ O
@@ -1009,7 +1009,7 @@ Michigan NNP B-location
 Becky NNP B-person
 in IN O
 a DT O
-Snickers NNP B-corporation
+Snickers NNP B-product
 advert NN O
 ? . O
 
@@ -1088,7 +1088,7 @@ Grimaldo NNP B-person
 is VBZ O
 linked VBN O
 with IN O
-MU NNP B-corporation,B-group
+MU NNP B-group
 too RB O
 
 But CC O
@@ -1097,7 +1097,7 @@ thought VBD O
 he PRP O
 had VBD O
 joined VBN O
-Boro NNP B-location,B-group
+Boro NNP B-group
 ? . O
 
 You PRP O
@@ -1142,7 +1142,7 @@ in IN O
 & CC O
 gt NN O
 ; : O
-Cavani NNP B-corporation,B-person
+Cavani NNP B-person
 has VBZ O
 the DT O
 highest JJS O
@@ -1151,9 +1151,9 @@ rate NN O
 in IN O
 Europe NNP B-location
 
-Cheney NNP B-corporation,B-person
-' POS I-corporation
-s NN I-corporation
+Cheney NNP B-person
+' POS O
+s NN O
 back RB O
 . . O
 
@@ -1210,20 +1210,20 @@ post NN O
 
 Wow NNP O
 , , O
-/ NNP O
-r NN O
-/ NNP O
-news NN O
+/ NNP B-group
+r NN I-group
+/ NNP I-group
+news NN I-group
 totally RB O
 kicked VBD O
 the DT O
 shit NN O
 out IN O
 of IN O
-/ NNP O
-r NN O
-/ NN O
-politics NNS O
+/ NNP B-group
+r NN I-group
+/ NN I-group
+politics NNS I-group
 on IN O
 this DT O
 topic NN O
@@ -1240,7 +1240,7 @@ a DT O
 link NN O
 to TO O
 a DT O
-Redditor NNP B-corporation
+Redditor NNP O
 ' POS O
 s JJ O
 experience NN O
@@ -1260,7 +1260,7 @@ n VB O
 t NN O
 handle VBD O
 the DT O
-Ronaldo NNP B-corporation,B-person
+Ronaldo NNP B-person
 criticism NN O
 . . O
 
@@ -1284,7 +1284,7 @@ redditor NN O
 * NN O
 * NN O
 : : O
-Quickloot NN B-corporation
+Quickloot NN B-product
 
 * JJ O
 * NNP O
@@ -1298,11 +1298,11 @@ underway NN O
 for IN O
 return NN O
 of IN O
-Napoleon NNP B-corporation,B-person
-' POS I-corporation
-s JJ I-corporation
-horse NN I-corporation
-Marengo NNP I-corporation
+Napoleon NNP B-person
+' POS O
+s JJ O
+horse NN O
+Marengo NNP O
 to TO O
 Ireland VB B-location
 
@@ -1326,7 +1326,7 @@ has VBZ O
 started VBN O
 protesting VBG O
 at IN O
-CVG NNP B-corporation,B-location
+CVG NNP B-location
 yet RB O
 ? . O
 
@@ -1487,8 +1487,8 @@ up RP O
 I PRP O
 asked VBD O
 Bellerin NNP B-person
-v NN I-person
-walker NN I-person
+v NN O
+walker NN B-person
 in IN O
 a DT O
 match NN O
@@ -1508,8 +1508,8 @@ you PRP O
 & CC O
 gt NN O
 ; : O
-Barca NNP B-creative-work,B-product
-flair NN I-creative-work,I-product
+Barca NNP B-group
+flair NN O
 
 Where WRB O
 ' '' O
@@ -1519,10 +1519,10 @@ one CD O
 from IN O
 ~ JJ O
 ~ NNP O
-Syria NNP B-location
+Syria NNP B-group
 ~ NNP O
 ~ NNP O
-Serbia NNP B-location
+Serbia NNP B-group
 where WRB O
 some DT O
 guy NN O
@@ -1560,7 +1560,7 @@ single JJ O
 quarter NN O
 ' POS O
 s JJ O
-GDP NNP B-product
+GDP NNP O
 statistics NNS O
 . . O
 
@@ -1603,7 +1603,7 @@ my PRP$ O
 sexuality NN O
 since IN O
 The DT B-creative-work
-X-Files NNS I-creative-work,B-corporation
+X-Files NNS I-creative-work
 started VBD O
 . . O
 
@@ -1614,14 +1614,14 @@ title NN O
 * JJ O
 * NN O
 : : O
-PSG NNP O
+PSG NNP B-group
 tell VBP O
-Inter NNP O
+Inter NNP B-group
 & CC O
 amp NN O
 ; : O
-Juve NNP B-product
-Verratti NNP B-person,I-product
+Juve NNP B-group
+Verratti NNP B-person
 will MD O
 cost VB O
 € JJ O
@@ -1657,15 +1657,15 @@ d NN O
 want VBP O
 attacks NNS O
 on IN O
-Trump NNP B-corporation,B-person,B-group
-supporters NNS I-group
+Trump NNP B-person
+supporters NNS O
 to TO O
 continue VB O
 ? . O
 
 Perhaps RB O
-this DT B-creative-work
-paper NN I-creative-work
+this DT O
+paper NN O
 instead RB O
 actually RB O
 suggests VBZ O
@@ -1708,9 +1708,9 @@ contacting VBG O
 the DT O
 producer NN O
 ( ( O
-Great NNP B-creative-work,B-corporation
-Southern NNP I-creative-work,I-corporation
-Television NNP I-creative-work,I-corporation
+Great NNP B-corporation
+Southern NNP I-corporation
+Television NNP I-corporation
 ) ) O
 
 & CC O
@@ -1729,7 +1729,7 @@ nothing NN O
 wrong JJ O
 with IN O
 the DT O
-Huron NNP B-creative-work,B-group
+Huron NNP B-group
 disposal NN O
 site NN O
 . . O
@@ -1737,10 +1737,10 @@ site NN O
 Her PRP$ O
 name NN O
 is VBZ O
-Scout NNP B-creative-work,B-person
+Scout NNP B-person
 . . O
 
-Morocco NN B-creative-work,B-location,B-group
+Morocco NN B-group
 here RB O
 we PRP O
 come VBP O
@@ -1763,8 +1763,8 @@ loss NN O
 2 CD O
 % NN O
 of IN O
-Costa NNP B-creative-work,B-location
-Rica NNP I-creative-work,I-location
+Costa NNP B-location
+Rica NNP I-location
 ' POS O
 s JJ O
 electricity NN O
@@ -1810,10 +1810,10 @@ Proposed VBN O
 class NN O
 action NN O
 against IN O
-B NNP O
-. . O
-C NNP O
-. . O
+B NNP B-group
+. . I-group
+C NNP I-group
+. . I-group
 
 [ JJ O
 Source NNP O
@@ -1822,10 +1822,10 @@ Source NNP O
 https://www.reddit.com/r/southafrica/comments/5sdwm2/breaking_joost_van_der_westhuizen_dies/ NN O
 ) ) O
 at IN O
-/ NNP O
-r NN O
-/ NNP O
-southafrica NN O
+/ NNP B-location
+r NN I-location
+/ NNP I-location
+southafrica NN I-location
 
 The DT O
 idea NN O
@@ -1850,7 +1850,7 @@ audio JJ O
 in IN O
 the DT O
 first JJ O
-AA NNP B-product
+AA NNP B-group
 streamable JJ O
 link NN O
 but CC O
@@ -1935,7 +1935,7 @@ Rule NNP O
 not RB O
 related VBN O
 to TO O
-Calgary NNP O
+Calgary NNP B-location
 ) ) O
 . . O
 . . O
@@ -1968,8 +1968,8 @@ this DT O
 was VBD O
 published VBN O
 by IN O
-CBC NNP B-creative-work,B-corporation
-Manitoba NNP I-corporation,B-location
+CBC NNP B-corporation
+Manitoba NNP I-corporation
 . . O
 
 * JJ O
@@ -2054,10 +2054,10 @@ title NN O
 * JJ O
 * NN O
 : : O
-Concorde NNP B-creative-work,B-location,B-product
-over IN I-creative-work
-Calgary NNP I-creative-work,B-location,B-product
-1977 CD I-creative-work,I-product
+Concorde NNP B-product
+over IN O
+Calgary NNP B-location
+1977 CD O
 
 That DT O
 ' '' O
@@ -2135,7 +2135,7 @@ Ah NNP O
 the DT O
 ol NN O
 ' POS O
-Adelaide NNP B-creative-work,B-location
+Adelaide NNP B-location
 [ NNP O
 Digeridoo NNP B-creative-work
 ! . O
@@ -2193,7 +2193,7 @@ title NN O
 * NN O
 : : O
 Lost VBN O
-RC NNP B-corporation
+RC NNP O
 plane NN O
 . . O
 
@@ -2250,7 +2250,7 @@ else RB O
 
 * JJ O
 [ NNP O
-Stew NNP B-person,B-location
+Stew NNP B-location
 ' POS I-location
 s NN I-location
 Self NNP I-location
@@ -2265,7 +2265,7 @@ It PRP O
 is VBZ O
 well-known JJ O
 that IN O
-Snickers NNPS B-corporation,B-product
+Snickers NNPS B-product
 bewilder NN O
 and CC O
 [ JJ O
@@ -2300,7 +2300,7 @@ try VB O
 that IN O
 in IN O
 the DT O
-NHL NNP B-product,B-group
+NHL NNP B-corporation
 
 TL NNP O
 ; : O
@@ -2327,7 +2327,7 @@ lot NN O
 of IN O
 discussion NN O
 about IN O
-Uber NNP B-corporation,B-product
+Uber NNP B-corporation
 in IN O
 general JJ O
 , , O
@@ -2413,7 +2413,7 @@ https://www.reddit.com/r/australia/comments/5m9hs3/labors_linda_burney_requests_
 ) ) O
 you PRP O
 lambast VBP O
-Labor NNP O
+Labor NNP B-group
 for IN O
 * NNP O
 * NNP O
@@ -2441,7 +2441,7 @@ is VBZ O
 https://www.reddit.com/r/newzealand/comments/5zhb0d/auckland_university_has_introduced_allgender/deydfz7/?utm_content=permalink&amp;utm_medium=front&amp;utm_source=reddit&amp;utm_name=newzealand NN O
 ) ) O
 
-BuzzFeed NNP B-creative-work,B-corporation
+BuzzFeed NNP B-corporation
 took VBD O
 the DT O
 bait NN O
@@ -2455,13 +2455,13 @@ used VBN O
 to TO O
 say VB O
 the DT O
-CBC NNP O
+CBC NNP B-corporation
 went VBD O
 clickbait NN O
 because IN O
 those DT O
 evil JJ O
-cons NNS O
+cons NNS B-group
 tried VBD O
 to TO O
 defund VB O
@@ -2486,7 +2486,7 @@ content NN O
 * NNP O
 * NN O
 : : O
-Marseille NNP B-person,B-location
+Marseille NNP B-location
 has VBZ O
 . . O
 
@@ -2604,8 +2604,8 @@ idiot NN O
 Most JJS O
 women NNS O
 in IN O
-Muslim NNP B-location
-countries NNS I-location
+Muslim NNP O
+countries NNS O
 are VBP O
 [ JJ O
 happy JJ O
@@ -2637,7 +2637,7 @@ over IN O
 40 CD O
 % NN O
 of IN O
-Madrid NNP B-location,B-group
+Madrid NNP B-group
 ' POS O
 s NN O
 goals NNS O
@@ -2673,7 +2673,7 @@ you PRP O
 can MD O
 see VB O
 the DT O
-Stoke NNP B-person,B-location,B-group
+Stoke NNP B-group
 mafia NN I-group
 ganged VBD O
 up RB O
@@ -2713,8 +2713,8 @@ a DT O
 deal NN O
 with IN O
 the DT O
-Snickers NNS B-corporation,B-product,B-group
-company NN I-group
+Snickers NNS B-product
+company NN O
 to TO O
 supply VB O
 our PRP$ O
@@ -2753,7 +2753,7 @@ no DT O
 Tom NNP B-person
 
 [ JJ O
-Snickers NNP B-group
+Snickers NNP B-product
 ] NNP O
 ( ( O
 https://www.reddit.com/r/ireland/comments/3dpuxy/visiting_your_beautiful_country_this_weekend_want/ NN O
@@ -2763,12 +2763,12 @@ Original JJ O
 post NN O
 : : O
 [ NN O
-Andy NNP B-creative-work,B-person
-Carroll NNP I-creative-work,I-person
-goal NN I-creative-work
+Andy NNP B-person
+Carroll NNP I-person
+goal NN O
 vs NN O
-Crystal NNP B-creative-work,B-person,B-corporation,B-group
-Palace NNP I-creative-work,I-person,I-corporation,I-group
+Crystal NNP B-group
+Palace NNP I-group
 ( ( O
 2 CD O
 - : O
@@ -2810,14 +2810,14 @@ yesterday NN O
 ? . O
 
 [ JJ O
-Ritchie NNP B-corporation,B-person
-McClaw NNP I-corporation,I-person
+Ritchie NNP B-person
+McClaw NNP I-person
 ] NNP O
 ( ( O
 https://imgur.com/a/xP0Ta NN O
 ) ) O
 
-Crosspost NNP B-creative-work
+Crosspost NNP O
 do VBP O
 r VB O
 / NNP O
@@ -2871,9 +2871,9 @@ white JJ O
 . . O
 
 Hey NNP O
-u JJ O
-/ NNP O
-nicklovettnz SYM O
+u JJ B-person
+/ NNP I-person
+nicklovettnz SYM I-person
 - : O
 Stuff NN O
 have VBP O
@@ -2890,7 +2890,7 @@ title NN O
 * JJ O
 * NN O
 : : O
-Middleborough NNP B-creative-work,B-group
+Middleborough NNP B-group
 in IN O
 talks NNS O
 to TO O
@@ -2916,7 +2916,7 @@ is VBZ O
 
 [ NN O
 From NNP O
-Barcelona NNP O
+Barcelona NNP B-group
 , , O
 the DT O
 stand-out NN O
@@ -2942,8 +2942,8 @@ even RB O
 funny VBP O
 like IN O
 the DT O
-Multinational NNP B-product,B-group
-Corporation NNP I-product,I-group
+Multinational NNP B-corporation
+Corporation NNP I-corporation
 one CD O
 yesterday NN O
 . . O
@@ -2970,10 +2970,10 @@ title NN O
 : : O
 Official NN O
 : : O
-PSG NNP B-corporation
+PSG NNP B-group
 sign NN O
-Gonçalo NNP O
-Guedes NNP O
+Gonçalo NNP B-person
+Guedes NNP I-person
 for IN O
 25 CD O
 million CD O
@@ -2984,8 +2984,8 @@ https://www.reddit.com/r/soccer/comments/1u1epb/lewandowski_about_contract_negot
 Is VBZ O
 it PRP O
 the DT O
-Shiba NNP B-product
-Inu NNP I-product
+Shiba NNP O
+Inu NNP O
 extensively RB O
 described VBD O
 in IN O
@@ -3004,8 +3004,8 @@ be VB O
 summed VBN O
 up RP O
 with IN O
-Peter NNP O
-Lim NNP O
+Peter NNP B-person
+Lim NNP I-person
 though IN O
 from IN O
 my PRP$ O
@@ -3038,8 +3038,8 @@ songs NNS O
 Well RB O
 looks VBZ O
 like IN O
-Demolition NNP B-creative-work,B-product
-Man NNP I-creative-work,I-product
+Demolition NNP B-creative-work
+Man NNP I-creative-work
 has VBZ O
 come VBN O
 true JJ O
@@ -3056,7 +3056,7 @@ your PRP$ O
 problem NN O
 with IN O
 the DT O
-SPLC NNP B-creative-work
+SPLC NNP B-group
 though IN O
 . . O
 
@@ -3066,7 +3066,7 @@ Ah NNP O
 the DT O
 ol NN O
 ' POS O
-reddit NN B-corporation,B-group
+reddit NN B-corporation
 skin-a-roo NN O
 ! . O
 
@@ -3074,7 +3074,7 @@ Also RB O
 , , O
 check VB O
 the DT O
-FIFA NNP B-creative-work,B-corporation
+FIFA NNP B-creative-work
 XI NNP I-creative-work
 thread NN O
 where WRB O
@@ -3109,7 +3109,7 @@ be VB O
 silent JJ O
 
 On IN O
-Reddit NNP B-corporation,B-product
+Reddit NNP B-location
 , , O
 I PRP O
 do VBP O
@@ -3261,7 +3261,7 @@ is VBZ O
 [ NNP O
 literally RB O
 a DT O
-Mises NNP O
+Mises NNP B-person
 quote NN O
 ] NNP O
 ( ( O
@@ -3318,7 +3318,7 @@ https://streamable.com/qlwoq NN O
 ) ) O
 
 [ JJ O
-AA NNP O
+AA NNP B-group
 Mirror NNP O
 Replays NNP O
 HD NNP O
@@ -3376,7 +3376,7 @@ gt NN O
 / VB O
 r NN O
 / NNP O
-Iceland NNP O
+Iceland NNP B-location
 ] NNP O
 ( ( O
 https://www.reddit.com/r/Iceland/ NN O
@@ -3395,10 +3395,10 @@ dies VBZ O
 working VBG O
 on IN O
 Qatar NNP B-location
-2022 CD O
-World NNP O
-Cup NNP O
-stadium NN O
+2022 CD I-location
+World NNP I-location
+Cup NNP I-location
+stadium NN I-location
 
 [ NN O
 I PRP O
@@ -3426,9 +3426,9 @@ drinks NNS O
 this DT O
 Friday NNP O
 at IN O
-Kelly NNP B-person,B-group
-' POS O
-s NN O
+Kelly NNP B-location
+' POS I-location
+s NN I-location
 in IN O
 Newtown NNP B-location
 ] NNP O
@@ -3487,7 +3487,7 @@ Aah NNP O
 , , O
 the DT O
 old JJ O
-Reddit NNP O
+Reddit NNP B-corporation
 deatharoo NN O
 ] NNP O
 ( ( O
@@ -3499,7 +3499,7 @@ could MD O
 only RB O
 find VB O
 this DT O
-Reddit NNP B-group
+Reddit NNP B-corporation
 thread NN O
 with IN O
 the DT O
@@ -3513,7 +3513,7 @@ redditor NN O
 * NN O
 * NN O
 : : O
-Thorvirdh NN O
+Thorvirdh NN B-person
 
 Searching VBG O
 . . O
@@ -3636,12 +3636,12 @@ News NNP O
 
 I PRP O
 want VBP O
-anyteam NN B-creative-work
-to TO I-creative-work
-win VB I-creative-work
+anyteam NN O
+to TO O
+win VB O
 it PRP O
 except IN O
-PSG NNP O
+PSG NNP B-group
 . . O
 
 See NNP O
@@ -3652,7 +3652,7 @@ António NNP B-person
 Guterres NNP I-person
 be VB O
 the DT O
-UN NNP O
+UN NNP B-group
 ' POS O
 s NN O
 best RBS O
@@ -3664,7 +3664,7 @@ general NN O
 It PRP O
 ' '' O
 s JJ O
-Uber NNP B-creative-work,B-product,B-corporation
+Uber NNP B-corporation
 , , O
 but CC O
 for IN O
@@ -3812,8 +3812,8 @@ the DT O
 leader NN O
 of IN O
 the DT O
-Conservative NNP O
-Party NNP O
+Conservative NNP B-group
+Party NNP I-group
 . . O
 
 [ JJ O
@@ -3835,10 +3835,10 @@ the DT O
 wayback NN O
 machine NN O
 on IN O
-/ JJ O
-r NN O
-/ NN O
-politics NNS O
+/ JJ B-location
+r NN I-location
+/ NN I-location
+politics NNS I-location
 : : O
 here RB O
 ' '' O
@@ -3849,10 +3849,10 @@ page NN O
 for IN O
 September NNP O
 on IN O
-/ NNP O
-r NN O
-/ NN O
-politics NNS O
+/ NNP B-location
+r NN I-location
+/ NN I-location
+politics NNS I-location
 : : O
 
 Hey NNP O
@@ -3885,10 +3885,10 @@ enough NN O
 to TO O
 be VB O
 on IN O
-/ JJ O
-r NN O
-/ NN O
-politics NNS O
+/ JJ B-location
+r NN I-location
+/ NN I-location
+politics NNS I-location
 despite IN O
 the DT O
 man NN O
@@ -3912,11 +3912,11 @@ doubled VBD O
 their PRP$ O
 space NN O
 in IN O
-Yaletown NNP B-creative-work,B-location
+Yaletown NNP B-location
 . . O
 
 The DT O
-Prem NNP O
+Prem NNP B-group
 is VBZ O
 better RBR O
 , , O
@@ -3925,10 +3925,10 @@ only RB O
 slightly RB O
 . . O
 
-/ JJ O
-r NN O
-/ NN O
-politics NNS O
+/ JJ B-group
+r NN I-group
+/ NN I-group
+politics NNS I-group
 is VBZ O
 not RB O
 at IN O
@@ -3945,7 +3945,7 @@ weeks NNS O
 from IN O
 now RB O
 a DT O
-Centrelink NNP B-corporation
+Centrelink NNP B-product
 recipient NN O
 kills VBZ O
 himself PRP O
@@ -3958,19 +3958,19 @@ Source NNP O
 https://www.reddit.com/r/ireland/comments/5lqzoe/found_this_kind_of_cool/ NN O
 ) ) O
 at IN O
-/ NNP O
-r NN O
-/ NNP O
+/ NNP B-location
+r NN I-location
+/ NNP I-location
 ireland NN B-location
 
 Hello NNP O
 and CC O
 welcome VB O
 to TO O
-/ VB O
-r NN O
-/ NNP O
-southafrica NN B-location
+/ VB B-location
+r NN I-location
+/ NNP I-location
+southafrica NN I-location
 ! . O
 
 Edit NN O
@@ -4007,10 +4007,10 @@ Source NNP O
 https://www.reddit.com/r/newzealand/comments/5t2puj/maori_stormtrooper_helmet/ NN O
 ) ) O
 at IN O
-/ NNP O
-r NN O
-/ NNP O
-newzealand NN B-location
+/ NNP B-location
+r NN I-location
+/ NNP I-location
+newzealand NN I-location
 
 Wow NNP O
 , , O
@@ -4022,7 +4022,7 @@ The DT O
 guy NN O
 who WP O
 ate VBP O
-Sudocrem NNS B-corporation,B-product
+Sudocrem NNS B-product
 : : O
 
 Bingo NNP O
@@ -4032,15 +4032,15 @@ I PRP O
 like VBP O
 u JJ O
 / NNP O
-Womble NNP O
-_ NNP O
-Don NNP B-person
+Womble NNP B-person
+_ NNP I-person
+Don NNP I-person
 ' POS O
 s NN O
 post NN O
 about IN O
 why WRB O
-Lahm NNP B-creative-work,B-person
+Lahm NNP B-person
 is VBZ O
 a DT O
 good JJ O
@@ -4136,8 +4136,8 @@ to TO O
 say VB O
 , , O
 " VB O
-New NNP B-location,B-group
-Zealand NNP I-location,I-group
+New NNP B-location
+Zealand NNP I-location
 " NNP O
 could MD O
 all DT O
@@ -4148,13 +4148,13 @@ place NN O
 , , O
 such JJ O
 as IN O
-reddit NN O
-. . O
-com NN O
-/ JJ O
-r NN O
-/ NNP O
-newzealand NN B-location
+reddit NN B-location
+. . I-location
+com NN I-location
+/ JJ I-location
+r NN I-location
+/ NNP I-location
+newzealand NN I-location
 . . O
 
 Best JJS O
@@ -4198,7 +4198,7 @@ years NNS O
 
 Possibly RB O
 some DT O
-Internode NNP O
+Internode NNP B-corporation
 solutions NNS O
 for IN O
 you PRP O
@@ -4232,9 +4232,9 @@ ITT NN O
 mutual JJ O
 respect NN O
 between IN O
-Tottenham NNP B-corporation,B-group
+Tottenham NNP B-group
 and CC O
-Chelsea NNP B-corporation,B-group
+Chelsea NNP B-group
 fans NNS O
 and CC O
 everyone NN O
@@ -4289,7 +4289,7 @@ and CC O
 are VBP O
 [ JJ O
 bigger JJR O
-Nazis NNP O
+Nazis NNP B-group
 than IN O
 Trump NNP B-person
 . . O
@@ -4309,7 +4309,7 @@ shameless NN O
 reminder NN O
 that WDT O
 [ VBZ O
-Ladies NNP B-group
+Ladies NNP O
 ' POS O
 Night NNP O
 is VBZ O
@@ -4383,7 +4383,7 @@ gt NN O
 [ CC O
 I PRP O
 voted VBD O
-Bernie NNP B-creative-work,B-person
+Bernie NNP B-person
 . . O
 
 [ JJ O
@@ -4426,9 +4426,9 @@ their PRP$ O
 pants NNS O
 about IN O
 the DT O
-ess NN B-person
-jay NN I-person
-dubs NN O
+ess NN B-creative-work
+jay NN I-creative-work
+dubs NN I-creative-work
 , , O
 just RB O
 like IN O
@@ -4471,7 +4471,7 @@ was VBD O
 referencing VBG O
 a DT O
 Famous NNP O
-Reddit NNP B-corporation,B-group
+Reddit NNP B-corporation
 Post NNP O
 https://www.reddit.com/r/ireland/comments/3dpuxy/visiting_your_beautiful_country_this_weekend_want/ NN O
 
@@ -4479,7 +4479,7 @@ Jesus NNP B-person
 christ NN I-person
 . . O
 
-Chelsea NN B-location,B-group
+Chelsea NN B-group
 lost VBN O
 yesterday NN O
 , , O
@@ -4497,10 +4497,10 @@ match NN O
 threads NNS O
 on IN O
 [ NNP O
-/ NNP O
-r NN O
-/ NNP O
-soccer NN O
+/ NNP B-location
+r NN I-location
+/ NNP I-location
+soccer NN I-location
 / NNP O
 ] NNP O
 ( ( O
@@ -4517,7 +4517,7 @@ he PRP O
 started VBD O
 talking VBG O
 about IN O
-CalgaryNEXT NNP B-creative-work,B-location,B-corporation,B-product
+CalgaryNEXT NNP B-location
 that IN O
 he PRP O
 wants VBZ O
@@ -4539,7 +4539,7 @@ a DT O
 fake JJ O
 interview NN O
 with IN O
-Messi NNP B-person,B-group
+Messi NNP B-person
 is VBZ O
 easy JJ O
 , , O
@@ -4569,7 +4569,7 @@ title NN O
 * JJ O
 * NN O
 : : O
-Adebayor NNP B-creative-work,B-person
+Adebayor NNP B-person
 signs NNS O
 for IN O
 Turkish JJ O
@@ -4612,16 +4612,16 @@ forget NN O
 that IN O
 liberals NNS O
 and CC O
-Democrats NNPS O
+Democrats NNPS B-group
 are VBP O
-Nazi NNP O
+Nazi NNP B-group
 Useful NNP O
 Idiots NNP O
 who WP O
 believe VBP O
 government NN O
 / NNP O
-CIA NNP O
+CIA NNP B-group
 propaganda NN O
 and CC O
 Fake NNP O
@@ -4650,13 +4650,13 @@ I PRP O
 ' '' O
 ll JJ O
 nominate JJ O
-Virgin NNP B-creative-work,B-corporation
-Active NNP I-creative-work
+Virgin NNP B-corporation
+Active NNP I-corporation
 at IN O
-Moore NNP B-corporation,B-location
-Park NNP I-corporation,I-location
+Moore NNP B-location
+Park NNP I-location
 / NNP O
-Zetland NNP B-corporation,B-location
+Zetland NNP B-location
 for IN O
 you PRP O
 . . O
@@ -4705,15 +4705,15 @@ watchful JJ O
 protector NN O
 , , O
 a DT O
-Dark NNP B-creative-work,B-group
-Knight NNP I-creative-work,I-group
+Dark NNP B-person
+Knight NNP I-person
 . . O
 
 err NN O
 you PRP O
 commented VBD O
 on IN O
-Zlatan NNP B-creative-work,B-person,B-group
+Zlatan NNP B-person
 [ NNP O
 right NN O
 here RB O
@@ -4775,12 +4775,12 @@ http://www.visitzealandia.com/Portals/0/Feeding%20Birds%20at%20Home.pdf NN O
 It PRP O
 happens VBZ O
 on IN O
-United NNP O
+United NNP B-corporation
 related JJ O
 posts NNS O
 . . O
 
-Trudeau NNP B-creative-work,B-person
+Trudeau NNP B-person
 hanging VBG O
 out RP O
 with IN O
@@ -4829,10 +4829,10 @@ me PRP O
 Oh NNP O
 . . O
 
-/ JJ O
-r NN O
-/ NN O
-politics NNS O
+/ JJ B-group
+r NN I-group
+/ NN I-group
+politics NNS I-group
 has VBZ O
 no DT O
 problem NN O
@@ -4851,7 +4851,7 @@ re NN O
 being VBG O
 attributed VBN O
 to TO O
-Trump NNP B-person,B-group
+Trump NNP B-person
 supporters NNS O
 . . O
 
@@ -4874,9 +4874,9 @@ hoping VBG O
 that IN O
 someone NN O
 in IN O
-R NNP O
-/ NNP O
-Calgary NNP B-location,B-group
+R NNP B-group
+/ NNP I-group
+Calgary NNP B-group
 just RB O
 happens VBZ O
 to TO O
@@ -4907,7 +4907,7 @@ a DT O
 huge JJ O
 supporter NN O
 of IN O
-Corbyn NNP B-corporation,B-person
+Corbyn NNP B-person
 , , O
 ive JJ O
 been VBN O
@@ -4938,7 +4938,7 @@ course NN O
 there EX O
 are VBP O
 some DT O
-Leave NNP B-corporation,B-group
+Leave NNP B-group
 supporters NNS O
 who WP O
 are VBP O
@@ -4960,7 +4960,7 @@ this DT O
 rarely RB O
 happens VBZ O
 in IN O
-Europe NNP B-location,B-group
+Europe NNP B-location
 but CC O
 it PRP O
 ' '' O
@@ -4999,10 +4999,10 @@ Source NNP O
 https://www.reddit.com/r/sydney/comments/5yvqxt/good_morning_sydney_gamers/ NN O
 ) ) O
 at IN O
-/ NNP O
-r NN O
-/ NNP O
-sydney NN B-location
+/ NNP B-location
+r NN I-location
+/ NNP I-location
+sydney NN I-location
 
 Fantasy NNP O
 Drama NNP O
@@ -5037,9 +5037,9 @@ Coleman NNP B-corporation
 ' POS O
 s NN O
 " NN O
-Aspects NNP B-creative-work,B-corporation
-of IN I-creative-work,I-corporation
-symmetry NN I-creative-work,I-corporation
+Aspects NNP B-creative-work
+of IN I-creative-work
+symmetry NN I-creative-work
 " NN O
 
 No DT O
@@ -5113,8 +5113,8 @@ finger NN O
 movement NN O
 . . O
 Clearly NNP O
-Star NNP B-creative-work,B-group
-Trek NNP I-creative-work,I-group
+Star NNP B-creative-work
+Trek NNP I-creative-work
 was VBD O
 an DT O
 inspiration NN O
@@ -5131,8 +5131,8 @@ ones NNS O
 newly RB O
 introduced VBN O
 in IN O
-Rogue NNP B-group
-One NNP I-group
+Rogue NNP B-creative-work
+One NNP I-creative-work
 - : O
 I PRP O
 ca MD O
@@ -5423,8 +5423,8 @@ sounds VBZ O
 suspiciously RB O
 similar JJ O
 to TO O
-Universal NNP B-creative-work,B-corporation
-Basic NNP I-creative-work
+Universal NNP O
+Basic NNP O
 Income NNP O
 , , O
 but CC O
@@ -5455,16 +5455,16 @@ local JJ O
 tyrant NN O
 ' POS O
 s JJ O
-dirty NN B-creative-work
-work NN I-creative-work
+dirty NN O
+work NN O
 ) ) O
 
 What WP O
 exactly RB O
 is VBZ O
 Trump NNP B-person
-' POS I-person
-s JJ I-person
+' POS O
+s JJ O
 economic JJ O
 policy NN O
 , , O
@@ -5519,12 +5519,12 @@ keep VB O
 in IN O
 mind NN O
 that IN O
-trump NN O
+trump NN B-person
 expressed VBD O
 his PRP$ O
 hatred NN O
 for IN O
-snowden NN O
+snowden NN B-person
 
 Identify VB O
 The DT B-creative-work
@@ -5693,11 +5693,11 @@ s NN O
 powers NNS O
 changed VBD O
 in IN O
-Miss NNP B-creative-work,B-person,B-product
-Peregrine NNP I-creative-work,I-person,I-product
-' POS O
-s NN O
-Home NNP B-creative-work
+Miss NNP B-creative-work
+Peregrine NNP I-creative-work
+' POS I-creative-work
+s NN I-creative-work
+Home NNP I-creative-work
 for IN I-creative-work
 Peculiar NNP I-creative-work
 Children NNP I-creative-work
@@ -5742,7 +5742,7 @@ for IN O
 encrypted VBN O
 but CC O
 open JJ O
-WiFi NNP B-group
+WiFi NNP B-product
 developed VBD O
 ? . O
 
@@ -5754,7 +5754,7 @@ hunter NN O
 on IN O
 a DT O
 man-eating JJ O
-island NN B-location
+island NN O
 ; : O
 he PRP O
 has VBZ O
@@ -5770,8 +5770,8 @@ to TO O
 kill VB O
 him PRP O
 
-senate NN O
-democrats NNS O
+senate NN B-group
+democrats NNS I-group
 eliminated VBD O
 the DT O
 nuclear JJ O
@@ -5787,11 +5787,11 @@ years NNS O
 ago RB O
 , , O
 over IN O
-republican JJ O
+republican JJ B-group
 objections NNS O
 . . O
 the DT O
-republicans NNPS O
+republicans NNPS B-group
 warned VBD O
 that IN O
 without IN O
@@ -5800,7 +5800,7 @@ nuclear JJ O
 option NN O
 , , O
 the DT O
-democrats NNS O
+democrats NNS B-group
 could MD O
 lose VB O
 a DT O
@@ -5808,10 +5808,10 @@ powerful JJ O
 means NNS O
 to TO O
 stop VB O
-the DT O
-republican JJ O
-administration NN O
-nominees NNS O
+the DT B-group
+republican JJ I-group
+administration NN I-group
+nominees NNS I-group
 if IN O
 / NN O
 when WRB O
@@ -5823,7 +5823,7 @@ turned VBN O
 well RB O
 , , O
 the DT O
-democrats NNS O
+democrats NNS B-group
 today NN O
 would MD O
 have VB O
@@ -5863,7 +5863,7 @@ in IN O
 this DT O
 episode NN O
 of IN O
-Pokémon NNP B-creative-work,B-product
+Pokémon NNP B-creative-work
 
 About IN O
 role NN O
@@ -5888,7 +5888,7 @@ Server NNP O
 key JJ O
 length NN O
 in IN O
-OpenSSH NNP O
+OpenSSH NNP B-product
 
 In IN O
 my PRP$ O
@@ -6011,7 +6011,7 @@ only RB O
 ever RB O
 explained VBD O
 what WP O
-Dimension NNP O
+Dimension NNP B-location
 he PRP O
 is VBZ O
 from IN O
@@ -6023,7 +6023,7 @@ are VBP O
 aware JJ O
 of IN O
 multiple JJ O
-Dimensions NNS O
+Dimensions NNS B-location
 ? . O
 
 Ok NNP O
@@ -6036,11 +6036,11 @@ s VBD O
 the DT O
 difference NN O
 between IN O
-ballistic JJ B-corporation
-galvanometer NN I-corporation
+ballistic JJ B-product
+galvanometer NN I-product
 and CC O
-classic JJ B-corporation
-galvanometer NN I-corporation
+classic JJ B-product
+galvanometer NN I-product
 ? . O
 
 Hi NNP O
@@ -6049,8 +6049,8 @@ and CC O
 welcome VB O
 to TO O
 the DT O
-Physics NNPS O
-SE NNP O
+Physics NNPS B-location
+SE NNP I-location
 ! . O
 Please NNP O
 note VBP O
@@ -6105,9 +6105,9 @@ files NNS O
 over IN O
 TOR NNP B-product
 
-Java NNP O
-Object NNP O
-encryption NN O
+Java NNP B-product
+Object NNP I-product
+encryption NN I-product
 
 I PRP O
 ' '' O
@@ -6177,7 +6177,7 @@ to TO O
 upload JJ O
 files NNS O
 to TO O
-Amazon NNP B-corporation,B-product
+Amazon NNP B-product
 S NNP I-product
 3 CD I-product
 ? . O
@@ -6205,12 +6205,12 @@ able JJ O
 to TO O
 create VB O
 a DT O
-java NN B-group
-. . O
-security NN O
-. . O
-PublicKey NNP B-product
-object NN O
+java NN B-product
+. . I-product
+security NN I-product
+. . I-product
+PublicKey NNP I-product
+object NN I-product
 with IN O
 the DT O
 bytes NNS O
@@ -6263,7 +6263,7 @@ and CC O
 to TO O
 see VB O
 that IN O
-Outsiders NNP O
+Outsiders NNP B-group
 of IN O
 any DT O
 kind NN O
@@ -6293,17 +6293,17 @@ interpreted VBN O
 
 But CC O
 is VBZ O
-ryll JJ O
+ryll JJ B-product
 mined VBN O
 on IN O
-Kessel NNP O
+Kessel NNP B-location
 ? . O
 They PRP O
 mention VBP O
 that DT O
 planet NN O
 in IN O
-ANH NNP B-corporation
+ANH NNP B-creative-work
 , , O
 and CC O
 then RB O
@@ -6334,8 +6334,8 @@ be VB O
 expected VBN O
 to TO O
 mention VB O
-Diagon NNP O
-Alley NNP O
+Diagon NNP B-location
+Alley NNP I-location
 ( ( O
 as IN O
 Dumbledore NNP B-person
@@ -6376,15 +6376,15 @@ reality NN O
 he PRP O
 did VBD O
 take VB O
-Harry NNP O
+Harry NNP B-person
 to TO O
-DA NNP O
+DA NNP B-location
 in IN O
 person NN O
 ) ) O
 . . O
 
-Good JJ B-creative-work
+Good JJ O
 , , O
 I PRP O
 got VBD O
@@ -6398,7 +6398,7 @@ the DT O
 answer NN O
 ! . O
 
-Aliens NNS O
+Aliens NNS B-group
 , , O
 capable JJ O
 of IN O
@@ -6422,10 +6422,10 @@ know VB O
 the DT O
 number NN O
 of IN O
-photons NNS B-creative-work
+photons NNS B-product
 in IN O
 a DT O
-decay NN B-creative-work
+decay NN O
 ? . O
 
 What WP O
@@ -6488,8 +6488,8 @@ n JJ O
 t IN O
 the DT O
 [ NNP O
-Vrĳzinnige NNP O
-Partĳ NNP O
+Vrĳzinnige NNP B-group
+Partĳ NNP I-group
 ] NNP O
 ( ( O
 https://nl.wikipedia.org/wiki/Vrijzinnige_Partij NN O
@@ -6509,16 +6509,16 @@ https://www.tweedekamer.nl/kamerleden/fracties/klein NN O
 ? . O
 Then RB O
 why WRB O
-Nieuwe NNP B-person
-Wegen NNP I-person
+Nieuwe NNP B-group
+Wegen NNP I-group
 / NNP O
-Monasch NNP O
+Monasch NNP B-person
 but CC O
 not RB O
-Vrĳzinnige NNP O
-Partĳ NNP O
+Vrĳzinnige NNP B-group
+Partĳ NNP I-group
 / NNP O
-Klein NNP B-corporation
+Klein NNP B-group
 ? . O
 
 Why WRB O
@@ -6670,16 +6670,16 @@ n NN O
 ' '' O
 t IN O
 the DT O
-T- JJ O
-1000 CD O
-terminator NN O
+T- JJ B-person
+1000 CD I-person
+terminator NN I-person
 shoot VBD O
 the DT O
 eyes NNS O
 of IN O
 the DT O
-T- NNP O
-800 CD O
+T- NNP B-person
+800 CD I-person
 ? . O
 
 You PRP O
@@ -6726,7 +6726,7 @@ diverging VBG O
 lens NNS O
 
 @ RB O
-Steeven NNP O
+Steeven NNP B-person
 added VBD O
 a DT O
 sketch NN O
@@ -6749,7 +6749,7 @@ piece NN O
 ; : O
 but CC O
 the DT O
-OP NNP O
+OP NNP B-person
 is VBZ O
 requesting VBG O
 fact NN O
@@ -6782,7 +6782,7 @@ version NN O
 found VBD O
 in IN O
 the DT O
-CoS NNP B-corporation,B-product
+CoS NNP B-product
 game NN O
 ] NNP O
 ( ( O
@@ -6798,7 +6798,7 @@ to TO O
 be VB O
 written VBN O
 by IN O
-Jo NNP O
+Jo NNP B-person
 ] NNP O
 ( ( O
 http://web.archive.org/web/20100310145702/ JJ O
@@ -6811,7 +6811,7 @@ n JJ O
 t JJ O
 mention NN O
 the DT O
-Order NNP O
+Order NNP B-group
 . . O
 The DT O
 version NN O
@@ -6819,10 +6819,10 @@ packaged VBD O
 with IN O
 [ NNP O
 the DT O
-Hasbro NNP B-group
-chocolate NN O
-frog NN O
-cards NNS O
+Hasbro NNP B-product
+chocolate NN I-product
+frog NN I-product
+cards NNS I-product
 ] NNP O
 ( ( O
 https://i.imgur.com/FHvtOW0.jpg NN O
@@ -6833,7 +6833,7 @@ confirmed VBN O
 to TO O
 be VB O
 from IN O
-Jo NNP O
+Jo NNP B-person
 ) ) O
 did VBD O
 . . O
@@ -6844,7 +6844,7 @@ explained VBN O
 in IN O
 [ NNP O
 the DT O
-Lexicon NNP O
+Lexicon NNP B-creative-work
 ' POS O
 s NN O
 updated VBD O
@@ -6891,7 +6891,7 @@ this DT O
 ? . O
 
 @ JJ O
-Carpetsmoker NN O
+Carpetsmoker NN B-person
 : : O
 That DT O
 ' '' O
@@ -6925,11 +6925,11 @@ https://www.merriam-webster.com/dictionary/alias NN O
 How WRB O
 to TO O
 ensure VB O
-wildcard JJ B-corporation
-certificate NN O
-private JJ O
-key JJ O
-security NN O
+wildcard JJ B-product
+certificate NN I-product
+private JJ I-product
+key JJ I-product
+security NN I-product
 ? . O
 
 @ NN O
@@ -6989,7 +6989,7 @@ relevant JJ O
 . . O
 
 @ NN O
-Qmechanic NNP O
+Qmechanic NNP B-person
 yeah NN O
 , , O
 I PRP O
@@ -7015,7 +7015,7 @@ questions NNS O
 Is VBZ O
 redirecting VBG O
 in IN O
-htaccess NN O
+htaccess NN B-product
 providing VBG O
 enough JJ O
 security NN O
@@ -7025,7 +7025,7 @@ pages NNS O
 ? . O
 
 @ NN O
-CPHPython NNP O
+CPHPython NNP B-person
 It PRP O
 works VBZ O
 when WRB O
@@ -7079,16 +7079,16 @@ really RB O
 just RB O
 after IN O
 the DT O
-Arkenstone NNP B-person
+Arkenstone NNP B-product
 ? . O
 
 Possible JJ O
 anomaly NN O
 in IN O
-Cryptonomicon NNP B-corporation,B-product
+Cryptonomicon NNP B-product
 
 @ JJ O
-Trilarion NNP O
+Trilarion NNP B-person
 Negative NNP O
 . . O
 Torture NN O
@@ -7149,9 +7149,9 @@ and CC O
 belongs NNS O
 on IN O
 [ JJ O
-Law NNP O
-. . O
-SE NNP O
+Law NNP B-location
+. . I-location
+SE NNP I-location
 ] NNP O
 . . O
 
@@ -7166,9 +7166,9 @@ thanks NNS O
 
 Welcome JJ O
 to TO O
-Physics NNP O
-Stack NNP O
-Exchange NNP O
+Physics NNP B-location
+Stack NNP I-location
+Exchange NNP I-location
 ! . O
 [ NN O
 This DT O
@@ -7285,14 +7285,14 @@ What WP O
 was VBD O
 funny JJ O
 about IN O
-Hanzo NNP B-creative-work,B-person
+Hanzo NNP B-person
 ' POS O
-s JJ B-creative-work
-hand NN I-creative-work
+s JJ O
+hand NN O
 in IN O
 the DT O
 film NN O
-Predators NNS B-creative-work,B-product
+Predators NNS B-creative-work
 ? . O
 
 I PRP O
@@ -7325,10 +7325,10 @@ In IN O
 the DT O
 context NN O
 of IN O
-FIDO NNP O
-U NNP O
-2 CD O
-F NNP O
+FIDO NNP B-product
+U NNP I-product
+2 CD I-product
+F NNP I-product
 , , O
 when WRB O
 is VBZ O
@@ -7344,18 +7344,18 @@ cached VBN O
 
 Were WRB O
 the DT O
-Borg NNP B-creative-work,B-group
+Borg NNP B-group
 Always NNP O
 intended VBD O
 to TO O
 be VB O
 a DT O
-Delta NNP B-creative-work,B-corporation
-Quadrant NNP I-creative-work
+Delta NNP B-location
+Quadrant NNP I-location
 power NN O
 ? . O
 
-Amazon NNP B-corporation,B-product
+Amazon NNP B-product
 Echo NNP I-product
 / NNP O
 Dot NNP B-product
@@ -7395,16 +7395,16 @@ appreciated VBN O
 
 In IN O
 " PDT O
-The DT B-creative-work,B-product,B-corporation
-Six NNP I-creative-work,I-product,I-corporation
-Thatchers NNP I-creative-work,I-product,I-corporation
+The DT B-creative-work
+Six NNP I-creative-work
+Thatchers NNP I-creative-work
 " NNP O
 , , O
 why WRB O
 does VBZ O
 Watson NNP B-person
 blame VB O
-Sherlock NNP O
+Sherlock NNP B-person
 rather RB O
 than IN O
 himself PRP O
@@ -7452,7 +7452,7 @@ suited VBN O
 for IN O
 law NN O
 . . O
-SE NNP O
+SE NNP B-product
 . . O
 
 Are VBP O
@@ -7466,20 +7466,20 @@ clones NNS O
 Does NNP O
 energy NN O
 of IN O
-photon NN B-creative-work
-change NN I-creative-work
+photon NN O
+change NN O
 due JJ O
 to TO O
 some DT O
-external JJ B-creative-work
-magnetic JJ I-creative-work
-field NN I-creative-work
+external JJ O
+magnetic JJ O
+field NN O
 ? . O
 
 The DT O
 form NN O
 " NNP O
-Q NNP O
+Q NNP B-person
 " NNP O
 takes VBZ O
 is VBZ O
@@ -7501,7 +7501,7 @@ in IN O
 which WDT O
 another DT O
 " NN O
-Q NNP O
+Q NNP B-person
 " NNP O
 appears VBZ O
 and CC O
@@ -7517,7 +7517,7 @@ circumstance NN O
 
 Why WRB O
 is VBZ O
-visa-free JJ B-corporation
+visa-free JJ O
 travel NN O
 such PDT O
 a DT O
@@ -7533,8 +7533,8 @@ n DT O
 ' '' O
 t NNS O
 say VBP O
-xmen NNS B-creative-work,B-product
-3 CD I-creative-work,I-product
+xmen NNS B-creative-work
+3 CD I-creative-work
 as IN O
 disaster NN O
 I PRP O
@@ -7625,7 +7625,7 @@ of IN O
 small JJ O
 amounts NNS O
 of IN O
-mithril NN O
+mithril NN B-product
 is VBZ O
 so RB O
 ridiculously RB O
@@ -7639,7 +7639,7 @@ whole JJ O
 armour NN O
 made VBN O
 of IN O
-mithril NN O
+mithril NN B-product
 , , O
 its PRP$ O
 value NN O
@@ -7652,7 +7652,7 @@ economy NN O
 such JJ O
 as IN O
 the DT B-location
-Shire NNP I-location,B-group
+Shire NNP I-location
 ’ NNP O
 s NN O
 , , O
@@ -7739,7 +7739,7 @@ machine NN O
 disconnected VBN O
 from IN O
 the DT O
-Internet NNP O
+Internet NNP B-product
 - : O
 is VBZ O
 this DT O
@@ -7748,13 +7748,13 @@ secure NN O
 
 What WP O
 non- JJ O
-Star NNP B-creative-work,B-location
-Trek NNP I-creative-work,I-location
-movie NN O
+Star NNP B-creative-work
+Trek NNP I-creative-work
+movie NN I-creative-work
 used VBD O
 the DT O
-TOS NNP O
-font NN O
+TOS NNP B-product
+font NN I-product
 for IN O
 the DT O
 end NN O
@@ -7765,7 +7765,7 @@ Book NNP O
 narrated VBN O
 by IN O
 the DT O
-devil NN B-creative-work
+devil NN O
 
 Does NNP O
 someone NN O
@@ -7785,7 +7785,7 @@ features NNS O
 ? . O
 
 Store NN O
-SQL NNP O
+SQL NNP B-product
 database NN O
 credentials NNS O
 in IN O
@@ -7797,22 +7797,22 @@ That DT O
 s VBZ O
 not RB O
 . . O
-p VB O
-12 CD O
-format NN O
+p VB B-product
+12 CD I-product
+format NN I-product
 . . O
 Just NNP O
 . . O
-PEM NNP O
-format NN O
+PEM NNP B-product
+format NN I-product
 with IN O
 the DT O
 ( ( O
 wrong JJ O
 ) ) O
 . . O
-p $ O
-12 CD O
+p $ B-product
+12 CD I-product
 file NN O
 name NN O
 extension NN O
@@ -7823,9 +7823,9 @@ really RB O
 , , O
 really RB O
 need VB O
-p NN O
-12 CD O
-format NN O
+p NN B-product
+12 CD I-product
+format NN I-product
 ? . O
 ( ( O
 If IN O
@@ -7844,8 +7844,8 @@ since IN O
 it PRP O
 never RB O
 was VBD O
-P NNP O
-12 CD O
+P NNP B-product
+12 CD I-product
 . . O
 ) ) O
 
@@ -7889,7 +7889,7 @@ help VB O
 
 What WP O
 did VBD O
-Tarzan NNP B-creative-work,B-person
+Tarzan NNP B-person
 say VB O
 to TO O
 Cheeta NNP B-person
@@ -7958,8 +7958,8 @@ If IN O
 at IN O
 some DT O
 point NN O
-President NNP B-person,B-group
-Trump NNP B-corporation,I-person,I-group
+President NNP B-person
+Trump NNP I-person
 was VBD O
 impeached VBN O
 , , O
@@ -8002,9 +8002,9 @@ single JJ O
 time NN O
 by IN O
 any DT O
-kind NN B-creative-work
-of IN I-creative-work
-advertising NN I-creative-work
+kind NN O
+of IN O
+advertising NN O
 . . O
 
 Comment NN O
@@ -8057,11 +8057,11 @@ the DT O
 restrictions NNS O
 on IN O
 a DT O
-501 CD O
-( ( O
-c NN O
-) ) O
-3 CD O
+501 CD B-creative-work
+( ( I-creative-work
+c NN I-creative-work
+) ) I-creative-work
+3 CD I-creative-work
 are VBP O
 w VBN O
 . . O
@@ -8147,9 +8147,9 @@ time NN O
 travel NN O
 ) ) O
 
-Access NNP O
-Control NNP O
-Primitives NNP O
+Access NNP B-product
+Control NNP I-product
+Primitives NNP I-product
 
 unfortunately RB O
 not RB O
@@ -8237,17 +8237,17 @@ Commutation NNP O
 Relation NNP O
 between IN O
 the DT O
-Dirac NNP B-creative-work,B-person,B-product,B-group
-Hamiltonian NNP I-creative-work,I-person,I-product,I-group
+Dirac NNP O
+Hamiltonian NNP O
 and CC O
-Helicity NNP B-creative-work,B-product,B-corporation,B-group
+Helicity NNP O
 operator NN O
 
 What WP O
 about IN O
 the DT O
 other JJ O
-AGRA NNP B-corporation,B-location,B-product
+AGRA NNP B-product
 drives NNS I-product
 ? . O
 
@@ -8301,7 +8301,7 @@ so RB O
 many JJ O
 kids NNS O
 in IN O
-Digimon NNP B-creative-work,B-product
+Digimon NNP B-product
 wear VBP O
 gloves NNS O
 ? . O
@@ -8379,11 +8379,11 @@ my PRP$ O
 professor NN O
 sniff NN O
 my PRP$ O
-Gmail NNP O
+Gmail NNP B-product
 password NN O
 ? . O
 
-Ghost NN B-creative-work
+Ghost NN O
 from IN O
 their PRP$ O
 kindergarden NN O
@@ -8401,8 +8401,8 @@ the DT O
 timeline NN O
 on IN O
 the DT O
-Sci- NNP B-corporation
-Fi NNP I-corporation
+Sci- NNP O
+Fi NNP O
 names NNS O
 in IN O
 the DT O
@@ -8433,9 +8433,9 @@ early JJ O
 ones NNS O
 as IN O
 by IN O
-the DT O
-actual JJ O
-doctor NN O
+the DT B-person
+actual JJ I-person
+doctor NN I-person
 . . O
 
 I PRP O
@@ -8498,7 +8498,7 @@ being VBG O
 stolen VBN O
 
 @ IN O
-poisson NN O
+poisson NN B-person
 I PRP O
 see VBP O
 . . O
@@ -8595,12 +8595,12 @@ accomplish VB O
 their PRP$ O
 works NNS O
 . . O
-Minas NNP B-person
-Tirith NNP I-person
+Minas NNP B-location
+Tirith NNP I-location
 ( ( O
 The DT O
-First NNP B-group
-Age NNP I-group
+First NNP O
+Age NNP O
 one NN O
 ) ) O
 had VBD O
@@ -8678,7 +8678,7 @@ s VBZ O
 all DT O
 down RB O
 to TO O
-Neville NNP B-person,B-group
+Neville NNP B-person
 . . O
 He PRP O
 really RB O
@@ -8754,8 +8754,8 @@ Seamus NN B-person
 Why WRB O
 is VBZ O
 the DT O
-Labour NNP B-location,B-group
-Party NNP I-location,I-group
+Labour NNP B-group
+Party NNP I-group
 in IN O
 such JJ O
 significant JJ O
@@ -8785,8 +8785,8 @@ the DT O
 dark NN O
 . . O
 Search NNP O
-TV NN O
-Tropes NNP O
+TV NN B-creative-work
+Tropes NNP I-creative-work
 for IN O
 " NNP O
 Rule NNP B-creative-work
@@ -8924,7 +8924,7 @@ behaviour NN O
 Spooky NNP O
 behaviour NN O
 with IN O
-Authy NNP B-person,B-group
+Authy NNP B-product
 
 Thank NNP O
 you PRP O
@@ -9034,15 +9034,15 @@ film NN O
 . . O
 
 @ JJ O
-Snowman NNP O
+Snowman NNP B-person
 " NN O
-They PRP B-creative-work
-mostly RB I-creative-work
-come VBP I-creative-work
-at IN I-creative-work
-night NN I-creative-work
+They PRP O
+mostly RB O
+come VBP O
+at IN O
+night NN O
 . . O
-Mostly NNP B-creative-work
+Mostly NNP O
 . . O
 " CC O
 Excellent JJ O
@@ -9067,8 +9067,8 @@ would MD O
 be VB O
 a DT O
 Windows NNP B-product
-Event NNP O
-log NN O
+Event NNP I-product
+log NN I-product
 confirming VBG O
 this DT O
 ? . O
@@ -9110,22 +9110,22 @@ Animated NNP O
 TV NN O
 series NN O
 with IN O
-King NNP B-creative-work,B-person
-Arthur NNP I-creative-work,I-person
-/ NNP I-creative-work
-Sword NNP I-creative-work
+King NNP B-creative-work
+Arthur NNP I-creative-work
+/ NNP O
+Sword NNP B-creative-work
 in IN I-creative-work
 Stone NNP I-creative-work
 theme NN O
 ; : O
 ' '' O
-Excalibur NNP B-creative-work
+Excalibur NNP B-product
 ' POS O
 replaced VBN O
 by IN O
-AI NNP O
-robot NN O
-scepter NN O
+AI NNP B-product
+robot NN I-product
+scepter NN I-product
 
 Is VBZ O
 the DT O
@@ -9135,8 +9135,8 @@ or CC O
 arc NN O
 for IN O
 the DT O
-Star NNP B-creative-work,B-product,B-group
-Wars NNP I-creative-work,I-product,I-group
+Star NNP B-creative-work
+Wars NNP I-creative-work
 series NN O
 going VBG O
 to TO O
@@ -9301,10 +9301,10 @@ the DT O
 meaning NN O
 if IN O
 all DT O
-IoT NNP O
+IoT NNP B-product
 hacked VBN O
 by IN O
-Mirai NNP B-group
+Mirai NNP B-product
 all DT O
 over IN O
 the DT O
@@ -9323,7 +9323,7 @@ rhythm NN O
 of IN O
 180 CD O
 unique JJ O
-IoT NNP O
+IoT NNP B-product
 / NNP O
 h NN O
 ? . O
@@ -9339,7 +9339,7 @@ the DT O
 one NN O
 ( ( O
 for IN O
-Ubuntu NNP O
+Ubuntu NNP B-product
 ) ) O
 . . O
 
@@ -9366,7 +9366,7 @@ common JJ O
 . . O
 
 Do VB O
-lekku NNS O
+lekku NNS B-group
 grow VB O
 with IN O
 age NN O
@@ -9398,7 +9398,7 @@ them PRP O
 was VBD O
 by IN O
 a DT O
-Rabbi NNP B-creative-work
+Rabbi NNP O
 . . O
 this DT O
 goes VBZ O
@@ -9439,19 +9439,19 @@ media NNS O
 know VBP O
 the DT O
 method NN O
-Batman NNP B-creative-work,B-person
+Batman NNP B-person
 used VBD O
 to TO O
 catch VB O
 the DT O
-Joker NNP B-creative-work,B-person
+Joker NNP B-person
 ? . O
 
 Cartoon NN O
 in IN O
 which WDT O
-Donald NNP B-creative-work,B-person,B-product
-Duck NNP I-creative-work,I-person,I-product
+Donald NNP B-person
+Duck NNP I-person
 tries VBZ O
 to TO O
 stop VB O
@@ -9483,8 +9483,8 @@ work NN O
 . . O
 
 Is VBZ O
-password JJ B-creative-work
-cracking VBG I-creative-work
+password JJ O
+cracking VBG O
 noisy NN O
 ? . O
 
@@ -9552,15 +9552,15 @@ bank NN O
 account NN O
 to TO O
 a DT O
-prepaid JJ O
-master NN B-corporation,B-product
-card NN I-corporation,I-product
+prepaid JJ B-product
+master NN I-product
+card NN I-product
 , , O
 can MD O
 he PRP O
 trace VB O
 the DT O
-master NN B-corporation,B-product
+master NN B-product
 card NN I-product
 back RB O
 
@@ -9742,7 +9742,7 @@ use VB O
 ? . O
 
 @ RB O
-theguest IN O
+theguest IN B-person
 It PRP O
 ' '' O
 s VBD O
@@ -9774,7 +9774,7 @@ superior JJ O
 As IN O
 a DT O
 native JJ O
-kiwi NN O
+kiwi NN B-group
 that WDT O
 will MD O
 be VB O
@@ -9798,14 +9798,14 @@ If IN O
 it PRP O
 is VBZ O
 called VBN O
-Mandalorian JJ O
+Mandalorian JJ B-product
 , , O
 I PRP O
 would MD O
 think VB O
 that IN O
 the DT O
-Mandalorians NNPS O
+Mandalorians NNPS B-group
 designed VBD O
 it PRP O
 . . O
@@ -9847,11 +9847,11 @@ the DT O
 first JJ O
 site NN O
 , , O
-GhostSec NNP O
-' POS O
-s NN O
-pentest NN O
-labs NN O
+GhostSec NNP B-product
+' POS I-product
+s NN I-product
+pentest NN I-product
+labs NN I-product
 ? . O
 
 Please NNP O
@@ -9900,8 +9900,8 @@ Matrix NNP I-creative-work
 : : O
 How WRB O
 did VBD O
-the DT O
-Nebuchadnezzar NNP B-person
+the DT B-person
+Nebuchadnezzar NNP I-person
 know VB O
 where WRB O
 to TO O
@@ -9921,7 +9921,7 @@ disagree VBP O
 w JJ O
 / NNP O
 @ NNP O
-Edlothiad NNP O
+Edlothiad NNP B-person
 ' POS O
 s NN O
 response NN O
@@ -9948,7 +9948,7 @@ n VB O
 t JJ O
 matter NN O
 since IN O
-Valorum NNP B-corporation
+Valorum NNP B-person
 is VBZ O
 correct JJ O
 : : O
@@ -9977,9 +9977,9 @@ fresh JJ O
 OS NNP O
 afterwards NNS O
 
-Distribution NN B-creative-work
-of IN I-creative-work
-keys NNS I-creative-work
+Distribution NN O
+of IN O
+keys NNS O
 for IN O
 a DT O
 python NN O
@@ -10072,7 +10072,7 @@ the DT O
 end NN O
 of IN O
 " JJ O
-Oblivion NNP B-corporation,B-group
+Oblivion NNP B-creative-work
 " NNP O
 ? . O
 
@@ -10115,7 +10115,7 @@ n DT O
 ' '' O
 t JJ O
 think VBP O
-OP NNP O
+OP NNP B-person
 was VBD O
 asking VBG O
 about IN O
@@ -10123,8 +10123,8 @@ the DT O
 VPN NNP B-product
 server NN I-product
 ' '' O
-s JJ B-product
-port NN I-product
+s JJ O
+port NN O
 ( ( O
 which WDT O
 I PRP O
@@ -10264,14 +10264,14 @@ the DT O
 position NN O
 of IN O
 the DT O
-Vulcan NNP B-location
+Vulcan NNP B-group
 heart NN O
 ? . O
 
 What WP O
 was VBD O
 the DT O
-Donnager NNP O
+Donnager NNP B-person
 ' POS O
 s NN O
 escort NN O
@@ -10352,7 +10352,7 @@ body NN O
 ? . O
 
 @ JJ O
-Valorum NNP O
+Valorum NNP B-person
 : : O
 Do VBP O
 you PRP O
@@ -10562,13 +10562,13 @@ sure JJ O
 was VBD O
 titled VBN O
 " NNP O
-Grandfather NNP B-creative-work,B-product,B-corporation
-Bank NNP I-creative-work,I-product,I-corporation
+Grandfather NNP B-creative-work
+Bank NNP I-creative-work
 " NN O
 
 Please NNP O
 use NN O
-mathjax NN B-corporation,B-product
+mathjax NN B-product
 to TO O
 format VB O
 mathematical JJ O
@@ -10583,12 +10583,12 @@ mathjax NN B-product
 please VB O
 read VB O
 [ NNP O
-MathJax NNP B-product
-basic JJ O
-tutorial NN O
-and CC O
-quick JJ O
-reference NN O
+MathJax NNP B-creative-work
+basic JJ I-creative-work
+tutorial NN I-creative-work
+and CC I-creative-work
+quick JJ I-creative-work
+reference NN I-creative-work
 ] NNP O
 ( ( O
 http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference NN O
@@ -10717,8 +10717,8 @@ V NNP O
 $ $ O
 used VBN O
 in IN O
-adiabatic JJ B-creative-work
-work NN I-creative-work
+adiabatic JJ O
+work NN O
 by IN O
 an DT O
 ideal NN O
@@ -10757,19 +10757,19 @@ to TO O
 my PRP$ O
 apache NN B-product
 2 CD I-product
-server NN O
+server NN I-product
 . . O
 Pentesting VBG O
 exercise NN O
 
 The DT B-creative-work
 affair NN I-creative-work
-Season NNP O
-3 CD O
-Episode NNP O
-10 CD O
-Noah NNP O
-half NN O
+Season NNP I-creative-work
+3 CD I-creative-work
+Episode NNP I-creative-work
+10 CD I-creative-work
+Noah NNP I-creative-work
+half NN I-creative-work
 - : O
 French JJ O
 translation NN O
@@ -10845,9 +10845,9 @@ a DT O
 President NNP O
 withdraw NN O
 nominated VBD O
-Supreme NNP O
-Court NNP O
-judge NN O
+Supreme NNP B-person
+Court NNP I-person
+judge NN I-person
 before IN O
 confirmation NN O
 by IN O
@@ -10855,7 +10855,7 @@ the DT O
 senate NN O
 ? . O
 
-dmckee NN O
+dmckee NN B-person
 , , O
 I PRP O
 think VBP O
@@ -10883,7 +10883,7 @@ sense NN O
 
 In IN O
 the DT O
-RotS NNP B-creative-work,B-corporation
+RotS NNP B-creative-work
 scene NN O
 where WRB O
 Obi- NNP B-person
@@ -10934,7 +10934,7 @@ charecters NNS O
 with IN O
 comments NNS O
 in IN O
-SQL NNP O
+SQL NNP B-product
 injection NN O
 payload NN O
 
@@ -10959,7 +10959,7 @@ short JJ O
 stories NNS O
 
 @ NN O
-Bebs NNP O
+Bebs NNP B-person
 That NNP O
 ' POS O
 s NN O
@@ -10982,9 +10982,9 @@ achieve VB O
 Few JJ O
 Questions NNS O
 About IN O
-Tor NNP B-corporation
-Hidden NNP B-group
-Services NNPS I-group
+Tor NNP B-product
+Hidden NNP I-product
+Services NNPS I-product
 
 It PRP O
 cannot VBZ O
@@ -11056,9 +11056,9 @@ where WRB O
 there EX O
 is VBZ O
 a DT O
-Powerful NNP B-creative-work
-Board NNP I-creative-work
-Game NNP I-creative-work
+Powerful NNP O
+Board NNP O
+Game NNP O
 played VBN O
 by IN O
 two CD O
@@ -11147,8 +11147,8 @@ tube NN O
 Who WP O
 is VBZ O
 driving VBG O
-Thomas NNP B-person,B-group
-Jane NNP I-person,I-group
+Thomas NNP B-person
+Jane NNP I-person
 ' POS O
 s NN O
 hair NN O
@@ -11156,12 +11156,12 @@ and CC O
 wardrobe NN O
 on IN O
 the DT B-creative-work
-Expanse NNP I-creative-work,B-group
+Expanse NNP I-creative-work
 ? . O
 
-I PRP B-person
-' '' I-person
-m NN I-person
+I PRP O
+' '' O
+m NN O
 afraid IN O
 this DT O
 is VBZ O
@@ -11173,7 +11173,7 @@ choice NN O
 Also RB O
 seen VBN O
 in IN O
-Collide NNP B-creative-work,B-corporation
+Collide NNP B-creative-work
 ( ( O
 2016 CD O
 ) ) O
@@ -11220,7 +11220,7 @@ fired VBN O
 ? . O
 
 @ JJ O
-phoog NN O
+phoog NN B-person
 Parliament NNP B-group
 can MD O
 do VB O
@@ -11315,7 +11315,7 @@ n NN O
 ' '' O
 t VBZ O
 the DT O
-Beast NNP O
+Beast NNP B-person
 kill NN O
 Julia NNP B-person
 ? . O
@@ -11328,17 +11328,17 @@ equation NN O
 of IN O
 motion NN O
 of IN O
-Born- NNP B-creative-work
-Infeld NNP I-creative-work
+Born- NNP O
+Infeld NNP O
 ? . O
 
 What WP O
 are VBP O
 the DT O
-advantages NNS B-creative-work
-of IN I-creative-work
-the DT I-creative-work
-French JJ I-creative-work
+advantages NNS O
+of IN O
+the DT O
+French JJ B-group
 two-round NN O
 voting NN O
 system NN O
@@ -11376,8 +11376,8 @@ the DT O
 three CD O
 billion CD O
 watching VBG O
-Zaphod NNP B-creative-work,B-person
-Beeblebrox NNP I-creative-work,I-person
+Zaphod NNP B-person
+Beeblebrox NNP I-person
 ? . O
 
 Does VBZ O
@@ -11394,7 +11394,7 @@ s JJ O
 facial JJ O
 expressions NNS O
 in IN O
-Her NNP O
+Her NNP B-creative-work
 ( ( O
 2013 CD O
 ) ) O
@@ -11417,7 +11417,7 @@ that DT O
 maze NN O
 was VBD O
 one CD O
-guy NN B-person
+guy NN O
 ( ( O
 killer NN O
 ) ) O
@@ -11431,9 +11431,9 @@ movie NN O
 left VBD O
 only RB O
 a DT O
-girl NN B-person
+girl NN O
 and CC O
-guy NN B-person
+guy NN O
 with IN O
 glasses NNS O
 . . O
@@ -11441,7 +11441,7 @@ That DT O
 killer NN O
 kiddnaps VBZ O
 that IN O
-girl NN B-person
+girl NN O
 , , O
 cuffs VBZ O
 her PRP$ O
@@ -11455,7 +11455,7 @@ to TO O
 kill VB O
 . . O
 That DT O
-guy NN B-person
+guy NN O
 with IN O
 glasses NNS O
 saves VBZ O
@@ -11482,9 +11482,9 @@ t IN O
 the DT O
 network NN O
 called VBN O
-Movies NNP O
-& CC O
-TV NN O
+Movies NNP B-corporation
+& CC I-corporation
+TV NN I-corporation
 ? . O
 ( ( O
 It PRP O
@@ -11554,14 +11554,14 @@ because IN O
 I PRP O
 was VBD O
 needing VBG O
-python NN O
+python NN B-product
 . . O
 
 I PRP O
 used VBD O
 it PRP O
 in IN O
-NL NNP O
+NL NNP B-location
 for IN O
 8 CD O
 years NNS O
@@ -11607,7 +11607,7 @@ driving VBG O
 around RP O
 in IN O
 his PRP$ O
-cadillac NN B-corporation,B-product
+cadillac NN B-product
 solving VBG O
 problems NNS O
 
@@ -11649,14 +11649,14 @@ Ah NNP O
 , , O
 but CC O
 the DT O
-Third NNP O
-Hallow NNP O
+Third NNP B-product
+Hallow NNP I-product
 is VBZ O
 a DT O
 true JJ O
-Cloak NNP O
-of IN O
-Invisibility NNP O
+Cloak NNP B-product
+of IN I-product
+Invisibility NNP I-product
 , , O
 Miss NNP B-person
 Granger NNP I-person
@@ -11694,7 +11694,7 @@ the DT O
 matter NN O
 . . O
 
-SSO NNP O
+SSO NNP B-product
 against IN O
 many JJ O
 identity NN O
@@ -11720,7 +11720,7 @@ presentation NN O
 Are VBP O
 there RB O
 other JJ O
-Mjölnirs NNP B-corporation,B-group
+Mjölnirs NNP B-product
 ? . O
 
 In IN O
@@ -11838,7 +11838,7 @@ all DT O
 red JJ O
 for IN O
 an DT O
-Award NNP B-creative-work
+Award NNP O
 ? . O
 
 Would MD O
@@ -11910,11 +11910,11 @@ My PRP$ O
 copy NN O
 of IN O
 the DT O
-Making NNP B-product
-of IN I-product
-Star NNP B-creative-work,I-product
-Trek NNP I-creative-work,I-product
-1968 CD I-creative-work,I-product
+Making NNP B-creative-work
+of IN I-creative-work
+Star NNP I-creative-work
+Trek NNP I-creative-work
+1968 CD I-creative-work
 edition NN I-creative-work
 is VBZ O
 packed VBN O
@@ -11926,9 +11926,9 @@ is VBZ O
 any DT O
 copy NN O
 of IN O
-the DT O
-writers NNS O
-guide VBP O
+the DT B-creative-work
+writers NNS I-creative-work
+guide VBP I-creative-work
 I PRP O
 may MD O
 own VB O
@@ -11980,7 +11980,7 @@ characters NNS O
 
 Are VBP O
 the DT O
-Martians NNPS O
+Martians NNPS B-group
 saying VBG O
 " NNP O
 Ut NNP O
@@ -12112,11 +12112,11 @@ was VBD O
 there EX O
 between IN O
 the DT O
-Senate NNP B-corporation,B-group
+Senate NNP B-group
 and CC O
 the DT O
-Jedi NNP B-corporation,B-group
-Council NNP I-corporation,I-group
+Jedi NNP B-group
+Council NNP I-group
 ? . O
 
 What WP O
@@ -12127,8 +12127,8 @@ is VBZ O
 this DT O
 ? . O
 
-Black NNP B-creative-work,B-product
-Swan NNP I-creative-work,I-product
+Black NNP B-creative-work
+Swan NNP I-creative-work
 is VBZ O
 nowhere RB O
 near IN O
@@ -12168,8 +12168,8 @@ of IN O
 Votes NNP O
 Cast NNP O
 by IN O
-Non- NNP O
-Citizens NNP O
+Non- NNP B-group
+Citizens NNP I-group
 Checked NNP O
 After IN O
 They PRP O
@@ -12214,7 +12214,7 @@ shave VB O
 with IN O
 a DT O
 real JJ O
-razor NN B-product
+razor NN O
 ( ( O
 not RB O
 an DT O
@@ -12258,7 +12258,7 @@ things NNS O
 ) ) O
 " NN O
 disable JJ O
-wifi NN O
+wifi NN B-product
 physically RB O
 " NNP O
 is VBZ O
@@ -12283,8 +12283,8 @@ to TO O
 connect VB O
 to TO O
 a DT O
-wifi NN O
-network NN O
+wifi NN B-product
+network NN I-product
 ( ( O
 then RB O
 the DT O
@@ -12300,8 +12300,8 @@ perhaps RB O
 even RB O
 remove VB O
 the DT O
-wifi NN O
-chip NN O
+wifi NN B-product
+chip NN I-product
 ( ( O
 often RB O
 fairly RB O
@@ -12318,8 +12318,8 @@ overwrite IN O
 the DT O
 stick NN O
 or CC O
-sd VB O
-card NN O
+sd VB B-product
+card NN I-product
 after IN O
 use NN O
 , , O
@@ -12332,7 +12332,7 @@ reboot NN O
 
 Does NNS O
 using VBG O
-Oauth NNP B-creative-work
+Oauth NNP B-product
 behind IN O
 firewall NN O
 / NNS O
@@ -12360,7 +12360,7 @@ World NNP B-group
 Bank NNP I-group
 ? . O
 
-Javier NNP O
+Javier NNP B-person
 . . O
 . . O
 So IN O
@@ -12389,8 +12389,8 @@ the DT O
 final JJ O
 scene NN O
 of IN O
-Assassins NNP B-creative-work,B-product
-Creed NNP I-creative-work,I-product
+Assassins NNP B-creative-work
+Creed NNP I-creative-work
 ? . O
 ( ( O
 spoiler NN O
@@ -12416,7 +12416,7 @@ world NN O
 . . O
 
 @ JJ O
-CandiedOrange NNP B-person
+CandiedOrange NNP O
 I PRP O
 see VBP O
 a DT O
@@ -12540,8 +12540,8 @@ is VBZ O
 the DT O
 difference NN O
 between IN O
-Quasi NNP B-product
-static JJ I-product
+Quasi NNP O
+static JJ O
 and CC O
 Dynamic NNP O
 simulation NN O
@@ -12632,7 +12632,7 @@ Three NNP I-creative-work
 Days NNP I-creative-work
 ? . O
 
-Higgs NNP B-corporation
+Higgs NNP O
 boson NN O
 and CC O
 electroweak JJ O
@@ -12647,7 +12647,7 @@ world NN O
 carbon NN O
 footprints NNS O
 by IN O
-nation NN B-group
+nation NN O
 ? . O
 
 After IN O
@@ -12767,7 +12767,7 @@ to TO O
 be VB O
 appearing VBG O
 in IN O
-Discovery NNP B-creative-work,B-corporation
+Discovery NNP B-creative-work
 ? . O
 
 There EX O
@@ -12887,20 +12887,20 @@ car NN I-group
 gangs NNS I-group
 
 Are NNP O
-Hogwarts VBZ B-location,B-group
+Hogwarts VBZ B-location
 students NNS O
 allowed VBD O
 to TO O
 go VB O
 to TO O
-other JJ B-location
-houses NNS I-location
+other JJ B-group
+houses NNS I-group
 ? . O
 
 You PRP O
 can MD O
 add VB O
-torsion NN B-product
+torsion NN O
 if IN O
 you PRP O
 want VBP O
@@ -12911,7 +12911,7 @@ $ $ O
 \ CD O
 delta NN O
 \ NNP O
-omega VBZ B-creative-work
+omega VBZ O
 $ $ O
 cannot JJ O
 move NN O
@@ -12925,7 +12925,7 @@ It PRP O
 s VBZ O
 a DT O
 clifford NN O
-algebra NN B-creative-work
+algebra NN O
 vulued VBN O
 in IN O
 this DT O
@@ -12971,7 +12971,7 @@ thanks NNS O
 . . O
 And CC O
 @ JJ O
-Fedxa NNP B-corporation
+Fedxa NNP O
 , , O
 if IN O
 that DT O
@@ -13005,8 +13005,8 @@ from IN O
 . . O
 
 Does NNP O
-Rogue NNP O
-One NNP O
+Rogue NNP B-creative-work
+One NNP I-creative-work
 create NN O
 a DT O
 plot NN O
@@ -13180,17 +13180,17 @@ blog NN O
 Schroeder NNP B-person
 ' POS O
 s NN O
-Minkowski NNP B-creative-work,B-person,B-corporation
-Space NNP I-creative-work
-Integral NNP I-creative-work
+Minkowski NNP O
+Space NNP O
+Integral NNP O
 - : O
 Concerns NNS O
 about IN O
-Wick NNP B-person
+Wick NNP O
 Rotations NNP O
 
 @ NN O
-Gallifreyan NNP B-creative-work,B-person
+Gallifreyan NNP O
 , , O
 good JJ O
 question NN O
@@ -13258,9 +13258,9 @@ Short NNP O
 story NN O
 published VBN O
 in IN O
-Asimov NNP B-person,B-group
-' POS O
-s NN O
+Asimov NNP B-creative-work
+' POS I-creative-work
+s NN I-creative-work
 in IN O
 the DT O
 90 CD O
@@ -13269,12 +13269,12 @@ s NN O
 
 Alternatives NNS O
 to TO O
-bruteforce VB B-product
-KeePass NNP B-creative-work,I-product,B-group
+bruteforce VB O
+KeePass NNP B-product
 Cracker NNP I-product
 
 @ JJ O
-Panda NNP B-person
+Panda NNP O
 Thanks NNP O
 for IN O
 tagging VBG O
@@ -13317,8 +13317,8 @@ Need VB O
 some DT O
 help NN O
 understanding VBG O
-Peltier NNP B-product
-Plates NNS I-product
+Peltier NNP O
+Plates NNS O
 
 Your PRP$ O
 name NN O
@@ -13384,13 +13384,13 @@ PHP NNP O
 is VBZ O
 of IN O
 the DT O
-Dark NNP B-location
-Side NNP I-location
+Dark NNP B-group
+Side NNP I-group
 . . O
 
 @ JJ O
-jpmc NN B-person
-26 CD I-person
+jpmc NN O
+26 CD O
 It PRP O
 is VBZ O
 difficult JJ O
@@ -13447,8 +13447,8 @@ costs NNS O
 The DT O
 consequence NN O
 of IN O
-the DT O
-Military NNP O
+the DT B-group
+Military NNP I-group
 being VBG O
 forced VBN O
 to TO O
@@ -13513,8 +13513,8 @@ be VB O
 improved VBN O
 by IN O
 emphasizing VBG O
-the DT O
-administration NN O
+the DT B-group
+administration NN I-group
 ’ NNP O
 s VBZ O
 reaction NN O
@@ -13611,7 +13611,7 @@ cries NNS O
 
 Would MD O
 love VB O
-to TO B-creative-work
+to TO O
 see VB O
 this DT O
 improved VBN O
@@ -13754,7 +13754,7 @@ to TO O
 note VB O
 that IN O
 this DT O
-Wookipedia NNP O
+Wookipedia NNP B-creative-work
 excerpt NN O
 seems VBZ O
 to TO O
@@ -13809,14 +13809,14 @@ mole NN O
 How WRB O
 can MD O
 the DT O
-European NNP B-location,B-group
-Union NNP I-location,I-group
+European NNP B-group
+Union NNP I-group
 enforce VBD O
 the DT O
-General NNP O
-Data NNP O
-Protection NNP O
-Regulation NNP O
+General NNP B-creative-work
+Data NNP I-creative-work
+Protection NNP I-creative-work
+Regulation NNP I-creative-work
 ? . O
 
 _ NN O
@@ -13900,7 +13900,7 @@ contradictory NN O
 . . O
 
 Apparently RB O
-Wikipedia NNP O
+Wikipedia NNP B-creative-work
 claims VBZ O
 that IN O
 insulators NNS O
@@ -13911,7 +13911,7 @@ Fermi NNP O
 surfaces NNS O
 . . O
 Quoting VBG O
-Wikipedia NNP O
+Wikipedia NNP B-creative-work
 : : O
 " VB O
 A DT O
@@ -14011,7 +14011,7 @@ faces VBZ O
 Why WRB O
 were VBD O
 the DT O
-Klingons NNP B-creative-work,B-person
+Klingons NNP B-group
 no RB O
 longer JJR O
 members NNS O
@@ -14119,9 +14119,9 @@ TLS NNP O
 . . O
 
 The DT O
-22 CD O
-nd JJ O
-Amendment NNP O
+22 CD B-creative-work
+nd JJ I-creative-work
+Amendment NNP I-creative-work
 is VBZ O
 , , O
 by IN O
@@ -14220,7 +14220,7 @@ photon NN O
 and CC O
 frequency NN O
 of IN O
-EM NNP B-corporation
+EM NNP O
 wave VBP O
 
 Potential JJ O
@@ -14294,7 +14294,7 @@ http://marvel.wikia.com/wiki/Category:Genius_Intelligence NN O
 Greens NNS O
 function NN O
 application NN O
-Abrikosov NNP O
+Abrikosov NNP B-person
 - : O
 QFT NN O
 in IN O
@@ -14382,7 +14382,7 @@ the DT O
 villain NN O
 in IN O
 the DT O
-Powerless NNP B-creative-work,B-product
+Powerless NNP B-creative-work
 trailer NN O
 ? . O
 
@@ -14401,7 +14401,7 @@ portraits NNS O
 like IN O
 the DT O
 dead JJ O
-Hogwarts NNP O
+Hogwarts NNP B-location
 Headmasters NNP O
 ? . O
 
@@ -14561,7 +14561,7 @@ https://t.co/nSEqjAl4O8 NN O
 
 RT NNP O
 @ VBZ O
-soyourelikethat NN B-person
+soyourelikethat NN O
 : : O
 write RB O
 honestly RB O
@@ -14577,8 +14577,8 @@ damn NN O
 time NN O
 
 Localizing VBG O
-Yakuza $ B-creative-work,B-person,B-group
-0 CD I-person,I-group
+Yakuza $ B-creative-work
+0 CD I-creative-work
 was VBD O
 about IN O
 balancing VBG O
@@ -14621,7 +14621,7 @@ heart NN O
 https://t.co/l3Hk7pWE5g NN O
 
 @ JJ O
-skipsy NN B-person
+skipsy NN O
 _ NNP O
 l NN O
 Right NNP O
@@ -14705,10 +14705,10 @@ https://t.co/6JYh3Id7BW NN O
 
 RT NNP O
 @ NNP O
-heyimbee NN B-person
+heyimbee NN O
 : : O
 @ NN O
-StrauberryJam NNP B-person
+StrauberryJam NNP O
 SHE NNP O
 IS VBZ O
 DEAD JJ O
@@ -14744,15 +14744,15 @@ on IN O
 November NNP O
 . . O
 
-Children NNP O
-' POS O
-s NN O
-of IN O
-A NNP O
-is VBZ O
+Children NNP B-corporation
+' POS I-corporation
+s NN I-corporation
+of IN I-corporation
+A NNP I-corporation
+is VBZ I-corporation
 hiring VBG O
 ! . O
-Audiologist NNP B-creative-work,B-corporation
+Audiologist NNP O
 - : O
 B NNP O
 # # O
@@ -14781,12 +14781,12 @@ for IN O
 a DT O
 chance NN O
 to TO O
-# # B-creative-work
-WIN VB I-creative-work
-a DT I-creative-work
-fitness NN I-creative-work
-gift NN I-creative-work
-basket NN I-creative-work
+# # O
+WIN VB O
+a DT O
+fitness NN O
+gift NN O
+basket NN O
 full JJ O
 of IN O
 iClever NN B-corporation
@@ -14804,7 +14804,7 @@ xxx NNP O
 https://t.co/jnPqolZgSP NN O
 
 Celebrate NNP O
-Burns NNP O
+Burns NNP B-person
 Night NNP O
 with IN O
 the DT O
@@ -14868,7 +14868,7 @@ Los NNP B-location
 Angeles NNP I-location
 https://t.co/kRAqm0LiK7 NN O
 
-OMB NNP O
+OMB NNP B-location
 nominee CC O
 Mick NNP B-person
 Mulvaney NNP I-person
@@ -14878,7 +14878,7 @@ to TO O
 Social NNP O
 Security NNP O
 , , O
-Medicare NNP B-corporation,B-product
+Medicare NNP O
 https://t.co/4NdBdMXSC3 VBZ O
 via IN O
 @ NNP O
@@ -14903,7 +14903,7 @@ Umple NNP O
 
 RT NNP O
 @ NNP O
-Gwynstone NNP B-corporation,B-person
+Gwynstone NNP O
 : : O
 Beautiful NNP O
 carved VBD O
@@ -14932,7 +14932,7 @@ com VB O
 fome NN O
 
 If IN O
-KITT NNP B-group
+KITT NNP B-person
 has VBZ O
 all PDT O
 the DT O
@@ -14947,7 +14947,7 @@ without IN O
 a DT O
 doubt NN O
 its PRP$ O
-Kitt NNP O
+Kitt NNP B-person
 . . O
 . . O
 . . O
@@ -15008,9 +15008,9 @@ cr NN O
 
 @ JJ O
 Ubermatik NNP O
-Anti NNP B-group
-fascist JJ I-group
-raccoons NNS B-creative-work
+Anti NNP O
+fascist JJ O
+raccoons NNS O
 are VBP O
 a DT O
 thing NN O
@@ -15034,7 +15034,7 @@ now RB O
 
 RT NNP O
 @ NNP O
-CarolSankar NNP O
+CarolSankar NNP B-person
 : : O
 “ VB O
 The DT O
@@ -15127,24 +15127,24 @@ on IN O
 bullpen NN O
 . . O
 
-LRT NNP B-group
+LRT NNP O
 why WRB O
 is VBZ O
 nobody NN O
 talking VBG O
 about IN O
-Prompto NNP B-person,B-group
+Prompto NNP B-corporation
 ' POS O
 s JJ O
 official NN O
-Roen NNP O
-belt NN O
+Roen NNP B-product
+belt NN I-product
 ? . O
 https://t.co/mUsYf1AVR3 NN O
 
 RT NNP O
 @ NNP O
-itslifethought NN B-creative-work
+itslifethought NN O
 : : O
 Before IN O
 you PRP O
@@ -15213,7 +15213,7 @@ how WRB O
 the DT O
 act NN O
 on IN O
-tinder NN B-corporation,B-product
+tinder NN B-product
 vs NN O
 how WRB O
 they PRP O
@@ -15286,7 +15286,7 @@ you PRP O
 you PRP O
 DESERVE VBP O
 a DT O
-Clarke NNP B-person,B-product
+Clarke NNP B-product
 as IN O
 a DT O
 token NN O
@@ -15297,14 +15297,14 @@ sweetheart NN O
 😊 NN O
 💕 NN O
 
-Kelli NNP B-creative-work,B-person
+Kelli NNP B-creative-work
 ' POS I-creative-work
 s NN I-creative-work
 Cardio NNP I-creative-work
 Kickboxing NNP I-creative-work
 Workout NNP I-creative-work
-- : O
-Max NNP B-creative-work
+- : I-creative-work
+Max NNP I-creative-work
 Calorie NNP I-creative-work
 Burn NNP I-creative-work
 Workout NNP I-creative-work
@@ -15312,7 +15312,7 @@ with IN I-creative-work
 no DT I-creative-work
 Equipment NNP I-creative-work
 # # O
-fitnessblender NN O
+fitnessblender NN B-corporation
 https://t.co/df66JQrqeM NN O
 
 28 CD O
@@ -15411,7 +15411,7 @@ HIV NNP O
 diagnoses VBZ O
 among IN O
 Black NNP O
-Gay NNP B-group
+Gay NNP O
 … NN O
 
 RT NNP O
@@ -15492,16 +15492,16 @@ o NN O
 corvette NN B-product
 # # O
 auction NN O
-2017 CD B-creative-work,B-product
-Chevrolet NNP I-creative-work,I-product,B-corporation
-Corvette NNP I-creative-work,I-product,I-corporation
+2017 CD B-product
+Chevrolet NNP I-product
+Corvette NNP I-product
 MSRP NNP O
 $ $ O
 102520 CD O
-Grand NNP O
-Sport NNP O
-3 CD O
-LT NNP O
+Grand NNP B-product
+Sport NNP I-product
+3 CD I-product
+LT NNP I-product
 GPS NNP O
 Leather NNP O
 Torch NNP O
@@ -15517,8 +15517,8 @@ NicholasPegg NNP B-person
 : : O
 One CD O
 of IN O
-the DT O
-Doctor NNP O
+the DT B-person
+Doctor NNP I-person
 ’ NNP O
 s NN O
 finest JJS O
@@ -15658,7 +15658,7 @@ one CD O
 of IN O
 the DT O
 few JJ O
-RT NNP O
+RT NNP B-corporation
 employees NNS O
 who WP O
 do VBP O
@@ -15684,7 +15684,7 @@ people NNS O
 ! . O
 
 @ JJ O
-FinBergin NNP O
+FinBergin NNP B-person
 Exactly NNP O
 , , O
 you PRP O
@@ -15697,7 +15697,7 @@ wrong NN O
 here RB O
 
 @ NN O
-timkaine NN O
+timkaine NN B-person
 help VBP O
 us PRP O
 please VB O
@@ -15725,7 +15725,7 @@ swampland NN O
 
 RT NNP O
 @ NNP O
-TheCWSupergirl NNP B-corporation
+TheCWSupergirl NNP O
 : : O
 Roulette NNP O
 returns NNS O
@@ -15747,8 +15747,8 @@ weekend NN O
 with IN O
 a DT O
 little JJ O
-Margarita NNP O
-Madness NNP O
+Margarita NNP B-product
+Madness NNP I-product
 and CC O
 our PRP$ O
 fantastic JJ O
@@ -15764,7 +15764,7 @@ https://t.co/GHZa0nHAqp NN O
 
 RT NNP O
 @ NNP O
-BadlandsNPS NNP B-creative-work
+BadlandsNPS NNP O
 : : O
 Presently RB O
 we PRP O
@@ -15835,8 +15835,8 @@ minutes NNS O
 https://t.co/9Q5W8t4VJp VBP O
 
 @ NN O
-Bmac NNP B-product
-0507 CD I-product
+Bmac NNP O
+0507 CD O
 @ NNP O
 BiasedGirl NNP O
 @ NNP O
@@ -15867,7 +15867,7 @@ oOPS NN O
 
 RT NNP O
 @ NNP O
-elessar VBD B-person
+elessar VBD O
 42 CD O
 : : O
 Psst NN O
@@ -15941,11 +15941,11 @@ https://t.co/uSVwoeZC8B NN O
 
 RT NNP O
 @ NNP O
-Harry NNP O
-_ NNP O
-Styles NNP O
+Harry NNP B-person
+_ NNP I-person
+Styles NNP I-person
 : : O
-Glasgow NNP B-location,B-group
+Glasgow NNP B-location
 7 CD O
 . . O
 10 CD O
@@ -15958,7 +15958,7 @@ https://t.co/oktJP82lDd NN O
 SEO NNP O
 Tip NNP O
 : : O
-Google NNP B-corporation,B-product
+Google NNP B-product
 considers VBZ O
 the DT O
 first JJ O
@@ -15979,7 +15979,7 @@ on IN O
 top NN O
 . . O
 # # O
-google NN B-group
+google NN B-product
 
 RT NNP O
 @ NNP O
@@ -15994,10 +15994,10 @@ the DT O
 rest NN O
 but CC O
 the DT O
-punchline NN B-creative-work
-is VBZ I-creative-work
-punch JJ I-creative-work
-Nazis NNP O
+punchline NN O
+is VBZ O
+punch JJ O
+Nazis NNP B-group
 . . O
 https://t.co/9FzK5V0UnP NN O
 
@@ -16068,7 +16068,7 @@ conozcopablo JJ O
 Travel NNP O
 https://t.co/qxLmN6lGV4 NN O
 
-Lockheed NNP O
+Lockheed NNP B-corporation
 says VBZ O
 Trump NNP B-person
 pressure NN O
@@ -16076,8 +16076,8 @@ won VBD O
 ' POS O
 t JJ O
 affect JJ O
-F- NNP O
-35 CD O
+F- NNP B-product
+35 CD I-product
 profitability NN O
 - : O
 https://t.co/qaer0LaaN2 NN O
@@ -16116,11 +16116,11 @@ posted VBN O
 a DT O
 photo NN O
 @ NNP O
-Kembar NNP B-group
-Mas NNP I-group
-Utara NNP O
+Kembar NNP B-location
+Mas NNP I-location
+Utara NNP I-location
 - : O
-Buahbatu NNP O
+Buahbatu NNP B-location
 https://t.co/u7WQDGcSVW NN O
 
 https://t.co/3kPsB84H8C NN O
@@ -16263,10 +16263,10 @@ RT NNP O
 @ NNP O
 KnifingTourney NNP O
 : : O
-The DT B-product
-Knifing NNP I-product
-Tourney NNP I-product
-2017 CD O
+The DT B-group
+Knifing NNP I-group
+Tourney NNP I-group
+2017 CD I-group
 Judges NNP B-group
 . . O
 https://t.co/0xLPX96NHA NN O
@@ -16430,11 +16430,11 @@ Humi NNP O
 Good NNP O
 New NNP O
 # # O
-Nike NNP B-corporation,B-product
+Nike NNP B-product
 Air NNP I-product
 Jordan NNP I-product
-11 CD O
-XI NNP O
+11 CD I-product
+XI NNP I-product
 # # O
 Retro NNP O
 Low NNP O
@@ -16521,17 +16521,17 @@ is VBZ O
 
 RT NNP O
 @ NNP O
-dazb VBZ B-creative-work
-160 CD I-creative-work
+dazb VBZ O
+160 CD O
 : : O
 @ NN O
-GlennTemp NNP B-creative-work,B-person
+GlennTemp NNP O
 @ NNP O
-adidasanorak VBZ B-creative-work,B-product
+adidasanorak VBZ O
 @ NNP O
-DeadstockUtopia NNP B-creative-work
+DeadstockUtopia NNP O
 @ NNP O
-OriginalSoleog NNP B-creative-work
+OriginalSoleog NNP O
 Indoor NNP O
 Super NNP O
 at IN O
@@ -16559,11 +16559,11 @@ Brothers NNPS I-group
 SachaBaronCohen NNP B-person
 https://t.co/j5sX477935 NN O
 # # O
-sachabaroncohen NN O
+sachabaroncohen NN B-person
 
 RT NNP O
 @ NNP O
-kaleyrams NNS B-person
+kaleyrams NNS O
 : : O
 I PRP O
 just RB O
@@ -16719,18 +16719,18 @@ ophelia VBD O
 @ VB O
 rmathis NN O
 15 CD O
-Nicole NNP O
+Nicole NNP B-person
 ' POS O
 s NN O
-raspberry NN B-creative-work,B-product
-sorbet NN I-creative-work,I-product
-gum NN I-creative-work,I-product
+raspberry NN B-product
+sorbet NN I-product
+gum NN I-product
 ? . O
 
 @ NN O
-grigiosluts NNS B-corporation
+grigiosluts NNS O
 @ VBP O
-ArtpopRemixed NNP B-corporation
+ArtpopRemixed NNP O
 you PRP O
 keep VBP O
 saying VBG O
@@ -16779,23 +16779,23 @@ romanhipaula NN O
 https://t.co/MzXu2uqOMC NN O
 
 The DT O
-River NNP B-location,B-group
-Rom NNP I-location,I-group
-, , I-group
+River NNP B-location
+Rom NNP I-location
+, , O
 also RB O
 in IN O
 places NNS O
 known VBN O
 as IN O
 the DT O
-River NNP B-location,B-group
-Beam NNP I-location,I-group
+River NNP B-location
+Beam NNP I-location
 , , O
 is VBZ O
 a DT O
 river NN O
 in IN O
-Essex NNP B-location,B-group
+Essex NNP B-location
 which WDT O
 becomes VBZ O
 a DT O
@@ -16836,18 +16836,18 @@ frugaliscious JJ O
 It PRP O
 ' '' O
 s JJ O
-Arri NNP B-creative-work,B-person
+Arri NNP B-creative-work
 ' POS I-creative-work
 s NN I-creative-work
-Playtime NNP I-creative-work,B-corporation
-Tv NN I-creative-work,I-corporation
-: : O
-how WRB O
-to TO O
-start VB O
-The DT O
-Fisher- NNP O
-P NNP O
+Playtime NNP I-creative-work
+Tv NN I-creative-work
+: : I-creative-work
+how WRB I-creative-work
+to TO I-creative-work
+start VB I-creative-work
+The DT I-creative-work
+Fisher- NNP I-creative-work
+P NNP I-creative-work
 . . O
 . . O
 . . O
@@ -16866,7 +16866,7 @@ https://t.co/TlRrNT1wwI NN O
 
 RT NNP O
 @ NNP O
-ThomasBeautyy NNP B-person
+ThomasBeautyy NNP O
 : : O
 Do VBP O
 you PRP O
@@ -16951,7 +16951,7 @@ going VBG O
 on IN O
 Good JJ B-creative-work
 Morning NN I-creative-work
-Britain NNP I-creative-work,B-location
+Britain NNP I-creative-work
 , , O
 didn NN O
 ' '' O
@@ -16976,7 +16976,7 @@ about IN O
 … NN O
 
 @ JJ O
-jellibun NN B-person
+jellibun NN O
 hmmm NN O
 i NN O
 ' '' O
@@ -16998,7 +16998,7 @@ costs NNS O
 
 On IN O
 god JJ O
-Darius NNP B-person,B-product
+Darius NNP B-person
 plugs NNS O
 unreliable JJ O
 asf JJ O
@@ -17019,14 +17019,14 @@ words NNS O
 # # O
 political JJ O
 # # O
-DumpTrump NNP B-person
+DumpTrump NNP O
 https://t.co/Z6dyLcXlWF NN O
 
 I PRP O
 think VBP O
-obi JJ B-creative-work,B-person
-wan NN I-creative-work,I-person
-Kenobi NNP I-creative-work,I-person
+obi JJ B-person
+wan NN I-person
+Kenobi NNP I-person
 had VBD O
 short JJ O
 term NN O
@@ -17038,7 +17038,7 @@ forgot VBD O
 to TO O
 mention VB O
 that DT O
-Darth NNP B-creative-work,B-person
+Darth NNP B-person
 is VBZ O
 your PRP$ O
 father NN O
@@ -17048,7 +17048,7 @@ have VBP O
 a DT O
 sister NN O
 @ NN O
-HamillHimself NNP B-creative-work
+HamillHimself NNP O
 
 RT NNP O
 @ NNP O
@@ -17074,7 +17074,7 @@ https://t.co/W5VcDV0KzI NN O
 Retweeting VBG O
 for IN O
 @ NNP O
-BadlandsNPS NNP B-creative-work
+BadlandsNPS NNP O
 . . O
 # # O
 ClimateChange NNP O
@@ -17127,7 +17127,7 @@ films NNS O
 https://t.co/ubyjCHIWKD NN O
 by IN O
 # # O
-CNN NNP O
+CNN NNP B-corporation
 via IN O
 @ NNP O
 c VBD O
@@ -17149,7 +17149,7 @@ https://t.co/nIi6LOGkPs JJ O
 
 RT NNP O
 @ JJ O
-WorIdStarComedy NNP B-group
+WorIdStarComedy NNP O
 : : O
 Everything NN O
 this DT O
@@ -17163,7 +17163,7 @@ https://t.co/uhxmybhsYz NN O
 
 RT NNP O
 @ NNP O
-savmontano NN B-person
+savmontano NN O
 : : O
 https://t.co/fDc1nJ7WQ6 NN O
 
@@ -17176,7 +17176,7 @@ mon NN O
 Beauty NN O
 comes VBZ O
 from IN O
-within IN B-location
+within IN O
 . . O
 https://t.co/YLE8Yl86YE NN O
 
@@ -17198,13 +17198,13 @@ playing VBG O
 In IN B-creative-work
 My PRP$ I-creative-work
 Bed NN I-creative-work
-by IN I-creative-work
-Amy NNP I-creative-work,B-person,B-product
-Winehouse NNP I-creative-work,I-person,I-product
+by IN O
+Amy NNP B-person
+Winehouse NNP I-person
 # # O
 nowplaying VBG O
-Listen NNP B-creative-work
-live JJ I-creative-work
+Listen NNP O
+live JJ O
 : : O
 https://t.co/pHXLO1eb4v NN O
 https://t.co/MZNlOyvAJ4 NN O
@@ -17221,8 +17221,8 @@ charity NN O
 https://t.co/5VEIBK228B VBP O
 https://t.co/DcwFj8k5XE NN O
 
-Blog NNP B-corporation
-Technology NNP I-corporation
+Blog NNP B-creative-work
+Technology NNP I-creative-work
 to TO O
 review VB O
 the DT O
@@ -17253,7 +17253,7 @@ Good JJ O
 morninggg NN O
 ~ NNP O
 # # O
-MissUniverse NNP B-creative-work,B-person
+MissUniverse NNP B-person
 # # O
 Indonesia NNP B-location
 
@@ -17265,7 +17265,7 @@ Huge NNP O
 breakthrough NN O
 ! . O
 @ JJ O
-nytimes NNS O
+nytimes NNS B-corporation
 calling VBG O
 a DT O
 lie NN O
@@ -17336,8 +17336,8 @@ Trump NN B-person
 vows NNS O
 to TO O
 stop VB O
-Islamic NNP B-group
-terrorism NN I-group
+Islamic NNP O
+terrorism NN O
 ! . O
 How WRB O
 dare NN O
@@ -17346,8 +17346,8 @@ he PRP O
 This DT O
 might MD O
 offend VB O
-Islamic NNP O
-terrorists NNS O
+Islamic NNP B-group
+terrorists NNS I-group
 ! . O
 I PRP O
 ' '' O
@@ -17385,7 +17385,7 @@ of IN O
 
 RT NNP O
 @ NNP O
-meoyuasa NN B-person
+meoyuasa NN O
 : : O
 Love NNP O
 & CC O
@@ -17431,9 +17431,9 @@ iHeartAwards NNS O
 https://t.co/GWdK7L7RtR NN O
 
 RT NNP O
-@ VBD B-person
-5 CD I-person
-HonTour NNP I-person
+@ VBD O
+5 CD O
+HonTour NNP O
 : : O
 # # O
 WorkFromHome NNP O
@@ -17446,7 +17446,7 @@ https://t.co/GWdK7L7RtR NN O
 RT NNP O
 @ VBD O
 5 CD O
-HonTour NNP B-group
+HonTour NNP O
 : : O
 # # O
 WorkFromHome NNP O
@@ -17459,10 +17459,10 @@ https://t.co/GWdK7L7RtR NN O
 RT NNP O
 @ VBD O
 5 CD O
-HonTour NNP B-corporation
+HonTour NNP O
 : : O
 # # O
-WorkFromHome NNP B-location
+WorkFromHome NNP O
 # # O
 BestMusicVideo NNP O
 # # O
@@ -17520,14 +17520,14 @@ el NN O
 Amor NNP O
 . . O
 The DT B-creative-work
-Angels NNPS I-creative-work,B-group
+Angels NNPS I-creative-work
 are VBP I-creative-work
 Listening VBG I-creative-work
 : : O
 Snatam NNP B-person
 Kaur NNP I-person
 sings VBZ O
-Suṉi-ai NNP O
+Suṉi-ai NNP B-creative-work
 with IN O
 Ajeet NNP B-person
 Kaur NNP I-person
@@ -17550,9 +17550,9 @@ https://t.co/VbwdYoScRn NN O
 
 RT NNP O
 @ NNP O
-Zoe NNP O
-_ NNP O
-Clark NNP O
+Zoe NNP B-person
+_ NNP I-person
+Clark NNP I-person
 _ NNP O
 xxx NN O
 : : O
@@ -17627,7 +17627,7 @@ https://t.co/WS4mEwtgnw NN O
 
 RT NNP O
 @ NNP O
-TheLeadCNN NNP B-creative-work,B-corporation
+TheLeadCNN NNP O
 : : O
 . . O
 @ CC O
@@ -17637,8 +17637,8 @@ There EX O
 is VBZ O
 a DT O
 reason NN O
-White NNP O
-House NNP O
+White NNP B-location
+House NNP I-location
 is VBZ O
 providing VBG O
 no DT O
@@ -17704,14 +17704,14 @@ out RP O
 Yo NNP B-creative-work
 soy NN I-creative-work
 Moana NNP I-creative-work
-( ( O
-Canto NNP B-creative-work
+( ( I-creative-work
+Canto NNP I-creative-work
 ancestral NN I-creative-work
-) ) O
+) ) I-creative-work
 " NN O
 on IN O
 # # O
-Smule NN O
+Smule NN B-product
 : : O
 https://t.co/mCxofiCKqd NN O
 # # O
@@ -17725,19 +17725,19 @@ kartikaaw VBD O
 Tweet NN O
 trus NN O
 for IN O
-Kezia NNP O
-Warouw NNP O
+Kezia NNP B-person
+Warouw NNP I-person
 # # O
-MissUniverse NNP B-corporation
+MissUniverse NNP B-person
 # # O
 Indonesia NNP B-location
 
 RT NNP O
 @ JJ O
-ltsFRIENDSposts NNS B-creative-work
+ltsFRIENDSposts NNS O
 : : O
-Literally RB B-creative-work
-me PRP I-creative-work
+Literally RB O
+me PRP O
 : : O
 https://t.co/s58wlbemVP NN O
 
@@ -17773,7 +17773,7 @@ man NN O
 . . O
 First NNP O
 the DT O
-country NN B-location
+country NN O
 , , O
 now RB O
 … VBP O
@@ -17794,9 +17794,9 @@ AM NNP O
 
 RT NNP O
 @ NNP O
-Prettyboy NNP B-person
+Prettyboy NNP O
 _ NNP O
-flako NN B-person
+flako NN O
 : : O
 Who WP O
 do VBP O
@@ -17812,8 +17812,8 @@ fight NN O
 
 Seoul- NNP B-location
 Incheon NNP I-location
-, , O
-South NNP B-location
+, , I-location
+South NNP I-location
 Korea NNP I-location
 : : O
 Old NNP O
@@ -17889,9 +17889,9 @@ media NNS O
 https://t.co/RjBWzduYIP NN O
 
 @ JJ O
-MaryKayCabot NNP O
+MaryKayCabot NNP B-person
 @ NNP O
-TheKennyRoda NNP O
+TheKennyRoda NNP B-person
 @ NNP O
 clevelanddotcom NN B-corporation
 https://t.co/zSacM2iqb7 NN O
@@ -17923,8 +17923,8 @@ tableFIVE JJ O
 https://t.co/pYrsXCEgZy NN O
 
 RT NNP O
-@ NNP B-person
-glowkit NN I-person,B-product
+@ NNP O
+glowkit NN O
 : : O
 followers NNS O
 will MD O
@@ -17933,7 +17933,7 @@ chosen VBN O
 today NN O
 + NNP O
 one CD O
-instagram NN B-corporation
+instagram NN B-product
 follower NN O
 so RB O
 4 CD O
@@ -17974,7 +17974,7 @@ DiscoveryRidge NNP O
 https://t.co/ro0DxQvUL0 NN O
 
 @ JJ O
-BeatrizDjee NNP B-creative-work,B-person
+BeatrizDjee NNP O
 MAAX NNP O
 QUE NNP O
 BOM NNP O
@@ -18001,10 +18001,10 @@ Good JJ O
 luck NN O
 to TO O
 @ VB O
-CoachHuggs NNP B-person
+CoachHuggs NNP O
 and CC O
 @ NNP O
-WVUhoops NNP B-group
+WVUhoops NNP O
 tonight NN O
 ! . O
 Don NNP O
@@ -18017,10 +18017,10 @@ s JJ O
 Gold NNP B-creative-work
 Rush NNP I-creative-work
 and CC O
-the DT O
-pregame NN O
-light JJ O
-show NN O
+the DT B-creative-work
+pregame NN I-creative-work
+light JJ I-creative-work
+show NN I-creative-work
 ! . O
 … NN O
 
@@ -18086,7 +18086,7 @@ this DT O
 ! . O
 
 My PRP$ O
-Lyft NNP B-corporation
+Lyft NNP B-product
 is VBZ O
 lit JJ O
 ! . O
@@ -18105,8 +18105,8 @@ stupid JJ O
 RT NNP O
 @ NNP O
 elizabeth VBZ B-person
-_ JJ O
-macg NN O
+_ JJ I-person
+macg NN I-person
 : : O
 Me $ O
 2 CD O
@@ -18148,11 +18148,11 @@ Ms NNP O
 
 RT NNP O
 @ NNP O
-audubonsociety NN B-group
+audubonsociety NN O
 : : O
 . . O
 @ VB O
-BadlandsNPS NNP B-corporation
+BadlandsNPS NNP B-location
 is VBZ O
 a DT O
 great JJ O
@@ -18254,23 +18254,23 @@ him PRP O
 ️ JJ O
 FOOLISH NNP B-creative-work
 LOVE NNP I-creative-work
-PREMIERE NNP I-creative-work
+PREMIERE NNP O
 NIGHT NNP O
 # # O
 LLRelationshipGoals NNP O
 https://t.co/VrbnKAvcVy NN O
 
-Lowongan NNP B-location
-PT NNP I-location
-Citilink NNP O
-Indonesia NNP B-location
+Lowongan NNP O
+PT NNP B-corporation
+Citilink NNP I-corporation
+Indonesia NNP I-corporation
 - : O
 Recruitment NN O
 ForFresh NNP O
 Graduate NNP O
 Management NNP O
 Trainee NNP O
-Citilink NNP O
+Citilink NNP B-corporation
 January NNP O
 2017 CD O
 . . O
@@ -18372,12 +18372,12 @@ s NN O
 😔 NN O
 
 @ JJ O
-TwoBlindBros NNP O
+TwoBlindBros NNP B-group
 Fantastic NNP O
 piece NN O
 on IN O
 @ NNP O
-NBCNightlyNews NNP B-creative-work,B-product,B-corporation
+NBCNightlyNews NNP B-creative-work
 tonight NN O
 ! . O
 ! . O
@@ -18466,11 +18466,11 @@ WarGit NNP O
 @ NNP O
 northumbriana IN O
 If IN O
-Ney NNP O
+Ney NNP B-person
 had VBD O
 appeared VBN O
 in IN O
-Marshals NNS O
+Marshals NNS B-group
 uniform IN O
 he PRP O
 would MD O
@@ -18489,31 +18489,31 @@ into IN O
 the DT O
 mud NN O
 
-DELL NNP B-corporation
-Inspiron NNP B-product
-17 CD O
-R NNP O
-5721 CD O
-Core NNP O
-i NN O
-5 CD O
-- : O
-3317 CD O
-U NNP O
-1 CD O
-. . O
-7 CD O
-GHz NNP O
-6 CD O
-Gb NNP O
-750 CD O
-Gb NNP O
-DVDRW NNP O
-17 CD O
-. . O
-3 CD O
-" JJ O
-Laptop NNP O
+DELL NNP B-product
+Inspiron NNP I-product
+17 CD I-product
+R NNP I-product
+5721 CD I-product
+Core NNP I-product
+i NN I-product
+5 CD I-product
+- : I-product
+3317 CD I-product
+U NNP I-product
+1 CD I-product
+. . I-product
+7 CD I-product
+GHz NNP I-product
+6 CD I-product
+Gb NNP I-product
+750 CD I-product
+Gb NNP I-product
+DVDRW NNP I-product
+17 CD I-product
+. . I-product
+3 CD I-product
+" JJ I-product
+Laptop NNP I-product
 https://t.co/SvPm1Qm5dg NN O
 https://t.co/eG2GWQ5Jv7 NN O
 
@@ -18698,9 +18698,9 @@ VroniquePersic NNP O
 @ NNP O
 horttim NN O
 @ NNP O
-serina NN O
-_ NNP O
-sgill NN O
+serina NN B-person
+_ NNP I-person
+sgill NN I-person
 @ NNP O
 priscillaNK VBZ O
 27 CD O
@@ -18716,10 +18716,10 @@ Marujk NNP O
 1 CD O
 @ NNP O
 Stacy NNP B-person
-_ NNP O
-WahlLove NNP O
+_ NNP I-person
+WahlLove NNP I-person
 @ NNP O
-DonnieWahlberg NNP O
+DonnieWahlberg NNP B-person
 # # O
 twug NN O
 
@@ -18744,10 +18744,10 @@ COMEDY NNP O
 SHOW NNP O
 ! . O
 at IN O
-No DT B-creative-work
-Fun NNP I-creative-work
-Bar NNP I-creative-work
-Starts NNP I-creative-work
+No DT B-location
+Fun NNP I-location
+Bar NNP I-location
+Starts NNP O
 in IN O
 1 CD O
 Hour-https JJ O
@@ -18826,7 +18826,7 @@ Go NNP O
 To TO O
 : : O
 https://t.co/ZZqjTDgLcC NN O
-Advertise NNP I-creative-work
+Advertise NNP B-creative-work
 Anything NNP I-creative-work
 - : O
 Free NNP O
@@ -18868,7 +18868,7 @@ RT NNP O
 @ NNP O
 soompi NN B-person
 : : O
-ICYMI- JJ B-corporation
+ICYMI- JJ O
 Lee NNP B-person
 Joon NNP I-person
 Gi NNP I-person
@@ -18882,7 +18882,7 @@ Of IN O
 The DT O
 Actor NNP O
 Dating NNP O
-IU NNP O
+IU NNP B-person
 https://t.co/cy7Cir3rhq NN O
 https://t.co/6jGVOyQAte NN O
 
@@ -19016,14 +19016,14 @@ https://t.co/XD3uZNGQTN NN O
 
 RT NNP O
 @ NNP O
-briankoppelman NN O
+briankoppelman NN B-person
 : : O
 Yeah UH O
 , , O
 man NN O
 . . O
 @ JJ O
-jaketapper NN O
+jaketapper NN B-person
 is VBZ O
 handling VBG O
 this DT O
@@ -19042,7 +19042,7 @@ Good VB O
 on IN O
 you PRP O
 , , O
-Jak NNP O
+Jak NNP B-person
 … NNP O
 
 RT NNP O
@@ -19050,13 +19050,13 @@ RT NNP O
 30 CD O
 secondrock NN O
 : : O
-The DT B-creative-work,B-group
-Black NNP I-creative-work,B-corporation,I-group
-Keys NNP I-creative-work,I-corporation,I-group
+The DT B-group
+Black NNP I-group
+Keys NNP I-group
 - : O
 " NN O
-Lonely RB B-creative-work,B-corporation
-Boy NNP I-creative-work,I-corporation
+Lonely RB B-creative-work
+Boy NNP I-creative-work
 " NNP O
 https://t.co/k1hxm2U1Mq NN O
 
@@ -19073,7 +19073,7 @@ by IN O
 stephenjeske NN B-person
 via IN O
 @ NNP O
-quora NNP O
+quora NNP B-product
 https://t.co/c66x410IUr NN O
 # # O
 emailmarketing VBG O
@@ -19130,8 +19130,8 @@ i NN O
 m NNS O
 looking VBG O
 for IN O
-Linux NNP B-creative-work,B-product
-OS NNP I-creative-work,I-product
+Linux NNP B-product
+OS NNP I-product
 have VBP O
 a DT O
 look NN O
@@ -19139,7 +19139,7 @@ good JJ O
 , , O
 unlike IN O
 the DT O
-Ubuntu NNP B-creative-work,B-product
+Ubuntu NNP B-product
 it PRP O
 ' '' O
 s JJ O
@@ -19169,14 +19169,14 @@ thoughts NNS O
 
 RT NNP O
 @ NNP O
-jzaffos NN O
+jzaffos NN B-person
 : : O
 Hey NNP O
 federal JJ O
 scientists NNS O
 : : O
 @ NN O
-highcountrynews NNS O
+highcountrynews NNS B-corporation
 is VBZ O
 collecting VBG O
 reports NNS O
@@ -19224,7 +19224,7 @@ er VBD O
 cmau NN O
 : : O
 # # O
-Catalonia NNP O
+Catalonia NNP B-location
 ' POS O
 s JJ O
 foreign JJ O
@@ -19303,9 +19303,9 @@ Here RB O
 Right NNP O
 Now RB O
 by IN O
-BiggDawg NNP B-corporation,B-person
-C NNP I-corporation,I-person
-Loc NNP I-corporation,I-person
+BiggDawg NNP B-person
+C NNP I-person
+Loc NNP I-person
 on IN O
 https://t.co/N2EeQhksi0 NN O
 
@@ -19348,12 +19348,12 @@ away RB O
 
 RT NNP O
 @ NNP O
-KleinISD NNP B-creative-work,B-person,B-product
+KleinISD NNP B-creative-work
 : : O
 The DT O
 @ NNP O
-KleinISD NNP B-creative-work,B-person,B-product,B-corporation
-Daily NNP I-creative-work,I-product,I-corporation
+KleinISD NNP B-creative-work
+Daily NNP I-creative-work
 is VBZ O
 out RP O
 ! . O
@@ -19414,7 +19414,7 @@ denounce NN O
 any DT O
 action NN O
 against IN O
-EPA NNP B-corporation,B-group
+EPA NNP B-group
 . . O
 # # O
 … NN O
@@ -19488,7 +19488,7 @@ Neighborhood NNP O
 Watch NNP O
 in IN O
 # # O
-Napa NNP O
+Napa NNP B-location
 https://t.co/ckMRuatVDD NN O
 via IN O
 @ NNP O
@@ -19530,7 +19530,7 @@ I PRP O
 d NN O
 rather RB O
 have VBP O
-Dory NNP B-person,B-group
+Dory NNP B-person
 . . O
 https://t.co… NN O
 
@@ -19645,7 +19645,7 @@ better RBR O
 https://t.co/xtojbCD5RB NN O
 
 @ NN O
-HardCountFOX NNP B-creative-work
+HardCountFOX NNP B-corporation
 follow VBP O
 the DT O
 money NN O
@@ -19671,12 +19671,12 @@ matter NN O
 New NNP O
 Post NNP O
 : : O
-2000 CD O
-AD NNP O
-At IN O
-The DT B-corporation
-Cartoon NNP I-corporation
-Museum NNP I-corporation
+2000 CD B-creative-work
+AD NNP I-creative-work
+At IN I-creative-work
+The DT I-creative-work
+Cartoon NNP I-creative-work
+Museum NNP I-creative-work
 https://t.co/k1wMU7Kvst NN O
 https://t.co/h1jGfAx4e9 NN O
 
@@ -19887,13 +19887,13 @@ another DT O
 pitcher NN O
 https://t.co/UA5iJ1gyKw NN O
 
-Questions NNS O
-Not RB O
-Answers NNP O
+Questions NNS B-creative-work
+Not RB I-creative-work
+Answers NNP I-creative-work
 | NNP O
-Box NNP O
-of IN O
-Crayons NNP O
+Box NNP B-corporation
+of IN I-corporation
+Crayons NNP I-corporation
 https://t.co/CXafSHeWPV NN O
 https://t.co/9kvP5sokij NN O
 
@@ -19932,9 +19932,9 @@ this DT O
 isn NN O
 ' '' O
 t JJ O
-taehyung NN O
+taehyung NN B-person
 and CC O
-jungkook NN O
+jungkook NN B-person
 https://t.co/YMKHcRifTS NN O
 
 RT NNP O
@@ -19943,8 +19943,8 @@ Nazaire NNP I-person
 73 CD I-person
 : : O
 Trump NN B-person
-’ NNP I-person
-s NN I-person
+’ NNP O
+s NN O
 budget NN O
 would MD O
 cut VB O
@@ -19989,24 +19989,24 @@ hahaha NN O
 [ JJ O
 ARTICLE NNP O
 ] NNP O
-Top NNP B-creative-work
-5 CD I-creative-work
-Highest NNP I-creative-work
-Paid NNP I-creative-work
-of IN I-creative-work
-Actors NNP I-creative-work
-Drama NNP I-creative-work
-Synopsis NNP I-creative-work
-Lee NNP I-creative-work,B-person
-Young NNP I-creative-work,I-person
-Ae NNP I-creative-work,I-person
+Top NNP O
+5 CD O
+Highest NNP O
+Paid NNP O
+of IN O
+Actors NNP O
+Drama NNP O
+Synopsis NNP O
+Lee NNP B-person
+Young NNP I-person
+Ae NNP I-person
 ( ( O
 Saimdang NNP B-creative-work
-, , O
-Light NNP B-creative-work
-' POS O
-s JJ O
-Diary NNP B-creative-work
+, , I-creative-work
+Light NNP I-creative-work
+' POS I-creative-work
+s JJ I-creative-work
+Diary NNP I-creative-work
 ) ) O
 - : O
 over IN O
@@ -20067,12 +20067,12 @@ https://t.co/jhcZPpguJ7 NN O
 
 @ JJ O
 katarina NNP B-person
-_ NNP O
-neko MD O
+_ NNP I-person
+neko MD I-person
 / VB O
 / NNP O
-FANGIRLING NNP B-corporation
-SCREaaMS NNP I-corporation
+FANGIRLING NNP O
+SCREaaMS NNP O
 
 RT NNP O
 @ NNP O
@@ -20101,8 +20101,8 @@ done VBN O
 Collaborations NNS O
 in IN O
 the DT O
-Sims NNP B-creative-work,B-product,B-group
-4 CD I-creative-work,I-product
+Sims NNP B-creative-work
+4 CD I-creative-work
 but CC O
 more JJR O
 are VBP O
@@ -20135,7 +20135,7 @@ ida NN O
 . . O
 . . O
 
-Uroxatral JJ B-corporation,B-product
+Uroxatral JJ B-product
 10 CD O
 mg NN O
 x VBD O
@@ -20213,7 +20213,7 @@ dumped VBN O
 https://t.co/2s6U7CMWUr NN O
 
 @ NN O
-CNN NNP O
+CNN NNP B-corporation
 He PRP O
 ' '' O
 s VBD O
@@ -20250,8 +20250,8 @@ their PRP$ O
 pains NNS O
 , , O
 oh JJ O
-madam NN O
-mina NN B-person
+madam NN B-person
+mina NN I-person
 . . O
 
 https://t.co/BJSV3u2Bo1 NN O
@@ -20304,7 +20304,7 @@ new JJ O
 MamaJune NNP B-creative-work
 ! . O
 @ NNP O
-WEtv NNP O
+WEtv NNP B-corporation
 # # O
 JessicaRabbit NNP B-person
 https://t.co/15FkpMp9gH NN O
@@ -20343,7 +20343,7 @@ The DT O
 Weather NNP O
 in IN O
 # # O
-Glasgow NNP B-location,B-group
+Glasgow NNP B-location
 is VBZ O
 currently RB O
 Partly NNP O
@@ -20409,7 +20409,7 @@ LadyThriller NNP O
 @ NNP O
 DiamondandSilk NNP O
 @ NNP O
-realDonaldTrump VBZ O
+realDonaldTrump VBZ B-person
 Only RB O
 a DT O
 possibly RB O
@@ -20417,7 +20417,7 @@ because IN O
 this DT O
 dope NN O
 allowed VBD O
-test NN B-creative-work
+test NN O
 to TO O
 happen VB O
 . . O
@@ -20469,7 +20469,7 @@ news NN O
 
 RT NNP O
 @ NNP O
-marIboros NN B-corporation,B-product
+marIboros NN B-person
 : : O
 I PRP O
 ’ VBP O
@@ -20545,8 +20545,8 @@ sHits NNS O
 50 CD B-person
 Cent NNP I-person
 - : O
-21 CD O
-Questions NNS O
+21 CD B-creative-work
+Questions NNS I-creative-work
 ft RB O
 . . O
 Nate NNP B-person
@@ -20637,7 +20637,7 @@ Beautiful NNP O
 842 CD O
 ) ) O
 # # O
-SwallaVideo NNP O
+SwallaVideo NNP B-creative-work
 https://t.co/ggbS2kIDpA NN O
 
 brooke NN B-person
@@ -20688,9 +20688,9 @@ Case NNP O
 https://t.co/PzZPTGoGy4 NN O
 https://t.co/4WGx0t8yLq NN O
 
-Auto NNP B-creative-work,B-product
-DJ NNP I-creative-work,I-product
-Show NNP I-creative-work,I-product
+Auto NNP B-creative-work
+DJ NNP I-creative-work
+Show NNP I-creative-work
 is VBZ O
 starting VBG O
 now RB O
@@ -20701,8 +20701,8 @@ here RB O
 : : O
 https://t.co/qBE5T6alql NN O
 
-Jack NNP B-person,B-group
-Gilinsky NNP I-person,I-group
+Jack NNP B-person
+Gilinsky NNP I-person
 , , O
 you PRP O
 mean VBP O
@@ -20734,10 +20734,10 @@ and CC O
 Director NNP O
 of IN O
 Moonlight NNP B-creative-work
-& CC I-creative-work
-amp NN I-creative-work
-; : I-creative-work
-Magnolias NNP I-creative-work
+& CC O
+amp NN O
+; : O
+Magnolias NNP B-creative-work
 at IN O
 the DT O
 Fly NNP B-location
@@ -20811,7 +20811,7 @@ will MD O
 look VB O
 like IN O
 if IN O
-Leicester NNP B-person,B-group
+Leicester NNP B-group
 wins VBZ O
 the DT O
 champions NNS O
@@ -20929,8 +20929,8 @@ we PRP O
 fuck VBP O
 trump JJ B-person
 - : O
-Google NNP B-corporation
-Search NNP O
+Google NNP B-product
+Search NNP I-product
 @ NNP O
 StefanMolyneux NNP B-person
 @ NNP O
@@ -20956,7 +20956,7 @@ https://t.co/Tase5IehRO NN O
 I PRP O
 feel VBP O
 like IN O
-Mets NNS B-creative-work,B-person,B-corporation,B-group
+Mets NNS B-group
 fans NNS O
 are VBP O
 the DT O
@@ -21027,8 +21027,8 @@ https://t.co/gXzfyvwiIc NN O
 
 Building VBG O
 a DT O
-Strategic NNP B-creative-work
-Relationship NNP I-creative-work
+Strategic NNP O
+Relationship NNP O
 With IN O
 Others NNP O
 is VBZ O
@@ -21045,7 +21045,7 @@ actual JJ O
 child NN O
 wearing VBG O
 a DT O
-Foxy NNP B-corporation,B-product,B-group
+Foxy NNP B-corporation
 shirt NN O
 during IN O
 my PRP$ O
@@ -21161,19 +21161,19 @@ Schofe NNP B-person
 @ NNP O
 C NNP O
 4 CD O
-Gogglebox NNP O
+Gogglebox NNP B-creative-work
 would MD O
 love VB O
 if IN O
 @ JJ O
-ITV NNP O
+ITV NNP B-corporation
 could MD O
 arrange VB O
 for IN O
 you PRP O
 and CC O
 @ VB O
-hollywills NNS O
+hollywills NNS B-person
 to TO O
 film NN O
 the DT O
@@ -21212,14 +21212,14 @@ Tonight NN O
 at IN O
 10 CD O
 on IN O
-KODE NNP B-corporation
-Action NNP O
-12 CD O
-News NNP O
+KODE NNP B-creative-work
+Action NNP I-creative-work
+12 CD I-creative-work
+News NNP I-creative-work
 . . O
 # # O
-kode VBD O
-12 CD O
+kode VBD B-creative-work
+12 CD I-creative-work
 https://t.co/Ad6ruIyr5M NN O
 
 Help NN O
@@ -21305,7 +21305,7 @@ test NN O
 
 RT NNP O
 @ NNP O
-ELVIclothing NNP B-group
+ELVIclothing NNP B-corporation
 : : O
 To TO O
 celebrate VB O
@@ -21313,13 +21313,13 @@ the DT O
 launch NN O
 of IN O
 our PRP$ O
-' POS B-creative-work
-Into NNP I-creative-work
-the DT I-creative-work
-Wild NNP I-creative-work
-' POS I-creative-work
-collection NN O
-RT NNP B-corporation
+' POS B-product
+Into NNP I-product
+the DT I-product
+Wild NNP I-product
+' POS I-product
+collection NN I-product
+RT NNP O
 and CC O
 Follow NNP O
 to TO O
@@ -21399,7 +21399,7 @@ https:… NN O
 
 RT NNP O
 @ NNP O
-marIboros NN B-corporation
+marIboros NN B-person
 : : O
 I PRP O
 love VBP O
@@ -21451,7 +21451,7 @@ https://t.co/ypA8onSV0Y NN O
 % NN O
 done VBN O
 with IN O
-Reborn NNP B-creative-work,B-product
+Reborn NNP B-creative-work
 , , O
 by IN O
 Jane NNP B-person
@@ -21493,7 +21493,7 @@ Thought NNP O
 https://t.co/oiHj6IQGuX NN O
 
 @ NN O
-DepCrusaderz NNP B-creative-work,B-person
+DepCrusaderz NNP B-person
 For IN O
 free JJ O
 ? . O
@@ -21518,8 +21518,8 @@ is VBZ O
 # # O
 Birminghamistan NNP O
 an DT O
-islamic JJ O
-state NN O
+islamic JJ B-group
+state NN B-group
 with IN O
 no DT O
 kufr NN O
@@ -21541,8 +21541,8 @@ your PRP$ O
 business NN O
 https://t.co/MBbVGUB9h2 NN O
 
-Harry NNP B-person,B-product
-Potter NNP I-person,I-product
+Harry NNP B-person
+Potter NNP I-person
 Humour NNP O
 - : O
 Writers NNS O
@@ -21553,7 +21553,7 @@ https://t.co/U7LqBNgv3z NN O
 
 RT NNP O
 @ NNP O
-iLGDaily RB B-corporation,B-person
+iLGDaily RB B-corporation
 : : O
 https://t.co/ymhWfDRoKm NN O
 
@@ -21631,12 +21631,12 @@ Band NNP I-group
 amp NN O
 ; : O
 @ CC O
-JulArgJazz NNP O
+JulArgJazz NNP B-group
 for IN O
 The DT B-creative-work
 Behemoth NNP I-creative-work
 @ NNP O
-EditionRecords NNP B-corporation,B-group
+EditionRecords NNP B-corporation
 … NNP O
 https://t.co/UV5UG6ec2w NN O
 
@@ -21701,7 +21701,7 @@ https://t.co/6oZ… NN O
 
 RT NNP O
 @ NNP O
-LanaDelRey NNP B-creative-work,B-person
+LanaDelRey NNP B-person
 : : O
 Music JJ B-creative-work
 To TO I-creative-work
@@ -21712,7 +21712,7 @@ http://t.co/FLdvkmkwjH VB O
 
 RT NNP O
 @ NNP O
-YasminYonis NNP O
+YasminYonis NNP B-person
 : : O
 How WRB O
 to TO O
@@ -21894,13 +21894,13 @@ flame NN O
 🔥 NN O
 
 How WRB O
-Miami NNP B-location,B-group
+Miami NNP B-group
 Dolphins VBZ I-group
 defensive JJ O
 end NN O
-spot NN B-creative-work
-stacks VBZ I-creative-work
-up RP I-creative-work
+spot NN O
+stacks VBZ O
+up RP O
 , , O
 what WP O
 that IN O
@@ -22104,9 +22104,9 @@ exist VB O
 
 Listen NNP O
 to TO O
-PreTape VB B-product
+PreTape VB B-creative-work
 by IN O
-RichiDenz NNP B-creative-work,B-person,B-group
+RichiDenz NNP B-person
 # # O
 np RB O
 on IN O
@@ -22161,9 +22161,9 @@ softpasteIs NN O
 Lost VBN O
 in IN O
 a DT O
-field NN B-location
-of IN I-location
-flowers NNS I-location
+field NN O
+of IN O
+flowers NNS O
 https://t.co/HxlDLinftt VBP O
 
 RT NNP O
@@ -22261,7 +22261,7 @@ freethereal NN O
 
 RT NNP O
 @ NNP O
-jinjjarevil NN B-creative-work,B-person
+jinjjarevil NN B-person
 : : O
 i NN O
 cant VBP O
@@ -22281,10 +22281,10 @@ AGO RB O
 ! . O
 / NN O
 / JJ O
-Beauty NNP B-creative-work,B-person,B-corporation
-and CC I-creative-work,I-corporation
-the DT I-creative-work,I-corporation
-Beast NNP I-creative-work,B-person,I-corporation
+Beauty NNP B-creative-work
+and CC I-creative-work
+the DT I-creative-work
+Beast NNP I-creative-work
 https://t.co/qsy37dQgRa NN O
 
 RT NNP O
@@ -22385,8 +22385,8 @@ MadamMelanin NNP O
 Skai NNP B-person
 Jackson NNP I-person
 for IN O
-Untitled NNP B-group
-Magazine NNP I-group
+Untitled NNP B-corporation
+Magazine NNP I-corporation
 https://t.co/sO24ZLf3MA NN O
 
 https://t.co/XXNpJ41oBm NN O
@@ -22408,8 +22408,8 @@ Playing VBG O
 Apna NNP B-creative-work
 Sangeet NNP I-creative-work
 - : O
-Valeti NNP B-creative-work,B-person
-Bhabiyan NNP I-creative-work,I-person
+Valeti NNP B-person
+Bhabiyan NNP I-person
 https://t.co/Rplegi07vb NN O
 
 RT NNP O
@@ -22431,7 +22431,7 @@ get VB O
 paid VBN O
 for IN O
 their PRP$ O
-SoundCloud NNP B-corporation,B-product,B-group
+SoundCloud NNP B-product
 mixes NNS I-product
 🙏 NNP O
 https://t.co/ovR779rVVr NN O
@@ -22478,7 +22478,7 @@ https://t.co/1RcEAlxWm5 VB O
 
 RT NNP O
 @ NNP O
-marIboros NNS B-corporation,B-product
+marIboros NNS B-person
 : : O
 how WRB O
 do VBP O
@@ -22505,8 +22505,8 @@ RT NNP O
 ItsTravelVibes NNP B-creative-work
 : : O
 Birmingham NNP B-location
-, , O
-United NNP B-location
+, , I-location
+United NNP I-location
 Kingdom NNP I-location
 https://t.co/WcGf0C68Vz NN O
 
@@ -22530,7 +22530,7 @@ base NN O
 for IN O
 another DT O
 , , O
-Helen NNP O
+Helen NNP B-person
 . . O
 . . O
 you PRP O
@@ -22546,7 +22546,7 @@ https://t.co/TJbtkggDSY NN O
 
 # # O
 152 CD O
-Chikorita NNP O
+Chikorita NNP B-creative-work
 ( ( O
 Tackle NNP O
 / NNP O
@@ -22595,13 +22595,13 @@ maywardUn NN O
 Good JJ O
 morning NN O
 @ NN O
-CocaColaPH NNP B-creative-work
+CocaColaPH NNP B-corporation
 721 CD O
 K NNP O
 tweets NNS O
-Fresh NNP B-creative-work
-and CC I-creative-work
-Organic NNP I-creative-work
+Fresh NNP O
+and CC O
+Organic NNP O
 . . O
 # # O
 MAYWARDForCocaColaPH NNP O
@@ -22751,17 +22751,17 @@ Humidity NNP O
 
 Free JJ O
 on IN O
-eBook NN B-product
-Blitz NNP B-creative-work,I-product
-: : O
-The DT B-creative-work,B-product
-Eslites NNS I-creative-work,I-product
+eBook NN B-creative-work
+Blitz NNP I-creative-work
+: : I-creative-work
+The DT I-creative-work
+Eslites NNS I-creative-work
 by IN O
-CM NNP B-person,B-product
-Doporto NNP I-person,I-product
+CM NNP B-person
+Doporto NNP I-person
 https://t.co/lSmKwx0q4g NN O
 # # O
-ebblitz NN B-product
+ebblitz NN B-creative-work
 https://t.co/H7qDz6E2Fv NN O
 
 Shadows NNS O
@@ -22804,19 +22804,19 @@ amyrightside NN O
 Age NNP B-creative-work
 of IN I-creative-work
 Defenders NNP I-creative-work
-- : O
-Multiplayer NNP O
-Tower NNP O
-Defense NNP O
-and CC O
-Offense NNP O
+- : I-creative-work
+Multiplayer NNP I-creative-work
+Tower NNP I-creative-work
+Defense NNP I-creative-work
+and CC I-creative-work
+Offense NNP I-creative-work
 post NN O
 . . O
 . . O
 . . O
 https://t.co/kkWpZlqHHk JJ O
 # # O
-ipad JJ O
+ipad JJ B-product
 # # O
 games NNS O
 # # O
@@ -22914,7 +22914,7 @@ run NN O
 @ JJ O
 allianceparts NNS O
 @ VBD O
-FordPerformance NNP B-corporation,B-product
+FordPerformance NNP B-corporation
 
 I PRP O
 got VBD O
@@ -22935,8 +22935,8 @@ needed VBN O
 . . O
 https://t.co/4BEOtmooo9 NN O
 
-teen JJ O
-wolf NN O
+teen JJ B-creative-work
+wolf NN I-creative-work
 sai NN O
 logo NN O
 do VBP O
@@ -23069,8 +23069,8 @@ can MD O
 do VB O
 ' '' O
 , , O
-Trump NNP B-person
-team NN O
+Trump NNP B-group
+team NN I-group
 says VBZ O
 https://t.co/waaWhnQ07i NN O
 
@@ -23124,8 +23124,8 @@ to TO O
 have VB O
 dinner NN O
 at IN O
-Olive NNP B-product
-Garden NNP I-product
+Olive NNP B-location
+Garden NNP I-location
 instead RB O
 https://t.co/ohA1BYzZsK VBD O
 
@@ -23245,7 +23245,7 @@ R NNP O
 # # O
 Photo NNP O
 by IN O
-Dinko NNP O
+Dinko NNP B-person
 # # O
 Dream NNP O
 # # O
@@ -23401,8 +23401,8 @@ spits VBZ O
 some DT O
 bars NNS O
 for IN O
-Lil NNP B-creative-work,B-person
-Yachty NNP I-creative-work,I-person
+Lil NNP B-person
+Yachty NNP I-person
 https://t.co/Q9IhFEdq5X NN O
 
 Not RB O
@@ -23452,7 +23452,7 @@ https://t.co/nvvC11Jfe9 NN O
 
 RT NNP O
 @ NNP O
-nprmusic JJ O
+nprmusic JJ B-group
 : : O
 Watch VB O
 @ NNP O
@@ -23508,7 +23508,7 @@ Eh NNP O
 @ NN O
 SheilaGunnReid NNP B-person
 @ NNP O
-TheRebelTV NNP O
+TheRebelTV NNP B-creative-work
 You PRP O
 nailed VBD O
 it PRP O
@@ -23537,10 +23537,10 @@ loves VBZ O
 me PRP O
 the DT O
 way NN O
-Jack NNP B-creative-work,B-person
-Pearson NNP I-creative-work,I-person
-loves VBZ I-creative-work
-Rebecca NNP I-creative-work,B-person
+Jack NNP B-person
+Pearson NNP I-person
+loves VBZ O
+Rebecca NNP B-person
 . . O
 
 RT NNP O
@@ -23600,7 +23600,7 @@ them PRP O
 . . O
 
 @ NN O
-CBSSports NNP B-corporation,B-product
+CBSSports NNP B-corporation
 @ NNP O
 PrimeLeBron NNP O
 I PRP O
@@ -23655,7 +23655,7 @@ Prime NNP O
 Melo NNP O
 in IN O
 the DT O
-iso NN B-location
+iso NN O
 
 RT NNP O
 @ NNP O
@@ -23728,8 +23728,8 @@ Nexus RB B-product
 6 CD I-product
 P NNP I-product
 | NNP O
-Nexus NNP B-product,B-group
-6 CD I-product,I-group
+Nexus NNP B-product
+6 CD I-product
 Sleeve NNP I-product
 Shop NN O
 : : O
@@ -23740,24 +23740,24 @@ Nexus NNP B-product
 6 CD I-product
 P NNP O
 # # O
-Nexus NNP B-product,B-group
-6 CD I-product,I-group
+Nexus NNP B-product
+6 CD I-product
 # # O
 Nexus NNP B-product
 6 CD I-product
 PSleeve NNP I-product
 # # O
-Nexus NNP B-product,B-group
-6 CD I-product,I-group
-PCover NNP I-product,I-group
+Nexus NNP B-product
+6 CD I-product
+PCover NNP I-product
 # # O
-Nexus NNP B-product,B-group
-6 CD I-product,I-group
+Nexus NNP B-product
+6 CD I-product
 PLeather NNP I-product
 # # O
-Nexus NNP B-group
-6 CD I-group
-PCase NNP I-group
+Nexus NNP B-product
+6 CD I-product
+PCase NNP I-product
 
 RT NNP O
 @ NNP O
@@ -23798,7 +23798,7 @@ Russ NNP B-person
 # # O
 ThunderUp NNP O
 # # O
-AssistOfTheNight NNP B-creative-work
+AssistOfTheNight NNP O
 https://t.co/RPOPm3Mdup NN O
 # # O
 RhodeIsland NNP B-location
@@ -23859,8 +23859,8 @@ SalHernandez NNP B-person
 Brett NNP B-person
 Baier NNP I-person
 says VBZ O
-Fox NNP O
-News NNP O
+Fox NNP B-corporation
+News NNP I-corporation
 " NNP O
 loves VBZ O
 " NNP O
@@ -23870,8 +23870,8 @@ Napolitano NNP I-person
 , , O
 but CC O
 that IN O
-Fox NNP O
-News NNP O
+Fox NNP B-corporation
+News NNP I-corporation
 was VBD O
 not RB O
 able JJ O
@@ -23907,13 +23907,13 @@ https://t.co/Bd9Cy8BCFv NN O
 Alain NN B-person
 3378 CD O
 played VBD O
-Plague NNP B-creative-work,B-corporation
-Inc NNP I-creative-work,I-corporation
+Plague NNP B-creative-work
+Inc NNP I-creative-work
 : : I-creative-work
-Evolved NNP I-creative-work,B-corporation
+Evolved NNP I-creative-work
 ( ( O
-PS NNP B-corporation,B-product
-4 CD I-corporation,I-product
+PS NNP B-product
+4 CD I-product
 ) ) O
 in IN O
 the DT O
@@ -23956,14 +23956,14 @@ i NN O
 ve NN O
 stalked VBD O
 ur JJ O
-Instagr NNP O
+Instagr NNP B-product
 … NN O
 
 grave NN O
 https://t.co/JnLglavS4c NN O
 
-Curious JJ O
-George NNP O
+Curious JJ B-person
+George NNP I-person
 really RB O
 is VBZ O
 the DT O
@@ -23992,8 +23992,8 @@ RT NNP O
 @ NNP O
 fordm NN B-person
 : : O
-Kellyanne NNP B-person,B-group
-Conway NNP I-person,I-group
+Kellyanne NNP B-person
+Conway NNP I-person
 ' POS O
 s JJ O
 husband NN O
@@ -24156,7 +24156,7 @@ V NNP O
 _ NNP O
 of IN O
 _ NNP O
-Europe NNP O
+Europe NNP B-location
 : : O
 Europe NNP B-location
 ' POS O
@@ -24167,8 +24167,8 @@ person NN O
 is VBZ O
 in IN O
 the DT O
-White NNP O
-House NNP O
+White NNP B-location
+House NNP B-location
 . . O
 The DT O
 damage NN O
@@ -24202,8 +24202,8 @@ moving VBG O
 like IN O
 one CD O
 slaggy NN O
-Kat NNP B-person,B-product
-Slater NNP I-person,I-product
+Kat NNP B-person
+Slater NNP I-person
 having VBG O
 like IN O
 3 CD O
@@ -24282,9 +24282,9 @@ https://t.co/RYsrtZtbTD NN O
 
 RT NNP O
 @ NNP O
-boyband NN O
-_ NNP O
-joao NN O
+boyband NN B-group
+_ NNP I-group
+joao NN I-group
 : : O
 Happy JJ O
 Six NNP O
@@ -24294,7 +24294,7 @@ All NNP O
 Of IN O
 The DT O
 Other JJ O
-João NNP O
+João NNP B-group
 ' POS O
 s NN O
 Supporters NNS O
@@ -24312,7 +24312,7 @@ For IN O
 Everyone NN O
 ! . O
 ❤ JJ O
-TeamJOA NNP O
+TeamJOA NNP B-group
 … NN O
 
 RT NNP O
@@ -24428,8 +24428,8 @@ https://t.co/4yVobHQ8mL JJ O
 riverlevels NNS O
 
 RT NNP O
-@ NNP B-person
-anthonyuJR NN I-person
+@ NNP O
+anthonyuJR NN B-person
 : : O
 When WRB O
 I PRP O
@@ -24536,9 +24536,9 @@ RT NNP O
 @ NNP O
 litgrimes VBZ O
 : : O
-archie NN O
+archie NN B-person
 and CC O
-blair NN O
+blair NN B-person
 — VBP O
 i NN O
 know VBP O
@@ -24549,7 +24549,7 @@ https://t.co/gJH2WCGYIu VBP O
 
 RT NNP O
 @ NNP O
-marIboros NN O
+marIboros NN B-person
 : : O
 short JJ O
 girls NNS O
@@ -24584,7 +24584,7 @@ everything NN O
 Never RB O
 Been NNP O
 To TO O
-Shakers NNP B-corporation
+Shakers NNP B-location
 Before IN O
 
 https://t.co/hh3PVQ5L0a NN O
@@ -24650,7 +24650,7 @@ be VB O
 horrible JJ O
 today NN O
 unless IN O
-Holiday NNP B-creative-work
+Holiday NNP B-person
 has VBZ O
 a DT O
 big JJ O

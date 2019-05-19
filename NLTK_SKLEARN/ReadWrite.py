@@ -1,5 +1,7 @@
 from collections import namedtuple
 import sys, os
+import json
+import nltk
 scriptDir = os.path.dirname(__file__)
 path = os.path.join(scriptDir, "reader")
 sys.path.insert(0, path)
@@ -27,7 +29,7 @@ def readTags(file):
     return tags
 
 
-def writeToFile(tagged, filename):
+def writeTripletsToFile(tagged, filename):
     """ writes pos tagged triplets to file
     -> used so corpus can be read by slightly modified ConllChunkCorpusReader
 
@@ -51,5 +53,40 @@ def writeToFile(tagged, filename):
         #fp.write('\n'.join('{} {} {}'.format(triplet[0], triplet[1], triplet[2]) for triplet in sentence for sentence in iobTriblets))
         for sentence in iobTriplets:
             fp.write("\n".join("{} {} {}".format(triplet[0],triplet[1],triplet[2]) for triplet in sentence))
+            fp.write("\n")
+            fp.write("\n")
+
+
+def writeResultToFile(tree, gold=None, filename="results.txt"):
+    """ writes predicted results to File
+
+    :param nltk.tree.Tree tree: chunk Tree of sentence
+    :param str filename: name of file
+    """
+    path = "results\predection"
+    if not os.path.exists(path):
+        os.mkdir(path)
+    path = os.path.join(path, filename)
+
+
+    conllTags = nltk.chunk.util.tree2conlltags(tree)
+    assert len(conllTags) == len(gold)
+    # remove POS Tag
+    conllTags = [(word, entity) for (word, pos, entity) in conllTags]
+    if gold:
+        wordGoldPred = []
+        for idx, elem in enumerate(conllTags):
+            word, predTag = elem
+            goldTag = gold[idx]
+            wordGoldPred.append([word, goldTag, predTag])
+        #TODO create new file at beginning
+        with open(path, "a", encoding='utf-8') as fp:
+            fp.write("\n".join("{}\t{}\t{}".format(word, goldTag, predTag) for word, goldTag, predTag in wordGoldPred))
+            fp.write("\n")
+            fp.write("\n")
+
+    else:
+        with open(path, "a", encoding='utf-8') as fp:
+            fp.write("\n".join("{}\t{}".format(word, entity) for word, entity in conllTags))
             fp.write("\n")
             fp.write("\n")
