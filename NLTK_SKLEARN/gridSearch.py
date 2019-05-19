@@ -86,8 +86,8 @@ if __name__ == "__main__":
     #parameters = [{'kernel': ('linear', 'rbf'), 'C': [1, 10]}]
 
 
-    parameters = [{'kernel': ('linear', "rbf", "poly", "sigmoid", "precomputed"), 'C': 10. ** np.arange(-3, 8), "gamma": 10. ** np.arange(-5, 4)},
-                  {'kernel': ('linear', "rbf", "poly", "sigmoid", "precomputed"), "nu": [0.2,0.4,0.6,0.8,1], "gamma": 10. ** np.arange(-5, 4)},
+    parameters = [{'kernel': ('linear', "rbf", "poly", "sigmoid"), 'C': 10. ** np.arange(-3, 8), "gamma": 10. ** np.arange(-5, 4)},
+                  {'kernel': ('linear', "rbf", "poly", "sigmoid"), "nu": [0.2,0.4,0.6,0.8,1], "gamma": 10. ** np.arange(-5, 4)},
                   {"penalty": ("l1", "l2"), "loss": ("squared_hinge", "hinge"), "dual": [True, False], 'C': 10. ** np.arange(-3, 8)},
                   {"criterion": ("gini", "entropy"), "max_depth": [3,5,10,20], "min_samples_split": [1,2,3], "min_samples_leaf": [1,2,3]},
                   {'C': 10. ** np.arange(-3, 8,), "penalty":["l1","l2"]}]
