@@ -1,5 +1,20 @@
 import csv
 import os
+import re
+
+
+
+def zero_digits(s):
+    """
+    Replace every digit in a string by a zero.
+    """
+    return re.sub('\d', '0', s)
+
+
+def lower_case(s):
+    return s.lower()
+
+
 
 def loadDataset(path, type, encoding, delimiter):
     """Loads the dataset in path into memory
@@ -40,7 +55,7 @@ def loadDataset(path, type, encoding, delimiter):
             for line in fp:
                 line = line.strip()
                 if line:
-                    line = line.split(delimiter)
+                    line = line.split()
                     # not pos tagged file
                     if len(line) == 2:
                         word = str(line[0])
@@ -65,7 +80,7 @@ def loadDataset(path, type, encoding, delimiter):
     return dataset
 
 
-def saveDataset(dataset, saveDir):
+def saveDataset(dataset, saveDir, zeros=False, lower=False):
     """Writes files sentences.txt(containing one sentence per line) and labels.txt(
     containing labels belonging to sentences)in save_dir from dataset
 
@@ -78,7 +93,12 @@ def saveDataset(dataset, saveDir):
     with open(os.path.join(saveDir, 'sentences.txt'), 'w', encoding='utf-8') as fSentences:
         with open(os.path.join(saveDir, 'labels.txt'), 'w', encoding='utf-8') as fLables:
             for words, tags in dataset:
-                fSentences.write("{}\n".format(" ".join(words)))
+                sentence = ("{}\n".format(" ".join(words)))
+                if zeros:
+                    sentence = zero_digits(sentence)
+                if lower:
+                    sentence = lower_case(sentence)
+                fSentences.write(sentence)
                 fLables.write("{}\n".format(" ".join(tags)))
 
 
@@ -99,9 +119,10 @@ print(trainData[:10])
 testData = loadDataset("Data/wnut/emerging.test.annotated", "other", "utf-8", "\t")
 valData = loadDataset("Data/wnut/emerging.dev.conll", "other", "utf-8", "\t")
 
-saveDataset(trainData, "Data/train")
-saveDataset(testData, "Data/test")
-saveDataset(valData, "Data/validation")
+
+saveDataset(trainData, "Data/train", lower=True)
+saveDataset(testData, "Data/test", lower=True)
+saveDataset(valData, "Data/validation", lower=True)
 
 
 
