@@ -4,15 +4,22 @@ import logging
 import torch.optim as optim
 import torch
 import numpy as np
-from util import RunningAverage, loadCheckpoint, saveCheckpoint, configurateLogger, Params
+from util import RunningAverage, loadCheckpoint, saveCheckpoint, configurateLogger, Params, saveDict, prepareLabels
 from evaluate import evaluate
 from DataLoader import DataLoader
 import model.net
-from ..commonUtil import *
+import model.net2
+from torch.autograd import Variable
 
 
+import argparse
 
-def train(model, optimizer, lossFn, dataGenerator, metrics, params, numOfBatches):
+parser = argparse.ArgumentParser()
+parser.add_argument('--paramsDir',
+                    help='Directory containing params.json')
+
+
+def train(model, optimizer, dataGenerator, metrics, params, numOfBatches):
     """ train model on numOfBatches batches
 
     :param torch.nn.Module model: model to be trained
@@ -30,11 +37,20 @@ def train(model, optimizer, lossFn, dataGenerator, metrics, params, numOfBatches
 
     progressBar = tqdm.trange(numOfBatches)
     for batch in progressBar:
-        trainBatch, labelsBatch = next(dataGenerator)
+        sentsBatch, labelsBatch, charsBatch = next(dataGenerator)
+        outputBatch = model(sentsBatch, charsBatch)
 
+        try:
+            params.crf
+        except AttributeError as e:
+            loss = model.loss(outputBatch, labelsBatch)
+            crf = False
+        else:
+            #create non pad mask
+            mask = torch.autograd.Variable(sentsBatch.data.ne(params.padInd)).float()
+            loss = model.loss(outputBatch, labelsBatch, mask)
+            crf = True
 
-        outputBatch = model(trainBatch)
-        loss = lossFn(outputBatch, labelsBatch)
 
         # clear previous gradients, compute gradients of all variables wrt loss
         optimizer.zero_grad()
@@ -44,17 +60,19 @@ def train(model, optimizer, lossFn, dataGenerator, metrics, params, numOfBatches
         optimizer.step()
 
         if batch % params.save_summary_steps == 0:
-            outputBatch = outputBatch.data.cpu().numpy()
-            labelsBatch = labelsBatch.data.cpu().numpy()
+            if crf:
+                outputBatch = model.crflayer.viterbi_decode(outputBatch, mask)
 
-            batchSummary = {metric: metrics[metric](outputBatch, labelsBatch)
+            #prepare labels and calculate metrics
+            predictions, goldLabels = prepareLabels(outputBatch, labelsBatch, crf)
+            batchSummary = {metric: metrics[metric](predictions, goldLabels, crf)
                              for metric in metrics}
-            batchSummary['loss'] = loss.item() #.data[0]
+
+            batchSummary['loss'] = loss.item()
             summary.append(batchSummary)
 
         lossAvg.update(loss.item()) #.data[0]
         progressBar.set_postfix(loss='{:05.3f}'.format(lossAvg()))
-
 
     metricsMean = {metric: np.mean([x[metric] for x in summary]) for metric in summary[0]}
     metricsString = " ; ".join("{}: {:05.3f}".format(k, v) for k, v in metricsMean.items())
@@ -62,7 +80,7 @@ def train(model, optimizer, lossFn, dataGenerator, metrics, params, numOfBatches
 
 
 
-def train_and_evaluate(model, trainData, valData, optimiser, lossFn, metrics, params, modelDir, restaurationFile=None):
+def train_and_evaluate(model, trainData, valData, optimiser, metrics, params, modelDir, restaurationFile=None):
     """ Training and evaluation of epochs
 
     :param torch.nn.Module model: neural network
@@ -91,12 +109,12 @@ def train_and_evaluate(model, trainData, valData, optimiser, lossFn, metrics, pa
         #train epoch
         numOfBatches = (params.train_size + 1) // params.batch_size
         trainDataGenerator = dataLoader.batchGenerator(trainData, params, shuffle=True)
-        train(model, optimiser, lossFn, trainDataGenerator, metrics, params, numOfBatches)
+        train(model, optimiser, trainDataGenerator, metrics, params, numOfBatches)
 
         #validate epoch
         numOfBatches = (params.val_size + 1) // params.batch_size
         valDataIterator = dataLoader.batchGenerator(valData, params, shuffle=False)
-        valMetrics = evaluate(model, lossFn, valDataIterator, metrics, params, numOfBatches)
+        valMetrics = evaluate(model, valDataIterator, metrics, params, numOfBatches)
 
         valAcc = valMetrics['f1']
         isBest = valAcc >= bestValAcc
@@ -107,11 +125,11 @@ def train_and_evaluate(model, trainData, valData, optimiser, lossFn, metrics, pa
                         'optim_dict': optimiser.state_dict()},
                         IsBest=isBest,
                         path=paramsDir)
+
         # modelPath = os.path.join(modelDir, "model.pt")
-        # print(modelPath)
         # torch.save(model.state_dict(), modelPath)
         if isBest:
-            logging.info("- Found new best accuracy")
+            logging.info("- Found new best f1 score")
             bestValAcc = valAcc
 
             bestJason = os.path.join(paramsDir, "metrics_val_best_weights.json")
@@ -122,7 +140,11 @@ def train_and_evaluate(model, trainData, valData, optimiser, lossFn, metrics, pa
 
 
 if __name__ == '__main__':
-    paramsDir = r"experiments/base_model"
+    args = parser.parse_args()
+
+    if args.paramsDir is None:
+        paramsDir = r"experiments\base_model"
+    else: paramsDir = args.paramsDir
 
     # Load the parameters from json file
     jsonPath = os.path.join(paramsDir, "params.json")
@@ -144,27 +166,38 @@ if __name__ == '__main__':
     logging.info("Loading the datasets...")
 
     # load data
+    embedFolder = "Data/embed/glove.twitter.27B"
+    embedFile = "glove.twitter.27B.200d.txt"
+    filepath = os.path.join(embedFolder, embedFile)
+
     dataPath = "Data"
     encoding = "utf-8"
-    dataLoader = DataLoader(dataPath, params, encoding)
+
+    dataLoader = DataLoader(dataPath, params, encoding, filepath)
     data = dataLoader.readData(dataPath, ["train", "val"])
     trainData = data["train"]
-    #print(trainData)
+
+
     validationData = data["val"]
 
+    #load dataset parameters
     params.train_size = trainData["size"]
     params.val_size = validationData["size"]
+    params.alphabet_size = dataLoader.datasetParams.alphabet_size
+    params.tagMap = dataLoader.datasetParams.tagMap
+    params.padInd = dataLoader.datasetParams.padInd
 
     logging.info("- done.")
-
     # Define the model and optimizer
-    model = model.net.Net(params).cuda() if params.cuda else model.net.Net(params)
-    optimiser = optim.Adam(model.parameters(), lr=params.learning_rate) #try out different optimisers!!
 
-    netlossFn = model.lossFn
+    #create model and optimiser
+    print(torch.cuda.is_available())
+    model = model.net2.Net(params, dataLoader.embeddings).cuda() if params.cuda else model.net2.Net(params, dataLoader.embeddings)
+
+    optimiser = optim.Adam(model.parameters(), lr=params.learning_rate) #try out different optimisers!!
     netMetrics = model.metrics
 
     # Train the model
     logging.info("Starting training for {} epoch(s)".format(params.num_epochs))
-    train_and_evaluate(model, trainData, validationData, optimiser, netlossFn, netMetrics, params, "model")
+    train_and_evaluate(model, trainData, validationData, optimiser, netMetrics, params, "model")
 

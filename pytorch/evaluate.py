@@ -1,14 +1,15 @@
 import argparse
+import sys
 import logging
 import os
 import numpy as np
 import torch
-from util import Params, configurateLogger, loadCheckpoint
+from util import Params, configurateLogger, loadCheckpoint, saveDict, prepareLabels
 import model.net
 from DataLoader import DataLoader
-from ..commonUtil import *
+#from ..commonUtil import *
 
-def evaluate(model, lossFN, dataGenerator, metrics, params, numOfBatches):
+def evaluate(model, dataGenerator, metrics, params, numOfBatches):
     """ Evaluate model on NumOfBatches
 
     :param torch.nn.Module model: model to be trained
@@ -23,16 +24,29 @@ def evaluate(model, lossFN, dataGenerator, metrics, params, numOfBatches):
     summary = []
 
     for batch in range(numOfBatches):
-        trainBatch, labelsBatch = next(dataGenerator)
-        outputBatch = model(trainBatch)
-        loss = lossFN(outputBatch, labelsBatch)
+        sentsBatch, labelsBatch, charsBatch = next(dataGenerator)
+        #outputBatch = model(sentsBatch, charsBatch, labelsBatch)
+        outputBatch = model(sentsBatch, charsBatch)
 
-        outputBatch = outputBatch.data.cpu().numpy()
-        labelsBatch = labelsBatch.data.cpu().numpy()
+        try:
+            params.crf
+        except AttributeError as e:
+            loss = model.loss(outputBatch, labelsBatch)
+            crf = False
+        else:
+            #create non pad mask
+            mask = torch.autograd.Variable(sentsBatch.data.ne(params.padInd)).float()
+            crf = True
+            loss = model.loss(outputBatch, labelsBatch, mask)
 
-        batchSummary = {metric: metrics[metric](outputBatch, labelsBatch)
-                         for metric in metrics}
-        batchSummary['loss'] = loss.item() #.data[0]
+        if crf:
+            outputBatch = model.crflayer.viterbi_decode(outputBatch, mask)
+
+        #calculate metrics
+        predictions, goldLabels = prepareLabels(outputBatch, labelsBatch, crf)
+        batchSummary = {metric: metrics[metric](predictions, goldLabels, crf)
+                        for metric in metrics}
+        batchSummary['loss'] = loss.item()
         summary.append(batchSummary)
 
     metricsMean = {metric:np.mean([x[metric] for x in summary]) for metric in summary[0]}
@@ -58,6 +72,7 @@ if __name__ == '__main__':
 
     encoding = "utf-8"
     dataPath = "Data"
+
     dataLoader = DataLoader(dataPath, params, encoding)
     data = dataLoader.readData(dataPath, ["test"])
     testData = data["test"]
@@ -66,9 +81,9 @@ if __name__ == '__main__':
     testDataGenerator = dataLoader.batchGenerator(testData, params)
     logging.info("- done.")
 
-    model = model.net.Net(params).cuda() if params.cuda else model.net.Net(params)
-    
-    lossFn = model.lossFn
+    model = model.net2.Net(params, dataLoader.embeddings).cuda() if params.cuda else model.net.Net(params, dataLoader.embeddings)
+
+
     metrics = model.metrics
     
     logging.info("Starting evaluation")
@@ -79,6 +94,6 @@ if __name__ == '__main__':
     loadCheckpoint(restoreFile, model)
 
     numOfBatches = (params.test_size + 1) // params.batch_size
-    result = evaluate(model, lossFn, testDataGenerator, metrics, params, numOfBatches)
+    result = evaluate(model, testDataGenerator, metrics, params, numOfBatches)
     savePath = os.path.join(modelParamsFolder, "metrics_test_{}.json".format(restoreFileStr))
     saveDict(result, savePath)

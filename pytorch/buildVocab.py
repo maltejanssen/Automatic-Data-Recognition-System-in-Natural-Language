@@ -84,8 +84,8 @@ if __name__ == '__main__':
         'train_size': trainSentencesLength,
         'dev_size': evalSentencesLength,
         'test_size': testSentecnesLength,
-        'vocab_size': len(words),
-        'number_of_tags': len(tags),
+        'vocab_size': len(mostFrequentWords),
+        'number_of_tags': len(mostFrequentTags),
         'pad_word': PAD_WORD,
         'pad_tag': PAD_TAG,
         'unk_word': UNK_WORD

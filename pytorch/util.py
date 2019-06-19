@@ -3,6 +3,8 @@ import torch
 import json
 import shutil
 import logging
+import numpy as np
+from itertools import chain
 
 
 def configurateLogger(path):
@@ -56,18 +58,6 @@ def saveCheckpoint(state, IsBest, path):
     torch.save(state, filepath)
     if IsBest:
         shutil.copyfile(filepath, os.path.join(path, "best.pth.tar"))
-
-
-def saveDict(dictionary, path):
-    """ Safes dictionary to json file
-
-    :param dict dictionary: dictionary of float castable values
-    :param path: Safe path of json file
-    """
-    with open(path, 'w') as f:
-        # json needs float values
-        dictionary = {k: float(v) for k, v in dictionary.items()}
-        json.dump(dictionary, f, indent=4)
 
 
 class RunningAverage():
@@ -139,4 +129,55 @@ def writeResultToFile(words, tags, filename="results.txt"):
             fp.write(word + "\t" + tag + "\n")
         fp.write("\n")
 
+
+def saveDict(dictionary, path):
+    """ Safes dictionary to json file
+
+    :param dict dictionary: dictionary of float castable values
+    :param path: Safe path of json file
+    """
+    with open(path, 'w') as f:
+        # json needs float values
+        dictionary = {k: float(v) for k, v in dictionary.items()}
+        json.dump(dictionary, f, indent=4)
+
+
+
+def prepareLabels(outputBatch, goldLabels=None, crf=False):
+    """ translates output of net
+    if goldLabels given prpares goldLabels and output for metrics calculation
+    else: translates output of net into list of label indices
+
+    :param outputBatch: net output
+    :param goldLabels:
+    :param bool crf: if True dataset format from crf output, false: softmax output
+    :return predictions: flat list of predicted Labels
+    :return np.array goldLabels: flat array of gold Labels
+    """
+    if goldLabels is not None:
+        goldLabels = goldLabels.data.cpu().numpy()
+        goldLabels = goldLabels.ravel()
+        idcs = []
+        for idx, label in enumerate(goldLabels):
+            if label == -1:
+                idcs.append(idx)
+        goldLabels = np.delete(goldLabels, idcs)
+    else:
+        goldLabels = None
+
+    if not crf:
+        outputBatch = outputBatch.data.cpu().numpy()
+        predictions = np.argmax(outputBatch, axis=1)
+        if goldLabels is not None:
+            predictions = np.delete(predictions, idcs)
+        predictions = predictions.tolist()
+    else:
+        # convert from crf output format to flat list of batches tag
+        outputBatch = np.array(outputBatch)
+        allPreds = []
+        for sentence in outputBatch:
+            allPreds.append(sentence)
+        predictions = list(chain.from_iterable(allPreds))
+
+    return predictions, goldLabels
 
