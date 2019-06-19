@@ -1,5 +1,5 @@
 Flask==1.0.2
-flask_cors == 3.07
+Flask-Cors==3.0.7
 nltk==3.4
 numpy==1.15.4
 TorchCRF==1.0.2
