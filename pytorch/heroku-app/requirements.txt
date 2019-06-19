@@ -3,4 +3,4 @@ nltk==3.4
 numpy==1.15.4
 TorchCRF==1.0.2
 tqdm==4.28.1
-torch==1.1.0
+https://download.pytorch.org/whl/cpu/torch-1.1.0-cp37-cp37m-win_amd64.whl
