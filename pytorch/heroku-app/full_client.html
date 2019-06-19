@@ -40,7 +40,7 @@
         $('#spinner').toggle();
 
         $.ajax({
-            url: "http://0.0.0.0:80/api",
+            url: "https://noisy-ner.herokuapp.com/api",
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(input),
