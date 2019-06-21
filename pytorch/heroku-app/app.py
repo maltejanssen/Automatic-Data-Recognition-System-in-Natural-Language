@@ -54,8 +54,7 @@ def turnIntoSpacyFormat(predictions):
 
 @app.route('/')
 def index():
-    return app.root_path
-	#return render_template('index.html')
+	return render_template('index.html')
 
 @app.route('/predict',methods=['GET','POST'])
 def api():
