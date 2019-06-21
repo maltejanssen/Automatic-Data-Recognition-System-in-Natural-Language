@@ -83,9 +83,8 @@ def get_model_api():
         data = dict()
         data["words"] = words
         data["predictions"] = predictions
-        print(predictions)
-        print(words)
         alignedData = align_data(data)
+        alignedData["text"] = text
         return alignedData
 
     return predict

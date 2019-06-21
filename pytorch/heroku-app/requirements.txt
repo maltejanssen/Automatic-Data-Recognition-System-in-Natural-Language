@@ -8,3 +8,4 @@ torch==1.1.0
 https://download.pytorch.org/whl/cpu/torch-1.1.0-cp37-cp37m-linux_x86_64.whl
 gunicorn==19.9.0 
 seqeval==0.0.10
+spacy==2.1.4

@@ -1,43 +1,76 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from __future__ import unicode_literals
 from serve import get_model_api
+from flask import Flask,render_template,url_for,request, jsonify
+from spacy import displacy
 
-
-app2 = Flask(__name__)
-CORS(app2) # needed for cross-domain requests, allow everything by default
+app = Flask(__name__)
 model_api = get_model_api()
+# # Web Scraping Pkg
+# from bs4 import BeautifulSoup
+# # from urllib.request import urlopen
+# from urllib import urlopen
+
+# # Fetch Text From Url
+# def get_text(url):
+# 	page = urlopen(url)
+# 	soup = BeautifulSoup(page)
+# 	fetched_text = ' '.join(map(lambda p:p.text,soup.find_all('p')))
+# 	return fetched_text
+def turnIntoSpacyFormat(predictions):
+    entities = []
+    for idx, prediction in enumerate(predictions):
+        if prediction != "O":
+            if prediction[0] == "B":
+                print(idx)
+                d = {}
+                d["start"] = idx
+                d["label"] = prediction[2:]
+                d["end"] = idx
+                i = idx
+                i += 1
+                try:
+                    next = predictions[i]
+                except:
+                    break
+                while next[0] == "I":
+                    d["end"] = i
+                    try:
+                        i += 1
+                        next = predictions[i]
+                    except:
+                        break
+                entities.append(d)
+    return entities
 
 
-# default route
-@app2.route('/')
+@app.route('/')
 def index():
-    return "Index API"
+	return render_template('index.html')
 
-
-# HTTP Errors handlers
-@app2.errorhandler(404)
-def url_error(e):
-    return """
-    Wrong URL!
-    <pre>{}</pre>""".format(e), 404
-
-
-@app2.errorhandler(500)
-def server_error(e):
-    return """
-    An internal error occurred: <pre>{}</pre>
-    See logs for full stacktrace.
-    """.format(e), 500
-
-
-# API route
-@app2.route('/api', methods=['POST'])
+@app.route('/predict',methods=['GET','POST'])
 def api():
-    input_data = request.json
-    output_data = model_api(input_data)
-    response = jsonify(output_data)
-    return response
+    if request.method == "POST":
+
+        input_data = request.form['rawtext']
+        output_data = model_api(input_data)
+        alignedText = output_data["words"]
+        predictions = output_data["predictions"]
+        #response = jsonify(output_data)
+        print(predictions, flush=True)
+
+        if request.values.get('type') == 'image':
+            text = output_data["text"]
+            ents = turnIntoSpacyFormat((predictions))
+            inp = {"text": text, "ents": ents, "title": None}
+            htmlm = displacy.render(inp, style="ent", manual=True)
+
+            return render_template('index.html', text=alignedText, predictions=predictions, htmlm=htmlm)
+        else:
+            return render_template('index.html', text=alignedText, predictions=predictions)
+    else:
+        return render_template('index.html')
 
 
 if __name__ == '__main__':
-    app2.run(host='0.0.0.0', port=81, debug=True)
+	app.run(debug=True)
+
