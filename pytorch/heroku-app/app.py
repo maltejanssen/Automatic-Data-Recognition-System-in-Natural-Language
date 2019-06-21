@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+import logging
 from serve import get_model_api
 from flask import Flask,render_template,url_for,request, jsonify
 from spacy import displacy
@@ -16,6 +17,12 @@ model_api = get_model_api()
 # 	soup = BeautifulSoup(page)
 # 	fetched_text = ' '.join(map(lambda p:p.text,soup.find_all('p')))
 # 	return fetched_text
+
+
+
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
+
 def turnIntoSpacyFormat(predictions):
     entities = []
     for idx, prediction in enumerate(predictions):
