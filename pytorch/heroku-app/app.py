@@ -7,6 +7,7 @@ from spacy import displacy
 
 app = Flask(__name__)
 model_api = get_model_api()
+
 # # Web Scraping Pkg
 # from bs4 import BeautifulSoup
 # # from urllib.request import urlopen
@@ -53,7 +54,8 @@ def turnIntoSpacyFormat(predictions):
 
 @app.route('/')
 def index():
-	return render_template('index.html')
+    return app.root_path
+	#return render_template('index.html')
 
 @app.route('/predict',methods=['GET','POST'])
 def api():
