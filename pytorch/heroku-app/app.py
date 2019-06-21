@@ -4,7 +4,9 @@ import logging
 from serve import get_model_api
 from flask import Flask,render_template,url_for,request, jsonify
 from spacy import displacy
+import nltk
 
+nltk.download('punkt')
 app = Flask(__name__)
 model_api = get_model_api()
 
