@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Summaryzer</title>
+  <title>Noisy-NER</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -32,7 +32,7 @@
         <div class="input-field col s12 m10">
           <div class="icon-block">
            <form method="POST" action="/predict">
-            <textarea name="rawtext" cols="3" rows="5" class="form-control" required="true" placeholder="Enter Text Here"></textarea>
+            <textarea name="rawtext" cols="3" rows="5" class="form-control" required="true" placeholder={{ tweet }}></textarea>
             <br/>
            <p>
             <label>
@@ -50,6 +50,8 @@
            <button class="btn btn-small waves-effect waves-light light-blue lighten-1" type="reset">Clear</button>
            <button class="btn btn-small waves-effect waves-light purple lighten-1" type="submit">Summarize</button>
         </form>
+        <a href=/fetch><input  class="btn btn-small waves-effect waves-light light-blue lighten-1" type="button" value="call_flask_funtion"></a>
+
           </div>
         </div>
 
@@ -80,7 +82,7 @@
           </div>
          <div class="entities" style="line-height: 2.5; direction: ltr"> Doesn't show up correctly</div>
          {{ htmlm|safe }}
-         {{ htmlm|safe }}
+
 
       </div>
     </section>
