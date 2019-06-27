@@ -319,12 +319,6 @@ class DataLoader(object):
             batchCharsPadded = torch.LongTensor(chars) if self.loadCharEmbed else None
 
 
-            # shift tensors to GPU if available
-            if torch.cuda.is_available():
-                batchSentencesPadded = batchSentencesPadded.cuda()
-                batchLabelsPadded = batchLabelsPadded.cuda()
-                if self.loadCharEmbed:
-                    batchCharsPadded = batchCharsPadded.cuda()
 
             # convert them to Variables to record operations in the computational graph
             batchSentencesPadded = Variable(batchSentencesPadded)

@@ -101,7 +101,7 @@ def train_and_evaluate(model, trainData, valData, optimiser, metrics, params, mo
 
     bestValAcc = 0.0
 
-    paramsDir = r"experiments/base_model"
+    paramsDir = modelDir
 
     for epoch in range(params.num_epochs):
         logging.info("Epoch {}/{}".format(epoch + 1, params.num_epochs))
@@ -143,7 +143,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.paramsDir is None:
-        paramsDir = r"experiments\base_model"
+        paramsDir = r"experiments\bi-LSTMpretrainedEmbeddropoutcharembdecrf"
     else: paramsDir = args.paramsDir
 
     # Load the parameters from json file
@@ -151,13 +151,9 @@ if __name__ == '__main__':
     assert os.path.isfile(jsonPath), "No json configuration file found at {}".format(jsonPath)
     params = Params(jsonPath)
 
-    # use GPU if available
-    params.cuda = torch.cuda.is_available()
 
     # Set the random seed for reproducible experiments
     torch.manual_seed(230)
-    if params.cuda:
-        torch.cuda.manual_seed(230)
 
     # Set the logger
     configurateLogger(os.path.join(paramsDir, 'train.log'))
@@ -165,7 +161,7 @@ if __name__ == '__main__':
     # Create the input data pipeline
     logging.info("Loading the datasets...")
 
-    # load data
+    #load data
     embedFolder = "Data/embed/glove.twitter.27B"
     embedFile = "glove.twitter.27B.200d.txt"
     filepath = os.path.join(embedFolder, embedFile)
@@ -173,7 +169,7 @@ if __name__ == '__main__':
     dataPath = "Data"
     encoding = "utf-8"
 
-    dataLoader = DataLoader(dataPath, params, encoding, filepath)
+    dataLoader = DataLoader(dataPath, params, encoding, filepath) #filepath
     data = dataLoader.readData(dataPath, ["train", "val"])
     trainData = data["train"]
 
@@ -191,13 +187,13 @@ if __name__ == '__main__':
     # Define the model and optimizer
 
     #create model and optimiser
-    print(torch.cuda.is_available())
-    model = model.net2.Net(params, dataLoader.embeddings).cuda() if params.cuda else model.net2.Net(params, dataLoader.embeddings)
+
+    model = model.net2.Net(params, dataLoader.embeddings)#, dataLoader.embeddings
 
     optimiser = optim.Adam(model.parameters(), lr=params.learning_rate) #try out different optimisers!!
     netMetrics = model.metrics
 
     # Train the model
     logging.info("Starting training for {} epoch(s)".format(params.num_epochs))
-    train_and_evaluate(model, trainData, validationData, optimiser, netMetrics, params, "model")
+    train_and_evaluate(model, trainData, validationData, optimiser, netMetrics, params, paramsDir)
 

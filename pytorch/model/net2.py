@@ -69,7 +69,6 @@ class Net(nn.Module):
         self.lstm = BILSTM(self.embedding.embedDim, params.lstm_hidden_dim, bidirectional, params.number_of_tags, charLstmDim=char_lstm_dim, dropout=self.performDropout, crf=self.useCrf)
 
         self.metrics = {
-
                         'f1': f1, #"accuracy" : accuracy,
                         }
 
