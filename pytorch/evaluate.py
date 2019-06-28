@@ -62,7 +62,10 @@ if __name__ == '__main__':
     assert os.path.isfile(jsonPath), "No json configuration file found at {}".format(jsonPath)
     params = Params(jsonPath)
 
+    params.cuda = torch.cuda.is_available()  # use GPU is available
     torch.manual_seed(230)
+    if params.cuda:
+        torch.cuda.manual_seed(230)
 
     configurateLogger(os.path.join(modelParamsFolder, 'evaluate.log'))
     logging.info("Creating the dataset...")
@@ -78,7 +81,7 @@ if __name__ == '__main__':
     testDataGenerator = dataLoader.batchGenerator(testData, params)
     logging.info("- done.")
 
-    model = model.net.Net(params, dataLoader.embeddings)
+    model = model.net2.Net(params, dataLoader.embeddings).cuda() if params.cuda else model.net.Net(params, dataLoader.embeddings)
 
 
     metrics = model.metrics

@@ -143,7 +143,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.paramsDir is None:
-        paramsDir = r"experiments\bi-LSTMpretrainedEmbeddropoutcharembdecrf"
+        paramsDir = r"experiments\sim"
     else: paramsDir = args.paramsDir
 
     # Load the parameters from json file
@@ -153,7 +153,13 @@ if __name__ == '__main__':
 
 
     # Set the random seed for reproducible experiments
+    # use GPU if available
+    params.cuda = torch.cuda.is_available()
+
+    # Set the random seed for reproducible experiments
     torch.manual_seed(230)
+    if params.cuda:
+        torch.cuda.manual_seed(230)
 
     # Set the logger
     configurateLogger(os.path.join(paramsDir, 'train.log'))
@@ -188,7 +194,8 @@ if __name__ == '__main__':
 
     #create model and optimiser
 
-    model = model.net2.Net(params, dataLoader.embeddings)#, dataLoader.embeddings
+    model = model.net2.Net(params, dataLoader.embeddings).cuda() if params.cuda else model.net2.Net(params,
+                                                                                                    dataLoader.embeddings)
 
     optimiser = optim.Adam(model.parameters(), lr=params.learning_rate) #try out different optimisers!!
     netMetrics = model.metrics
