@@ -87,7 +87,10 @@ def api():
         if request.values.get('type') == 'image':
             ents = turnIntoSpacyFormat(predictions, words, text)
             inp = {"text": text, "ents": ents, "title": None}
-            htmlm = displacy.render(inp, style="ent", manual=True)
+            htmlm = displacy.render(inp, style="ent", manual=True,
+                                    options={"colors": {"PERSON": "#1f5a07", "CORPORATION": "#9f0120",
+                                                        "CREATIVE-WORK": "#ff2770", "GROUP": "#4e4e94", "LOCATION": "#eae11a",
+                                                        "PRODUCT": "#941aea"}})
 
             return render_template('index.html', text=alignedWords, predictions=alignedPredictions, htmlm=htmlm)
         else:
