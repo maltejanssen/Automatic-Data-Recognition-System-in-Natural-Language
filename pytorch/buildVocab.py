@@ -1,3 +1,4 @@
+import os
 from collections import Counter
 import json
 
@@ -58,14 +59,14 @@ def saveVocabInfo(dictionary, path):
 
 if __name__ == '__main__':
     words = Counter()
-    trainSentencesLength = updateVocab("Data/train/sentences.txt", words)
-    evalSentencesLength = updateVocab("Data/val/sentences.txt", words)
-    testSentecnesLength = updateVocab("Data/test/sentences.txt", words)
+    trainSentencesLength = updateVocab(os.path.join("Data/train", "sentences.txt"), words)
+    evalSentencesLength = updateVocab(os.path.join("Data/val", "sentences.txt"), words)
+    testSentecnesLength = updateVocab(os.path.join("Data/test", "sentences.txt"), words)
 
     tags = Counter()
-    updateVocab("Data/train/labels.txt", tags)
-    updateVocab("Data/val/labels.txt", tags)
-    updateVocab("Data/test/labels.txt", tags)
+    updateVocab(os.path.join("Data/train", "labels.txt"), tags)
+    updateVocab(os.path.join("Data/val", "labels.txt"), tags)
+    updateVocab(os.path.join("Data/test", "labels.txt"), tags)
 
     n = 1
     mostFrequentTags = getFrequent(tags, n)
@@ -77,8 +78,8 @@ if __name__ == '__main__':
         mostFrequentTags.append(PAD_TAG)
     mostFrequentWords.append(UNK_WORD)
 
-    saveVocabToFile(mostFrequentWords, "Data/words.txt")
-    saveVocabToFile(mostFrequentTags, "Data/tags.txt")
+    saveVocabToFile(mostFrequentWords, os.path.join("Data", "words.txt"))
+    saveVocabToFile(mostFrequentTags, os.path.join("Data", "tags.txt"))
 
     sizes = {
         'train_size': trainSentencesLength,

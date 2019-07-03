@@ -1,20 +1,22 @@
 import csv
 import os
 import re
+import argparse
 
 
 
-def zero_digits(s):
+def zeroDigits(s):
     """
     Replace every digit in a string by a zero.
     """
     return re.sub('\d', '0', s)
 
 
-def lower_case(s):
+def lowerCase(s):
     return s.lower()
 
-
+parser = argparse.ArgumentParser(description='script that prepares data')
+parser.add_argument("--corpus", default="Data/wnut/")
 
 def loadDataset(path, type, encoding, delimiter):
     """Loads the dataset in path into memory
@@ -94,36 +96,23 @@ def saveDataset(dataset, saveDir, zeros=False, lower=False):
             for words, tags in dataset:
                 sentence = ("{}\n".format(" ".join(words)))
                 if zeros:
-                    sentence = zero_digits(sentence)
+                    sentence = zeroDigits(sentence)
                 if lower:
-                    sentence = lower_case(sentence)
+                    sentence = lowerCase(sentence)
                 fSentences.write(sentence)
                 fLables.write("{}\n".format(" ".join(tags)))
 
 
-# data = load_dataset('data/kaggle/ner_dataset.csv', "csv", "windows-1252", ",")
-# print(data[:10])
+if __name__ == '__main__':
 
-# train_dataset = data[:int(0.7 * len(data))]
-# val_dataset = data[int(0.7 * len(data)): int(0.85 * len(data))]
-# test_dataset = data[int(0.85 * len(data)):]
+    args = parser.parse_args()
+    trainData = loadDataset(os.path.join(args.corpus, "train.conll"), "other", "utf-8", "\t")
+    testData = loadDataset(os.path.join(args.corpus, "test.conll"), "other", "utf-8", "\t")
+    valData = loadDataset(os.path.join(args.corpus, "val.conll"), "other", "utf-8", "\t")
 
-# save_dataset(train_dataset, 'data/kaggle/train')
-# save_dataset(val_dataset, 'data/kaggle/val')
-# save_dataset(test_dataset, 'data/kaggle/test')
-
-#
-trainData = loadDataset("Data/wnut/wnut17train.conll", "other", "utf-8", "\t")
-print(trainData[:10])
-testData = loadDataset("Data/wnut/emerging.test.annotated", "other", "utf-8", "\t")
-valData = loadDataset("Data/wnut/emerging.dev.conll", "other", "utf-8", "\t")
-
-
-saveDataset(trainData, "Data/train")
-saveDataset(testData, "Data/test")
-saveDataset(valData, "Data/validation")
-
-
+    saveDataset(trainData, os.path.join("Data", "train"))
+    saveDataset(testData, os.path.join("Data", "test"))
+    saveDataset(valData, os.path.join("Data", "validation"))
 
 
 

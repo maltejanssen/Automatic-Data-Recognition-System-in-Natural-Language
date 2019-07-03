@@ -1,11 +1,10 @@
 import os
 import torch
-import numpy as np
-from nltk import sent_tokenize
-from DataLoader import DataLoader
-from model.net2 import Net
-from util import Params, prepareLabels
 from torch.autograd import Variable
+from dataLoader.DataLoader import DataLoader
+from model.net2 import Net
+from utils.util import Params, prepareLabels
+
 
 
 def translateIdcToLabel(lookup, predictions):
@@ -15,7 +14,7 @@ def translateIdcToLabel(lookup, predictions):
     return translation
 
 
-def loadData(modelParamsFolder="experiments/base_model"):
+def loadData(modelParamsFolder="experiments/bi-LSTMpretrainedEmbedcharembdecrf"):
     jsonPath = os.path.join(modelParamsFolder, "params.json")
     assert os.path.isfile(jsonPath), "No json configuration file found at {}".format(jsonPath)
     params = Params(jsonPath)
@@ -29,9 +28,8 @@ def loadData(modelParamsFolder="experiments/base_model"):
 
 
 def loadModel(dataLoader, params):
-    print(dataLoader.embeddings)
     model = Net(params, dataLoader.embeddings)
-    state = torch.load("experiments/base_model/best.pth.tar")
+    state = torch.load("experiments/bi-LSTMpretrainedEmbedcharembdecrf/best.pth.tar")
     model.load_state_dict(state["state_dict"])
     model.eval()
 
@@ -62,11 +60,65 @@ def align_data(data):
     return data_aligned
 
 
-def get_model_api():
+def turnIntoSpacyFormat(predictions, words, text):
+    """turns given prediction into spacy fomat for visualisation
+
+    :param list predictions: list of predections
+    :param list words: list of words belonging to the prediction
+    :param str text: text belonging to prediction
+    :return: spacy formated dict defining positions of entities
+    """
+    print(predictions, flush=True)
+    print(words, flush=True)
+    print(text, flush=True)
+    entities = []
+    current = 0
+    idx = 0
+    while idx < len(predictions):
+        if predictions[idx][0] != "O":
+            if predictions[idx][0] == "B" or predictions[idx][0] == "I":
+                d = {}
+                d["start"] = current
+                d["label"] = predictions[idx][2:]
+                d["end"] = current + len(words[idx])
+                current += len(words[idx])
+                if current < len(text):
+                    if text[current] == " ":
+                        current += 1
+                idx += 1
+            try:
+                next = predictions[idx]
+            except:
+                entities.append(d)
+                break
+            while next[0] == "I":
+                d["end"] = current + len(words[idx])
+                current += len(words[idx])
+                try:
+                    idx += 1
+                    next = predictions[idx]
+                except:
+                    break
+                if current < len(text):
+                    if text[current] == " ":
+                        current += 1
+            entities.append(d)
+        try:
+            current += len(words[idx])
+        except:
+            break
+        if current < len(text):
+            if text[current] == " ":
+                current += 1
+        idx += 1
+    return entities
+
+
+
+def getModelApi():
     dataLoader, params = loadData()
-    print(dataLoader.embeddings)
     model = Net(params, dataLoader.embeddings)
-    state = torch.load("experiments/base_model/best.pth.tar")
+    state = torch.load("experiments/bi-LSTMpretrainedEmbedcharembdecrf/best.pth.tar")
     model.load_state_dict(state["state_dict"])
     model.eval()
 
@@ -77,16 +129,18 @@ def get_model_api():
         output = model(wordIdcs, chars)
 
         crf = True if model.useCrf else False
+        if crf:
+            mask = torch.autograd.Variable(wordIdcs.data.ne(params.padInd)).float()
+            output = model.crflayer.viterbi_decode(output, mask)
         predictions, _ = prepareLabels(output, crf=crf)
         predictions = translateIdcToLabel(dataLoader.getidxToTag(), predictions)
-
         data = dict()
         data["words"] = words
         data["predictions"] = predictions
         data["text"] = text
         alignedData = align_data(data)
         alignedData["text"] = text
-        return data, alignedData
+        return data, alignedData, turnIntoSpacyFormat(predictions, words, text)
 
     return predict
 

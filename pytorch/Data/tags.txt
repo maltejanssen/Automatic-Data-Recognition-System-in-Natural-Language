@@ -11,12 +11,3 @@ I-creative-work
 I-corporation
 I-group
 I-product
-B-corporation,B-group
-B-creative-work,B-person
-I-creative-work,I-person
-B-location,B-group
-B-creative-work,B-product
-I-creative-work,I-product
-B-creative-work,B-corporation
-B-corporation,B-product
-B-person,B-group

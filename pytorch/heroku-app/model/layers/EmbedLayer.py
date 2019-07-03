@@ -5,7 +5,7 @@ import torch.nn as nn
 class EmbedLayer(nn.Module):
     def __init__(self, embedWeights = None, vocabSize = None, embedDim=None):
         super(EmbedLayer, self).__init__()
-        #self.training = training
+
         if embedWeights is not None:
             self.embedDim = len(embedWeights[0])
         else:
@@ -16,16 +16,7 @@ class EmbedLayer(nn.Module):
         self.embedding = nn.Embedding(vocabSize, self.embedDim)
         if embedWeights is not None:
             self.embedding.weight.data = torch.Tensor(embedWeights)
-        #test performance of this
-        else:
-            sd = 0.1
-            #self.embedding.weight.data = (torch.from_numpy(self.createRndEmbedding(vocabSize, self.embedDim)))
-            #self.embedding.weight.data = torch.from_numpy(np.random.normal(0, scale=sd, size=[vocabSize, self.embedDim]))
 
-            #self.embedding.weight.data.copy_(torch.from_numpy(self.createRndEmbedding(vocabSize+2, self.embedDim)))
-
-        #test dropout
-        #self.dropout = nn.Dropout(dropout_emb)
 
     def createRndEmbedding(self, vocabSize, embedDim):
         emb = np.empty([vocabSize, embedDim])
@@ -35,7 +26,7 @@ class EmbedLayer(nn.Module):
         return emb
 
     def forward(self, inputs):
-        s = self.embedding(inputs)
+        output = self.embedding(inputs)
         #dim: batch_size x seq_len x embedding_dim
-        #x = self.dropout(x)
-        return s
+
+        return output
