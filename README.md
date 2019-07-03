@@ -4,8 +4,8 @@ Repository of the bachelor thesis NoisyNER - named entity recognition in social 
 
 
 ## Requirements
-Python 3.6.1
-+ content in requirements.txt
+Python 3.6.1 <br/>
+Also install content in requirements.txt
 
 
 ## Usage
