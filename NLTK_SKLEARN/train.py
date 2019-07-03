@@ -1,17 +1,21 @@
 import os
 import argparse
+import pickle
 import nltk
 from sklearn import ensemble, linear_model, naive_bayes, svm, tree
-import pickle
-from Classifier import ClassifierChunker
-from Util import buildChunkTree
-from features import prev_next_pos_iob
+from model.classifier import ClassifierChunker
+from model.features import extractFeatures
+
+from dataLoader.dataLoader import buildChunkTree
 
 
-classifierOptions = ["decisionTree", "NaiveBayes", "maxent", "sklearnExtraTreesClassifier",
+
+
+classifierOptions = ["decisionTree", "NaiveBayes",
                      "sklearnGradientBoostingClassifier", "sklearnRandomForestClassifier", "sklearnLogisticRegression",
-                     "sklearnBernoulliNB", "sklearnMultinomialNB", "sklearnLinearSVC", "sklearnNuSVC", "sklearnSVC",
-                     "sklearnDecisionTreeClassifier"]
+                     "sklearnBernoulliNB", "sklearnMultinomialNB", "sklearnSVC",
+                     "sklearnDecisionTreeClassifier", "1-gram", "2-gram", "3-gram"]
+
 
 
 def train(args):  # def train(corpusPath, classifier, eval):
@@ -21,10 +25,10 @@ def train(args):  # def train(corpusPath, classifier, eval):
     if args.classifier not in classifierOptions:
         raise ValueError("classifier %s is not supported" % args.classifier)
 
-    if not os.path.isdir(args.corpus + "\\train"):
+    if not os.path.isdir(os.path.join(args.corpus, "train")):
         raise ValueError("Corpus doesn't contain training directory")
 
-    trainChunkTrees = buildChunkTree(args.corpus + "\\train")
+    trainChunkTrees = buildChunkTree(os.path.join(args.corpus, "train"))
     # chunk trees have to be converted into trainable format| -> difference to Util.addEntitiyTaggs !!
     trainchunks = chunkTrees2trainChunks(trainChunkTrees)
 
@@ -32,17 +36,17 @@ def train(args):  # def train(corpusPath, classifier, eval):
     if args.classifier in options:
         tagger = options[args.classifier](trainchunks, args)
     else:
-        tagger = nltk.tag.ClassifierBasedTagger(train=trainchunks, feature_detector=prev_next_pos_iob,
+        tagger = nltk.tag.ClassifierBasedTagger(train=trainchunks, feature_detector=extractFeatures,
                                        classifier_builder=makeClassifier(args))
 
     nerChunker = ClassifierChunker(trainchunks, tagger)
     safeClassifier(nerChunker, args)
 
     if args.eval:
-        if not os.path.isdir(args.corpus + "\\test"):
+        if not os.path.isdir(os.path.join(args.corpus, "test")):
             print("no test data for evaluation")
         else:
-            evalChunkTrees = buildChunkTree(args.corpus + "\\test")
+            evalChunkTrees = buildChunkTree(os.path.join(args.corpus, "test"))
             # trainChunks = chunkTrees2trainChunks(evalChunkTrees)
             eval = nerChunker.evaluate(evalChunkTrees)
             print(eval)
@@ -71,7 +75,7 @@ def triGram(train, args):
 
 
 def naiveBayes(train, args):
-    return nltk.tag.ClassifierBasedTagger(train=train, feature_detector=prev_next_pos_iob,
+    return nltk.tag.ClassifierBasedTagger(train=train, feature_detector=extractFeatures,
                                  classifier_builder=nltk.classify.NaiveBayesClassifier.train)
 
 
@@ -113,10 +117,7 @@ def makeClassifier(args):
         trainArgs['depth_cutoff'] = args.depthCutoff
         trainArgs['support_cutoff'] = args.supportCutoff
 
-    elif args.classifier == "sklearnExtraTreesClassifier":
-        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
-            ensemble.ExtraTreesClassifier(criterion=args.criterion, max_features=args.maxFeats,
-                                          max_depth=args.depthCutoff, n_estimators=args.nEstimators)).train
+
     elif args.classifier == "sklearnGradientBoostingClassifier":
         classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
             ensemble.GradientBoostingClassifier(learning_rate=args.learningRate, max_features=args.maxFeats,
@@ -127,27 +128,25 @@ def makeClassifier(args):
                                             max_depth=args.depthCutoff, n_estimators=args.nEstimators)).train
     elif args.classifier == "sklearnLogisticRegression":
         classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
-            linear_model.LogisticRegression(penalty=args.penalty, C=args.C)).train
+            linear_model.LogisticRegression(penalty=args.penalty, C=args.C, solver=args.solver,
+                                            multi_class="multinomial")).train
     elif args.classifier == "sklearnBernoulliNB":
         classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(naive_bayes.BernoulliNB(alpha=args.alpha)).train
     elif args.classifier == "sklearnMultinomialNB":
         classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(naive_bayes.MultinomialNB(alpha=args.alpha)).train
-    elif args.classifier == "sklearnLinearSVC":
-        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
-            svm.LinearSVC(C=args.C, penalty=args.penalty, loss=args.loss)).train
-    elif args.classifier == "sklearnNuSVC":
-        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(svm.NuSVC(nu=args.nu, kernel=args.kernel)).train
+
     elif args.classifier == "sklearnSVC":
-        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(svm.SVC(C=args.C, kernel=args.kernel)).train
+        classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(svm.SVC(kernel=args.kernel,
+                                                                              gamma=args.gamma, C=args.C)).train
     elif args.classifier == "sklearnDecisionTreeClassifier":
         classifierTrain = nltk.classify.scikitlearn.SklearnClassifier(
             tree.DecisionTreeClassifier(criterion=args.criterion, max_features=args.maxFeats,
-                                        max_depth=args.depthCutoff)).train
+                                        max_depth=args.depthCutoff, min_samples_split=args.min_samples_split,
+                                        min_samples_leaf=args.min_samples_leaf)).train
 
     def trainf(trainFeats):
         return classifierTrain(trainFeats, **trainArgs)
     return trainf
-
 
 def safeClassifier(chunker, args):
     """ safes(pickles) classifierChunker
@@ -169,12 +168,12 @@ def addArguments():
 
     :return: parser
     """
-    parser = argparse.ArgumentParser()
     parser = argparse.ArgumentParser(description='Script that trains NER-Classifiers')
-    parser.add_argument("--corpus", default=r"Data\Corpus",
+    parser.add_argument("--corpus", default=r"Data/Corpus",
                         help="relative or absolute path to corpus; corpus folder has to contain train and test folder")
     parser.add_argument("--classifier", default="all",
-                        help="ClassifierChunker algorithm to use instead of a sequential Tagger based Chunker. Maxent uses the default Maxent training algorithm, either CG or iis.")
+                        help="ClassifierChunker algorithm to use instead of a sequential Tagger based Chunker. "
+                             "Maxent uses the default Maxent training algorithm, either CG or iis.")
     parser.add_argument("--eval", action='store_true', default=True, help="do evaluation")
     parser.add_argument("--backoff", default="True", help="turn on/off backoff functionality for n-grams")
 
@@ -184,7 +183,8 @@ def addArguments():
     maxentGroup.add_argument("--minll", default=0, type=float,
                              help="Terminate after the negative average log-likelihood drops under default: %(default)f")
     maxentGroup.add_argument("--minlldelta", default=0.1, type=float,
-                             help="Terminate if a single iteration improvesnlog likelihood by less than default, default is %(default)f")
+                             help="Terminate if a single iteration improvesnlog likelihood by less than default, "
+                                  "default is %(default)f")
 
     decisiontreeGroup = parser.add_argument_group("Decision Tree Classifier")
     decisiontreeGroup.add_argument("--entropyCutoff", default=0.05, type=float,
@@ -208,7 +208,8 @@ def addArguments():
     sklearnGroup.add_argument('--nEstimators', type=int, default=10,
                               help='Number of trees for Decision Tree ensembles, default is %(default)s')
     sklearnGroup.add_argument('--nu', type=float, default=0.5,
-                              help='upper bound on fraction of training errors & lower bound on fraction of support vectors, should be in interval of (0,1], default is %(default)s')
+                              help='upper bound on fraction of training errors & lower bound on fraction of support '
+                                   'vectors, should be in interval of (0,1], default is %(default)s')
     sklearnGroup.add_argument('--penalty', choices=['l1', 'l2'],
                               default='l2', help='norm for penalization, default is %(default)s')
     sklearnGroup.add_argument('--maxFeats', default="auto",
@@ -219,6 +220,10 @@ def addArguments():
                               default='gini', help='Split quality function, default is %(default)s')
     sklearnGroup.add_argument('--alpha', type=float, default=1.0,
                               help='smoothing parameter for naive bayes classifiers, default is %(default)s')
+    sklearnGroup.add_argument("--min_samples_split", type=int, default=2)
+    sklearnGroup.add_argument("--min_samples_leaf", type=int, default =1)
+    sklearnGroup.add_argument("--gamma", type=float, default=0.1)
+    sklearnGroup.add_argument("--solver", default="saga")
 
     return parser.parse_args()
 
@@ -232,3 +237,4 @@ if __name__ == '__main__':
             train(args)
     else:
         train(args)
+

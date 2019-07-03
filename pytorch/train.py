@@ -1,14 +1,13 @@
 import os
 import tqdm
-import logging
-import torch.optim as optim
 import torch
+import torch.optim as optim
 import numpy as np
-from util import RunningAverage, loadCheckpoint, saveCheckpoint, configurateLogger, Params, saveDict, prepareLabels
+from utils.util import RunningAverage, loadCheckpoint, saveCheckpoint, Params, saveDict, prepareLabels
 from evaluate import evaluate
-from DataLoader import DataLoader
-import model.net
-import model.net2
+from dataLoader.DataLoader import DataLoader
+from logger.logger import Logger
+from model.net2 import Net
 from torch.autograd import Variable
 
 
@@ -76,7 +75,7 @@ def train(model, optimizer, dataGenerator, metrics, params, numOfBatches):
 
     metricsMean = {metric: np.mean([x[metric] for x in summary]) for metric in summary[0]}
     metricsString = " ; ".join("{}: {:05.3f}".format(k, v) for k, v in metricsMean.items())
-    logging.info("- Train metrics: " + metricsString)
+    logger.logg("- Train metrics: " + metricsString)
 
 
 
@@ -96,7 +95,7 @@ def train_and_evaluate(model, trainData, valData, optimiser, metrics, params, mo
 
     if restaurationFile is not None:
         restorePath = os.path.join("model", restaurationFile + '.pth.tar')
-        logging.info("Restoring parameters from {}".format(restorePath))
+        logger.log("Restoring parameters from {}".format(restorePath))
         loadCheckpoint(restorePath, model, optimiser)
 
     bestValAcc = 0.0
@@ -104,7 +103,7 @@ def train_and_evaluate(model, trainData, valData, optimiser, metrics, params, mo
     paramsDir = modelDir
 
     for epoch in range(params.num_epochs):
-        logging.info("Epoch {}/{}".format(epoch + 1, params.num_epochs))
+        logger.logg("Epoch {}/{}".format(epoch + 1, params.num_epochs))
 
         #train epoch
         numOfBatches = (params.train_size + 1) // params.batch_size
@@ -129,7 +128,7 @@ def train_and_evaluate(model, trainData, valData, optimiser, metrics, params, mo
         # modelPath = os.path.join(modelDir, "model.pt")
         # torch.save(model.state_dict(), modelPath)
         if isBest:
-            logging.info("- Found new best f1 score")
+            logger.logg("- Found new best f1 score")
             bestValAcc = valAcc
 
             bestJason = os.path.join(paramsDir, "metrics_val_best_weights.json")
@@ -143,7 +142,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.paramsDir is None:
-        paramsDir = r"experiments\sim"
+        paramsDir = os.path.join("experiments", "bi-LSTMpretrainedEmbedcharembdecrf")
     else: paramsDir = args.paramsDir
 
     # Load the parameters from json file
@@ -162,10 +161,11 @@ if __name__ == '__main__':
         torch.cuda.manual_seed(230)
 
     # Set the logger
-    configurateLogger(os.path.join(paramsDir, 'train.log'))
+    logger = Logger(os.path.join(paramsDir, 'train.log'))
+
 
     # Create the input data pipeline
-    logging.info("Loading the datasets...")
+    logger.logg("Loading the datasets...")
 
     #load data
     embedFolder = "Data/embed/glove.twitter.27B"
@@ -189,18 +189,18 @@ if __name__ == '__main__':
     params.tagMap = dataLoader.datasetParams.tagMap
     params.padInd = dataLoader.datasetParams.padInd
 
-    logging.info("- done.")
+    logger.logg("- done.")
     # Define the model and optimizer
 
     #create model and optimiser
 
-    model = model.net2.Net(params, dataLoader.embeddings).cuda() if params.cuda else model.net2.Net(params,
-                                                                                                    dataLoader.embeddings)
+    model = Net(params, dataLoader.embeddings).cuda() if params.cuda else Net(params,
+                                                                            dataLoader.embeddings)
 
-    optimiser = optim.Adam(model.parameters(), lr=params.learning_rate) #try out different optimisers!!
+    optimiser = optim.Adam(model.parameters(), lr=params.learning_rate)
     netMetrics = model.metrics
 
     # Train the model
-    logging.info("Starting training for {} epoch(s)".format(params.num_epochs))
+    logger.logg("Starting training for {} epoch(s)".format(params.num_epochs))
     train_and_evaluate(model, trainData, validationData, optimiser, netMetrics, params, paramsDir)
 

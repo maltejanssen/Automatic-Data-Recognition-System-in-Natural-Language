@@ -1,23 +1,39 @@
-import Util
+import os
+import argparse
+import nltk
+from utils import util
 
+nltk.download('averaged_perceptron_tagger')
+parser = argparse.ArgumentParser(description='script that prepares data')
+parser.add_argument("--corpus", default="Data/wnut/")
 
 if __name__ == '__main__':
-    tagsTrain = Util.readTags(r"Data\wnut\wnut17train.conll")
-    tagsTest = Util.readTags(r"Data\wnut\emerging.test.annotated")
-    tagsVal = Util.readTags(r"Data\wnut\emerging.dev.conll")
+    """ adds pos tags to wnut data
+    """
+    print("building data...")
+    #get all tags
+    args = parser.parse_args()
+    tagsTrain = util.readTags(os.path.join(args.corpus, "train.conll"))
+    tagsTest = util.readTags(os.path.join(args.corpus, "test.conll"))
+    tagsVal = util.readTags(os.path.join(args.corpus, "val.conll"))
 
-    wordTaggedSentencesTrain, entitiesTrain = Util.tokenize(tagsTrain)
-    wordTaggedSentencesTest, entitiesTest = Util.tokenize(tagsTest)
-    wordTaggedSentencesVal, entitiesVal = Util.tokenize(tagsVal)
+    #tokenise into lists of sentences
+    wordTaggedSentencesTrain, entitiesTrain = util.tokenize(tagsTrain)
+    wordTaggedSentencesTest, entitiesTest = util.tokenize(tagsTest)
+    wordTaggedSentencesVal, entitiesVal = util.tokenize(tagsVal)
 
-    posTaggedSentencesTrain = Util.posTag(wordTaggedSentencesTrain)
-    posTaggedSentencesTest = Util.posTag(wordTaggedSentencesTest)
-    posTaggedSentencesVal = Util.posTag(wordTaggedSentencesVal)
+    #get postags
+    posTaggedSentencesTrain = util.posTag(wordTaggedSentencesTrain)
+    posTaggedSentencesTest = util.posTag(wordTaggedSentencesTest)
+    posTaggedSentencesVal = util.posTag(wordTaggedSentencesVal)
 
-    completeTaggedSentencesTrain = Util.addEntitiyTaggs(posTaggedSentencesTrain, entitiesTrain)
-    completeTaggedSentencesTest = Util.addEntitiyTaggs(posTaggedSentencesTest, entitiesTest)
-    completeTaggedSentencesVal = Util.addEntitiyTaggs(posTaggedSentencesVal, entitiesVal)
+    #add entities to postagged sentences
+    completeTaggedSentencesTrain = util.addEntitiyTaggs(posTaggedSentencesTrain, entitiesTrain)
+    completeTaggedSentencesTest = util.addEntitiyTaggs(posTaggedSentencesTest, entitiesTest)
+    completeTaggedSentencesVal = util.addEntitiyTaggs(posTaggedSentencesVal, entitiesVal)
 
-    Util.writeTripletsToFile(completeTaggedSentencesTrain, r"Data\Corpus\train\train.conll")
-    Util.writeTripletsToFile(completeTaggedSentencesTest, r"Data\Corpus\test\test.conll")
-    Util.writeTripletsToFile(completeTaggedSentencesVal, r"Data\Corpus\val\val.conll")
+    #write triplets to file
+    util.writeTripletsToFile(completeTaggedSentencesTrain, r"Data\Corpus\train\train.conll")
+    util.writeTripletsToFile(completeTaggedSentencesTest, r"Data\Corpus\test\test.conll")
+    util.writeTripletsToFile(completeTaggedSentencesVal, r"Data\Corpus\val\val.conll")
+    print("...done.")

@@ -506,9 +506,9 @@ def fmt_results(tokens, all_entities, surface_form=False):
     """
     _sys = 'sys_1'
     # throw out 'O' tags to get overall p/r/f
-    print(all_entities)
+    #print(all_entities)
     tagged_entities = get_tagged_entities(all_entities)
-    print(tagged_entities)
+    #print(tagged_entities)
     results = {'all': calc_results(all_entities['gold'], all_entities[_sys], surface_form=False),
                'tagged': calc_results(tagged_entities['gold'], tagged_entities[_sys], surface_form),
                'tokens': calc_results(tokens['gold'], tokens[_sys], surface_form=False)}
@@ -551,7 +551,6 @@ def main():
     print("### ENTITY F1-SCORES ###")
     for line in fmt_results(tokens, entities, surface_form=False):
         print(line)
-    print()
     print("### SURFACE FORM F1-SCORES ###")
     for line in fmt_results(tokens, entities, surface_form=True):
         print(line)
