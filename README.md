@@ -9,11 +9,11 @@ Python 3.6.1
 
 
 ## Usage
-To preprocess the data simply run createData.py and in case of the pytorch classifier also buildVocab.py
-training : python train.py
-For training the pytrch classifier with pre-trained character embedding put the gloVe embedding file (glove.twitter.27B.200d.txt) found at https://nlp.stanford.edu/projects/glove/ in the following folder:  NoisyNER/project/pytorch/Data/embed/glove.twitter.27B   
-evaluation: python predict.py --eval
-prediction: python predict.py "input sentence"
+To preprocess the data simply run createData.py and in case of the pytorch classifier also buildVocab.py <br/>
+training : python train.py <br/>
+For training the pytrch classifier with pre-trained character embedding put the gloVe embedding file (glove.twitter.27B.200d.txt) found at https://nlp.stanford.edu/projects/glove/ in the following folder:  NoisyNER/project/pytorch/Data/embed/glove.twitter.27B  <br/>  
+evaluation: python predict.py --eval <br/>
+prediction: python predict.py "input sentence" <br/>
 
 
 ## Final Results on the wnut dataset
